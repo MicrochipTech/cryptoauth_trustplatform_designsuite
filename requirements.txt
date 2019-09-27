@@ -1,0 +1,9 @@
+awscli
+cryptoauthlib >= 20190831
+cryptography >= 2.7
+ipywidgets >= 7.5.1
+pyasn1_modules == 0.1.5
+pytz >= 2018.9
+python_jose
+boto3
+requests_aws4auth
