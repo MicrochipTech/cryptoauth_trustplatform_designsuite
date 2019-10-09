@@ -1,7 +1,9 @@
 # Collection of Tools and Examples for TrustFLEX device
 
 ## TrustPlatform Product Page
-The Trust Platform for CryptoAuthentication™ is a combination of multiple elements to simplify the addition of security to any embedded design. Refer to xxx for details on TrustPlatform.
+The Trust Platform for CryptoAuthentication™ is a combination of multiple elements to simplify the addition of security to any embedded design.
+ - Microchip Weblink - [TrustPlatform](https://www.microchip.com/design-centers/security-ics/trust-platform)
+ - GitHub Wiki link - [DesignSuite-Wiki](https://github.com/MicrochipTech/cryptoauth_trustplatform_designsuite/wiki/Welcome)
 
 ## Objective
 This package provides required Documentation and Tools to accelerate the prototyping of the most common use cases.
@@ -19,7 +21,6 @@ This folder contains the pre-requisites and lab manual to get start with require
  - **TNGTLS_Manifest_Generation**
  This folder contains notebook that assists in generating manifest file for TNG devices
 
-
  - **UsecaseConfigurator**
  This folder contains the html that assists in generating provisioning XML from user secrets
 
@@ -32,6 +33,11 @@ For ease of understanding follow the below sequence
 
 
 ## Release Notes
+ - 1.1.0
+    - Added Google Cloud Connection Usecase
+    - Updated Firmware Validation Usecase to use an application instead of example bin
+    - Other minor edits to overall content
+
  - 1.0.1
     - Initial version of TrustPlatform DesignSuite
-	
+
