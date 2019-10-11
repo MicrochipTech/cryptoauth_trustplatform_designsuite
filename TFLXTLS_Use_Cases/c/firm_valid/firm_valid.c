@@ -21,6 +21,12 @@
 #define TOGGLE_STATUS_LED 	gpio_toggle_pin_level(GPIO(GPIO_PORTA, 2));
 #endif
 
+#define BOOT_START 0x00000000
+#define APP_START 0x0000C000
+#define SIGNATURE_ADDRESS 0x0003FC00
+#define APP_LEN_ADDRESS 0x0003FD00
+unsigned int volatile * const app_length = (unsigned int *) APP_LEN_ADDRESS;
+
 int RNG(uint8_t *dest, unsigned size);
 
 /** \brief This api calculates application images digest and reads signature based on the
@@ -30,7 +36,7 @@ ATCA_STATUS get_application_digest_signature(uint8_t* app_digest, uint8_t* app_s
 {
     ATCA_STATUS status;
     atcac_sha2_256_ctx sha_context;
-
+	
     do
     {
         //Initialize SHA engine
@@ -38,14 +44,14 @@ ATCA_STATUS get_application_digest_signature(uint8_t* app_digest, uint8_t* app_s
             break;
 
         //Read application bytes to feed SHA engine
-        if(ATCA_SUCCESS != (status = atcac_sw_sha2_256_update(&sha_context, secureboot_test_app, sizeof(secureboot_test_app))))
+        if(ATCA_SUCCESS != (status = atcac_sw_sha2_256_update(&sha_context, BOOT_START, (APP_START + *app_length))))
            break;
 
         //Get Digest from SHA engine
         if(ATCA_SUCCESS != (status = atcac_sw_sha2_256_finish(&sha_context, app_digest)))
            break;
 
-        memcpy(app_signature, secureboot_test_app_sign, sizeof(secureboot_test_app_sign));
+        memcpy(app_signature, SIGNATURE_ADDRESS, 64);
     }while(0);
 
     return status;
@@ -91,18 +97,28 @@ ATCA_STATUS firmware_validate(ATCAIfaceCfg *cfg)
       //Get host random, to be used in bus obfuscation
       RNG(host_random, sizeof(host_random));
 
+
       //Perform the Secureboot operation with device
       if(ATCA_SUCCESS != (status = atcab_secureboot_mac(SECUREBOOT_MODE_FULL_STORE, app_digest, app_signature, host_random, slot_6_secret_key, &is_verified)))
          break;
 
       if(is_verified)
       {
-         printf("Firmware validation is success.\r\n");
+         printf("Firmware validation is successful.\r\n");
       }
       else
       {
-         printf("Firmware validation is failed!\r\n");
-         status = !ATCA_SUCCESS;
+		  if(ATCA_SUCCESS != (status = atcab_secureboot_mac(SECUREBOOT_MODE_FULL_COPY, app_digest, app_signature, host_random, slot_6_secret_key, &is_verified)))
+		  break;
+		  if(is_verified)
+		  {
+			  printf("Firmware validation is successful.\r\n");
+		  }
+		  else
+		  {		  
+              printf("Firmware validation has failed!\r\n");
+		      status = !ATCA_SUCCESS;
+		  }
       }
 
    } while (0);
@@ -123,7 +139,6 @@ int main(void)
 {
    ATCAIfaceCfg *cfg;
    ATCA_STATUS status;
-   uint16_t delay_ms;
    cfg = &cfg_tflxtls;
 
    //Select Interface configuration and device
@@ -148,16 +163,30 @@ int main(void)
    if (ATCA_SUCCESS != (status = check_device_type_in_cfg(cfg, false)))
       printf("check_device_type_in_cfg() failed with ret=0x%08X\r\n", status);
    else
-      status = firmware_validate(cfg);
-
-   printf("\r\nExecution completed with status %02X\r\n", status);
-   delay_ms = status == ATCA_SUCCESS ? 500 : 50;
-
-   while(1)
    {
-	  TOGGLE_STATUS_LED;
-      atca_delay_ms(delay_ms);
+		status = firmware_validate(cfg);
+		printf("\r\nExecution completed with status %02X\r\n", status);
    }
+ 	
+   if (status == ATCA_SUCCESS)
+   {
+	    printf("\r\nApplication firmware validated successfully, jumping to the application image.\r\n");
+		uint32_t app_start_address = *(uint32_t *)(APP_START + 4);
+		/* Rebase the Stack Pointer */
+		__set_MSP(*(uint32_t *) APP_START);
+
+		/* Rebase the vector table base address */
+		SCB->VTOR = ((uint32_t) APP_START & SCB_VTOR_TBLOFF_Msk);
+
+		/* Jump to application Reset Handler in the application */
+		asm("bx %0"::"r"(app_start_address));
+   }
+   
+    while(1)
+    {
+	    TOGGLE_STATUS_LED;
+	    atca_delay_ms(50);
+    }
 }
 
 

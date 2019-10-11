@@ -7,3 +7,6 @@ pytz >= 2018.9
 python_jose
 boto3
 requests_aws4auth
+hexrec
+google-cloud-pubsub
+google-cloud-iot

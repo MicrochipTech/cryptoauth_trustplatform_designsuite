@@ -2,13 +2,18 @@ import os
 from ipywidgets import widgets
 from IPython.display import display
 from tkinter import Tk, filedialog
+import binascii
+import struct
 import cryptography
 from cryptoauthlib import *
 from common import *
+import hexrec.records as hr
+import hexrec.blocks as hb
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import ec, utils
 from pyasn1_modules import pem
+
 
 # General Cryptoauthlib Macros
 LOCK_ZONE_CONFIG = 0x00
@@ -31,6 +36,20 @@ SECUREBOOTCONFIG_MODE_FULL_DIG = 0x03
 SECUREBOOT_MODE_FULL = 0x05
 SECUREBOOT_MODE_FULL_STORE = 0x06
 SECUREBOOT_MODE_FULL_COPY = 0x07
+
+boot_hex = "firm_valid.hex"
+app_hex = "app.hex"
+key_file = "../../../TFLXTLS_resource_generation/slot_15_ecc_key_pair.pem"
+
+boot_start = 0x00000000
+boot_end = 0x0000BFFF
+app_start = 0x0000C000
+app_end = 0x0003FBFF
+signature_start = 0x0003FC00
+app_length_start = 0x0003FD00
+bparams_start = 0x0003FC00
+bparams_end = 0x0003FFFF
+BLOCKSIZE = 65536
 
 # Setup cryptography
 crypto_be = cryptography.hazmat.backends.default_backend()
@@ -85,7 +104,100 @@ def program_public_key(b):
 
     print('Secureboot Public Key is loaded!!!')
 
+def combine_sign_hex(boot_data, app_data):
+    with open(boot_hex, 'wb') as f:
+        f.write(boot_data.data[0])
+    f.close()    
 
+    with open(app_hex, 'wb') as f:
+        f.write(app_data.data[0])
+    f.close()
 
+    blocks_boot = hr.load_blocks(boot_hex)
+    hex_boot_start, hex_boot_length  = blocks_boot[0]
+    #print(hex(hex_boot_start))
+    print("Firmware validation binary size:", len(hex_boot_length))
 
+    blocks_app = hr.load_blocks(app_hex)
+    hex_app_start, hex_app_length  = blocks_app[0]
+    #print(hex(hex_app_start))
+    print("Application binary size:", len(hex_app_length))
 
+    merged = blocks_boot + blocks_app
+    merged.sort()
+
+    flooded = hb.flood(merged, pattern=b'\xFF')
+
+    flooded = hb.merge(flooded)
+
+    hr.save_blocks("mergerd.hex", flooded)
+
+    memory = hr.load_memory("mergerd.hex")
+    #data_blocks = hb.read(blocks=flooded, start=boot_start, endex=(app_start + len(hex_app_length)))
+
+    #a, data = data_blocks[0]
+    data = memory[boot_start:(app_start + len(hex_app_length)):b'\xFF']
+    #print(len(data))
+    #print(b)
+
+    # Setup cryptography 
+    crypto_be = cryptography.hazmat.backends.default_backend()
+
+    with open(key_file, 'rb') as f:
+        # Loading the private key from key_file
+        private_key = serialization.load_pem_private_key(
+            data=f.read(),
+            password=None,
+            backend=crypto_be)
+
+    # Hashing the Application binary file bin_file
+    chosen_hash = hashes.SHA256()
+    hasher = hashes.Hash(chosen_hash, crypto_be)
+    hasher.update(data)
+    digest = hasher.finalize()
+
+    print("\nApplication digest:")
+    print(pretty_print_hex(digest, indent='    '))
+
+    # Signing the digest of the Application binary file bin_file
+    sign = private_key.sign(
+            digest,
+            ec.ECDSA(utils.Prehashed(chosen_hash))
+    )
+
+    # Extract actual Signature bytes 
+    r_offset = (sign[3]-32)+4
+    sign_r = sign[r_offset:r_offset+32]
+    s_offset = (sign[r_offset+32+1]-32)+(r_offset+32+2)
+    sign_s = sign[s_offset:s_offset+32]
+    calc_sign = sign_r + sign_s
+
+    print("\nSuccessfully Signed the firmware digest")
+    print("Calculated signature:")
+    print(str(convert_to_hex_bytes(calc_sign)))
+
+    memory.write(0x3FC00, calc_sign)
+    memory.write(0x3FD00, len(hex_app_length).to_bytes(4, byteorder='little'))
+    hr.save_memory('mergerd.hex', memory)
+
+def get_digest_signature():
+    memory = hr.load_memory("mergerd.hex")
+    signature = memory[signature_start:(signature_start+64):b'\xFF']
+    #print("Extracted signature:")
+    #print(str(convert_to_hex_bytes(signature)))
+
+    app_length_bytes = memory[app_length_start:(app_length_start+4):b'\xFF']
+    app_length = int.from_bytes(app_length_bytes, byteorder='little')
+    
+    data = memory[boot_start:(app_start + app_length):b'\xFF']
+
+    # Hashing the Application binary file bin_file
+    chosen_hash = hashes.SHA256()
+    hasher = hashes.Hash(chosen_hash, crypto_be)
+    hasher.update(data)
+    digest = hasher.finalize()
+
+    #print("\nApplication digest:")
+    #print(pretty_print_hex(digest, indent='    '))
+
+    return [digest, signature]

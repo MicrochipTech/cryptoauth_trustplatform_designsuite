@@ -489,11 +489,11 @@
                                     <p>On completing the secure element configuration, its possible to test the configuration and assets through host and secure element transactions on the prototyping platform. The required code to perform this use case is available as Jupyter Notebook and C example, Jupyter Notebooks are written in Python and are accompanied with extensive documentation.</p>
 
                                     <p>Refer to <a href="../Docs/TrustFLEX Guide - Firmware Validation.pdf" target="_blank"> Usecase step by step guide </a> for hands-on instructions. Below is the sequence of steps for prototyping an usecase,</p>
-                                    <p><img src="assets/images/Protype Sequence.png"></p>
+                                    <p><img src="assets/images/Protype Sequence_fv.png"></p>
 
                                     <p>The <b>Crypto Resource Generator.ipynb</b> notebook helps to generate the required resources for the use case. On executing the resource generator, secure element data zone is written with required secrets, keys, and certificates. The secrets or certificates loaded in this stage can be found in the same folder. Note that these secrets should be used ONLY for prototyping.</p>
 
-                                    <p>Once the resources are generated, the secure public key rotation flow can be prototyped both on Notebook and C project.</p>
+                                    <p>Once the resources are generated, the firmware validation flow can be prototyped both on Notebook and C project.</p>
 
                                     <p>The <b>TFLXTLS_Use_Cases\notebooks\firmware-validation\Firmware Validation with ECC608A-TFLXTLS Tutorial.ipynb</b> notebook helps in running prototype using Crypto Auth Trust Platform. The major steps involved in this notebook are
                                         <ol><li>Generating a Key pair</li>
@@ -501,7 +501,7 @@
                                             <li>Sign the firmware</li>
                                             <li>Verify the firmware</li></ol></p>
 
-                                    <p><b>TFLXTLS_Use_Cases\c\firm_valid</b> contains the embedded project  that does secure public key rotation by using TurstFLEX device on Crypto Trust Platform. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
+                                    <p><b>TFLXTLS_Use_Cases\c\firm_valid</b> contains the embedded project that does firmware validation by using TurstFLEX device on Crypto Trust Platform. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
 
                                     <p>Once all the steps are performed as in step by step guide, return back here to continue with Secret Exchange Process for loading actual secrets to TrustFLEX securely.</p>
                                 </div><!-- End off accordion item-4 -->

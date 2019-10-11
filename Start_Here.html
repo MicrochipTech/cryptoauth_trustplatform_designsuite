@@ -765,12 +765,13 @@
                                 <h4>ATECC608A-TNGTLS Device registration</h4>
                                 <h4>Device claiming process</h4>
                                 <p>Trust&amp;GO devices can be automatically claimed by various cloud providers.</p>
-                                <p>Once devices have shipped, you will be able to download the Manifest file from your Microchip Puchasing &amp; Client Services Account. The file can then be uploaded into your cloud service account.</p>
-                                <p>Kits, demonstration boards do not ship with a Manifest file. In that case, running the Resource generation notebook will rebuild the manifest for the device on your board: <b>TNGTLS_Manifest_Generation\notebooks\TNGTLS Manifest File Generation.ipynb</b></p>
+                                <p>Once devices have shipped, you will be able to download the Manifest file from your Microchip Puchasing &amp; Client Services Account. The file can then be uploaded into your cloud service account. Kits, demonstration boards do not ship with a Manifest file. Refer to <a href="Docs/TrustPlatform%20Manifest%20File%20Format_2019-09-26_A.pdf" target="_blank">Trust Platform Manifest file Format documentation</a> for details. </p>
+                                <p>In case of Kits and demonstration boards, running the Resource generation notebook will rebuild the manifest for the device on your board: <b>TNGTLS_Manifest_Generation\notebooks\TNGTLS Manifest File Generation.ipynb</b></p>
                                 <h5>Upload Manifest to an AWS IoT account</h5>
-                                <p>Run the following jupyter Notebook <b>TNGTLS_Use_Cases\notebooks\aws-iot\aws-iot with ECC608A-TNGTLS.ipynb</b> to register the devices from your manifest into your AWS IoT account.</p>
-                                <p>Step by step instructions (applicable to trust&amp;GO and TrustFLEX devices) are available here: <a href="Docs/TrustGo Guide - Loading Manifest to AWS-IOT.pdf" target="_blank">Trust&amp;GO - AWS IoT registration step by step guide</a></p>
-                                <p><a href="Docs/TrustPlatform%20Manifest%20File%20Format_2019-09-26_A.pdf" target="_blank">Trust Platform Manifest file Format documentation</a></p>
+                                <p>Run the following jupyter Notebook <b>TNGTLS_Use_Cases\notebooks\aws-iot\aws-iot with ECC608A-TNGTLS.ipynb</b> to register the devices from your manifest into your AWS IoT account. Step by step instructions (applicable to Trust&amp;GO and TrustFLEX devices) are available here: <a href="Docs/TrustGo Guide - Loading Manifest to AWS-IOT.pdf" target="_blank">Trust&amp;GO - AWS IoT registration step by step guide</a></p>
+                                <h5>Upload Manifest to an Google IoT account</h5>
+                                <p>Run the following jupyter Notebook <b>TFLXTLS_Use_Cases\notebooks\gcp-iot\gcp-iot with ECC608A-TLFXTLS.ipynb</b> to register the devices from your manifest into your Google IoT account. Its located in TFLXTLS_Use_Cases as it is common for Trust&amp;GO and TrustFLEX. Step by step instructions (applicable to Trust&amp;GO and TrustFLEX devices) are available here: <a href="Docs/TrustFLEX Guide - GCP Connect.pdf" target="_blank">Trust&amp;GO - Step by step guide for Google IoT connect</a></p>
+
                                 <h4>ATECC608A-TNGLORA Device Registration for TTI LoRaWAN Join Server</h4>
                                 <p><a href="https://github.com/MicrochipTech/cryptoauthlib/wiki/TTN-Getting-Started" target="_blank">ATECC608A-TNGLORA getting started software and step by step guide</a></p>
                                 <h4>ATECC608A-TNGACT device Registration for Actility LoRaWAN Join Server</h4>
@@ -923,12 +924,10 @@
                             <div class="trustsection_head_title text_center">
                                 <h4>ATECC608A-TFLXTLS Device Registration</h4>
                                 <p>Similar to Trust&amp;GO devices, TrustFLEX devices can be automatically claimed by various cloud providers.</p>
-                                <p>Once devices have shipped, you will be able to download the Manifest file from your Microchip Puchasing &amp; Client Services Account. The file can then be uploaded into your cloud service account.</p>
-                                <p>Kits, demonstration boards do not ship with a Manifest file. In that case, you can rebuild the file by running the following Jupyter Notebook: <b>TFLXTLS_Resource_Generation\Crypto Resoure Generator.ipynb</b></p>
+                                <p>Once devices have shipped, you will be able to download the Manifest file from your Microchip Puchasing &amp; Client Services Account. The file can then be uploaded into your cloud service account.Kits, demonstration boards do not ship with a Manifest file. Refer to <a href="Docs/TrustPlatform%20Manifest%20File%20Format_2019-09-26_A.pdf" target="_blank">Trust Platform Manifest file Format documentation</a> for details.</p>
+                                <p>In case of Kits and demonstration boards, you can rebuild the file by running the following Jupyter Notebook: <b>TFLXTLS_Resource_Generation\Crypto Resoure Generator.ipynb</b></p>
                                 <h5>Upload Manifest to an AWS IoT account</h5>
-                                <p>Run the following jupyter Notebook <b>TNGTLS_Use_Cases\notebooks\aws-iot\aws-iot with ECC608A-TNGTLS.ipynb</b> to register the devices from your manifest into your AWS IoT account.</p>
-                                <p>Step by step instructions are available here: <a href="Docs/TrustGo Guide - Loading Manifest to AWS-IOT.pdf" target="_blank">Trust&amp;GO - AWS IoT registration step by step guide</a></p>
-                                <p><a href="Docs/TrustPlatform%20Manifest%20File%20Format_2019-09-26_A.pdf" target="_blank">Trust Platform Manifest file Format documentation</a></p>
+                                <p>Run the following jupyter Notebook <b>TNGTLS_Use_Cases\notebooks\aws-iot\aws-iot with ECC608A-TNGTLS.ipynb</b> to register the devices from your manifest into your AWS IoT account. Step by step instructions are available here: <a href="Docs/TrustGo Guide - Loading Manifest to AWS-IOT.pdf" target="_blank">Trust&amp;GO - AWS IoT registration step by step guide</a></p>
                             </div>
                             <div class="trustsection_head_title text_center">
                                 <h4>Device customization process</h4>
@@ -1124,9 +1123,6 @@
         <script src="assets/js/fileZip.js"></script>
         <script src="assets/js/locakable_usecasetool.js"></script>
         <script src="assets/js/usecase_library.js"></script>
-
-        <script src="http://maps.google.com/maps/api/js?key=AIzaSyD_tAQD36pKp9v4at5AnpGbvBUsLCOSJx8"></script>
-        <script src="assets/js/gmaps.min.js"></script>
 
         <script>
             function showmap() {
