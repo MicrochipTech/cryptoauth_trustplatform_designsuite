@@ -1,16 +1,8 @@
-[submodule "TFLXTLS_Use_Cases/c/dependencies/cryptoauthlib"]
-	path = TFLXTLS_Use_Cases/c/dependencies/cryptoauthlib
+[submodule "assets/dependencies/cryptoauthlib"]
+	path = assets/dependencies/cryptoauthlib
 	url = https://github.com/MicrochipTech/cryptoauthlib
 	branch = master
-[submodule "TFLXTLS_Use_Cases/c/dependencies/micro-ecc"]
-	path = TFLXTLS_Use_Cases/c/dependencies/micro-ecc
+[submodule "assets/dependencies/micro-ecc"]
+	path = assets/dependencies/micro-ecc
 	url = https://github.com/kmackay/micro-ecc
-	branch = master
-[submodule "TNGTLS_Use_Cases/c/dependencies/micro-ecc"]
-	path = TNGTLS_Use_Cases/c/dependencies/micro-ecc
-	url = https://github.com/kmackay/micro-ecc
-	branch = master
-[submodule "TNGTLS_Use_Cases/c/dependencies/cryptoauthlib"]
-	path = TNGTLS_Use_Cases/c/dependencies/cryptoauthlib
-	url = https://github.com/MicrochipTech/cryptoauthlib
 	branch = master

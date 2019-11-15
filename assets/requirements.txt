@@ -1,0 +1,14 @@
+awscli
+cryptoauthlib
+cryptography
+ipywidgets
+pyasn1-modules
+pytz
+python-jose
+boto3
+requests-aws4auth
+hexrec
+google-cloud-pubsub
+google-cloud-iot
+azure-cli
+azure-cli-extension

@@ -71,8 +71,5 @@ venv*
 # Manifest file
 *.manifest
 
-# JSON
-*.json
-
 #Notebook 
 *.ipynb_checkpoints

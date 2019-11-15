@@ -1,0 +1,3 @@
+Comparing files vflash_root_certificate_downloader.bin and READBACK_FLASH.BIN
+FC: no differences encountered
+
