@@ -14,7 +14,7 @@ import csv
 import time
 import binascii
 
-SIGNER_CA = "signer_ca"
+SIGNER_CA = "signerCA"
 signer_cert_path = os.path.join(path, "00_resource_generation", 'signer-ca.cer')
 verification_cert_path = os.path.join(path, "00_resource_generation", 'azure-signer-ca-verification.cer')
 
@@ -22,6 +22,15 @@ azure_hub_CSV = "Azure_iot_hub_details.csv"
 home_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
 AZURE_HUB_DETAILS = os.path.join(home_path, 'docs', azure_hub_CSV)
 
+
+def get_org_name(name):
+    """
+    Get the org name string from a distinguished name (RDNSequence)
+    """
+    for attr in name:
+        if attr.oid == x509.oid.NameOID.ORGANIZATION_NAME:
+            return attr.value
+    return None
 
 def generate_verification_cert(reg_code,
         signer_ca_key_path=SIGNER_CA_KEY_FILENAME,
@@ -88,8 +97,11 @@ def register_azure_signer():
             print("Signer already exist in Azure IOT Hub....proceed for Register device step\r\n")
             return None
 
+    ## Getting signer org name from the signer certificate
+    signer_org_name = get_org_name(cert.subject).strip().replace(" ", "_")
+
     print("Signer ca uploading to the hub started...")
-    signer_name =  SIGNER_CA + '_' + datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    signer_name =  SIGNER_CA + '_' + signer_org_name + '_' + datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 
     ## Signer Certificate Upload   ##
     subprocess.call('az iot hub certificate create --hub-name ' + hub_name + ' --name ' + signer_name  + ' --path ' + signer_cert_path , shell=True)
@@ -119,19 +131,23 @@ def register_device(device_id):
         for row in csv_reader:
             hub_name = row["IoT Hub"]
 
+    ## Checking if the azure iot hub name is proper in the credentials file ##
     if hub_name == 'replace_your_host_name_here':
         print('Configure the file {} in docs folder with your azure iot hub name before proceeding'.format(azure_hub_CSV))
         return False
 
     print("Registering DeviceID started....")
+
+    ## Checking if the Device ID is already uploaded to the azure iot hub ##
     device_check =  subprocess.check_output('az iot hub device-identity list --hub-name ' + hub_name + ' --query [].deviceId ' ,universal_newlines=True, shell=True)
 
     device_check_id = re.findall(r'"(.*?)"', device_check)
     for x in device_check_id:
         if(x == device_id):
             print("Device ID {} already registered in azure hub\r\n".format(device_id))
-            return None
+            return True
 
+    ## Registring the Device ID to the azure iot hub ##
     subprocess.call('az iot hub device-identity create -n ' + hub_name + ' -d ' + device_id  + ' --am x509_ca ' , shell=True)
     print("Device ID {} registered to azure hub\r\n".format(device_id))
     return True
