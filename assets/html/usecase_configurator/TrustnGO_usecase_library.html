@@ -330,7 +330,7 @@
     CryptoAuthLib-->HostMCU:signer_cert, dev_cert
 
 
-    HostMCU->WINC1500: [[https://github.com/abhinay-mchp/TrustPlatform-DesignSuite/blob/629a713590635b07bc41a09af515481a5d61aab2/TFLXTLS_Use_Cases/c/firmware/aws_led_blink.X/aws_wifi_task.c#L484{Copies the Device and Signer certicates to WINC module for connecting to AWS Cloud; Ctrl+Click to open in new Tab}ecc_transfer_certificates(...)]]
+    HostMCU->WINC1500: [[https://github.com/MicrochipTech/cryptoauth_trustplatform_designsuite/blob/1f20c97c832d843692d6e4b35996e25e42ff2245/TrustFLEX/06_custom_pki_aws/c/common/aws_wifi_task.c#L484{Copies the Device and Signer certicates to WINC module for connecting to AWS Cloud; Ctrl+Click to open in new Tab}ecc_transfer_certificates(...)]]
 
     note over WINC1500, AWS #aquablue
     Establish TLS connection
@@ -341,7 +341,7 @@
     end note
 
     WINC1500->HostMCU: ECC_MATH_OPERATIONS
-    HostMCU-->CryptoAuthLib: [[https://github.com/abhinay-mchp/TrustPlatform-DesignSuite/blob/629a713590635b07bc41a09af515481a5d61aab2/TFLXTLS_Use_Cases/c/firmware/aws_led_blink.X/aws_wifi_task.c#L343{Directs WINC ECC math operation request to Secure element; Ctrl+Click to open in new Tab}ecc_process_request(...)]]
+    HostMCU-->CryptoAuthLib: [[https://github.com/MicrochipTech/cryptoauth_trustplatform_designsuite/blob/1f20c97c832d843692d6e4b35996e25e42ff2245/TrustFLEX/06_custom_pki_aws/c/common/aws_wifi_task.c#L343{Directs WINC ECC math operation request to Secure element; Ctrl+Click to open in new Tab}ecc_process_request(...)]]
     CryptoAuthLib-->ATECC608A: ECC command to device
     ATECC608A-->CryptoAuthLib: response
     CryptoAuthLib-->HostMCU:
@@ -535,7 +535,7 @@
             <div class="separator_left"></div>
             <a href="mailto:SPG_personalization@microchip.com">Send us feedback here</a>
             </div>
-            <p>Trust Platform Design Suite version 1.2.0</p>
+            <p>Trust Platform Design Suite version 1.2.4</p>
             <p>Copyright (c) 2018-2019 Microchip Technology Inc. and its subsidiaries</p>
             <p>
             Subject to your compliance with these terms, you may use Microchip software

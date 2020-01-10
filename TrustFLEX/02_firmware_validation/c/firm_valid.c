@@ -23,7 +23,7 @@
 
 #define BOOT_START 0x00000000
 #define APP_START 0x0000C000
-#define SIGNATURE_ADDRESS 0x0003FC00
+#define SIGNATURE_ADDRESS (void *)0x0003FC00
 #define APP_LEN_ADDRESS 0x0003FD00
 unsigned int volatile * const app_length = (unsigned int *) APP_LEN_ADDRESS;
 
@@ -95,19 +95,31 @@ ATCA_STATUS firmware_validate(ATCAIfaceCfg *cfg)
       //Get host random, to be used in bus obfuscation
       RNG(host_random, sizeof(host_random));
 
-	  //Generate IO protection key 
-	  if(ATCA_SUCCESS != (status = atcab_random(io_protection_key)));
-	     break;
+	  //Get secret key generated in resource generation  
+	  memcpy(io_protection_key, slot_6_secret_key, sizeof(io_protection_key));
 
-      //In real applications, IO Protection pairing step should be done on the first
-      // power-up and lock IO protection key to avoid further updates to it.
-      if(ATCA_SUCCESS != (status = atcab_write_bytes_zone(ATCA_ZONE_DATA, IO_PROTECTION_KEY_SLOT, 0, io_protection_key, sizeof(io_protection_key))));
-	     break;
+/*    
+	  //In real applications, IO Protection pairing step should be done on the first 
+      //power-up and lock IO protection key to avoid further updates to it.
+  
+      //Generate IO protection key
+      if(ATCA_SUCCESS != (status = atcab_random(io_protection_key)))
+      {
+         break;
+      } 
+  
+      //Write IO Protection key into IO protection key slot 
+      if(ATCA_SUCCESS != (status = atcab_write_bytes_zone(ATCA_ZONE_DATA, IO_PROTECTION_KEY_SLOT, 0, io_protection_key, sizeof(io_protection_key))))
+      {
+         break;
+      }
+*/
 
       //Perform the Secureboot operation with device
       if(ATCA_SUCCESS != (status = atcab_secureboot_mac(SECUREBOOT_MODE_FULL_STORE, app_digest, app_signature, host_random, io_protection_key, &is_verified)))
+      {
          break;
-
+      }   
       if(is_verified)
       {
          printf("Firmware validation is successful.\r\n");

@@ -344,7 +344,7 @@ sint8 chip_wake(void)
 	do {
 		ret = nm_read_reg_with_ret(CLOCKS_EN_REG, &clk_status_reg);
 		if (ret != M2M_SUCCESS) {
-			M2M_ERR("Bus error (5).%d %x\n", ret, clk_status_reg);
+			M2M_ERR("Bus error (5).%d %x\n", ret, (unsigned int)clk_status_reg);
 			goto _WAKE_EXIT;
 		}
 		if (clk_status_reg & NBIT2) {

@@ -1,20 +1,26 @@
-import os
-import subprocess
 import csv
+import sys, os
 
-aws_access_key_str = 'aws configure set aws_access_key_id'
-aws_secret_key_str = 'aws configure set aws_secret_access_key'
-aws_set_region_str = 'aws configure set region'
-show_configure_str = 'aws configure list'
+home_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(os.getcwd()))))
+module_path = os.path.join(home_path, 'assets', 'python')
+if not module_path in sys.path:
+    sys.path.append(module_path)
+
+from trustplatform import sys_helper
+
 
 account_CSV = "AWS_test_account_credentials.csv"
-
-home_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
 ACCOUNT_CREDENTIALS = os.path.join(home_path, 'docs', account_CSV)
 
+#Shows the current configuration of the AWS for Access key, secret key and the region.
 def list_current_configuration():
-    print(subprocess.check_output(show_configure_str,universal_newlines=True, shell=True))
+    subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "list"])
+    if subProcessOut.returncode == 0:
+        print(subProcessOut.stdout)
+    else:
+        print("Getting the current configuration failed\r\n")
 
+#Configures AWS CLI for Access key, secret key and the region.
 def configure_aws_cli(selected_region):
     try:
         with open(ACCOUNT_CREDENTIALS, mode='r') as csv_file:
@@ -22,13 +28,28 @@ def configure_aws_cli(selected_region):
             for row in csv_reader:
                 access_key_id = row["Access key ID"]
                 secret_key_access = row["Secret access key"]
-                print("Setting aws access key...")
-                subprocess.call(aws_access_key_str + ' ' + access_key_id, shell=True)
-                print("Setting aws secret access key...")
-                subprocess.call(aws_secret_key_str + ' ' + secret_key_access, shell=True)
-                print("Setting aws region...\r\n")
-                subprocess.call(aws_set_region_str + ' ' + selected_region, shell=True)
-                print(subprocess.check_output(show_configure_str,universal_newlines=True, shell=True))
+
+            #Setting the aws cli for the access key
+            print("Setting aws access key...")
+            subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "set", "aws_access_key_id", access_key_id])
+            if subProcessOut.returncode != 0:
+                print("Setting AWS access key failed\r\n")
+                return 'danger'
+
+            print("Setting aws secret access key...")
+            subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "set", "aws_secret_access_key", secret_key_access])
+            if subProcessOut.returncode != 0:
+                print("Setting AWS secret key failed\r\n")
+                return 'danger'
+
+            print("Setting aws region...\r\n")
+            subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "set", "region", selected_region])
+            if subProcessOut.returncode != 0:
+                print("Setting AWS region failed\r\n")
+                return 'danger'
+
+            list_current_configuration()
+
         return 'success'
     except:
         print("Verify account csv file existence and its content!")

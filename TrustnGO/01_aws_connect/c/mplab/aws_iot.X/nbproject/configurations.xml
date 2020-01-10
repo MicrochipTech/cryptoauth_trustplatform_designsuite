@@ -274,13 +274,15 @@
           <itemPath>../../../../../assets/dependencies/cryptoauthlib/lib/atca_iface.c</itemPath>
         </logicalFolder>
         <logicalFolder name="tng" displayName="tng" projectFiles="true">
-          <itemPath>../../../../../assets/dependencies/cryptoauthlib/app/tng/tng22_cert_def_1_signer.c</itemPath>
-          <itemPath>../../../../../assets/dependencies/cryptoauthlib/app/tng/tng22_cert_def_2_device.c</itemPath>
-          <itemPath>../../../../../assets/dependencies/cryptoauthlib/app/tng/tngtn_cert_def_1_signer.c</itemPath>
-          <itemPath>../../../../../assets/dependencies/cryptoauthlib/app/tng/tngtn_cert_def_2_device.c</itemPath>
           <itemPath>../../../../../assets/dependencies/cryptoauthlib/app/tng/tng_atca.c</itemPath>
           <itemPath>../../../../../assets/dependencies/cryptoauthlib/app/tng/tng_atcacert_client.c</itemPath>
           <itemPath>../../../../../assets/dependencies/cryptoauthlib/app/tng/tng_root_cert.c</itemPath>
+          <itemPath>../../../../../assets/dependencies/cryptoauthlib/app/tng/tnglora_cert_def_1_signer.c</itemPath>
+          <itemPath>../../../../../assets/dependencies/cryptoauthlib/app/tng/tnglora_cert_def_2_device.c</itemPath>
+          <itemPath>../../../../../assets/dependencies/cryptoauthlib/app/tng/tnglora_cert_def_4_device.c</itemPath>
+          <itemPath>../../../../../assets/dependencies/cryptoauthlib/app/tng/tngtls_cert_def_1_signer.c</itemPath>
+          <itemPath>../../../../../assets/dependencies/cryptoauthlib/app/tng/tngtls_cert_def_2_device.c</itemPath>
+          <itemPath>../../../../../assets/dependencies/cryptoauthlib/app/tng/tngtls_cert_def_3_device.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="examples" displayName="examples" projectFiles="true">

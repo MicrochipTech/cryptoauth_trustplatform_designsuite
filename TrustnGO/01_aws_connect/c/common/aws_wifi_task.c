@@ -46,8 +46,8 @@
 #include "hex_dump.h"
 
 #include "atcacert/atcacert_client.h"
-#include "tng22_cert_def_1_signer.h"
-#include "tng22_cert_def_2_device.h"
+#include "tngtls_cert_def_1_signer.h"
+#include "tng_atca.h"
 
 #define MAIN_WLAN_SSID      "xxxxxx"
 #define MAIN_WLAN_AUTH      M2M_WIFI_SEC_WPA_PSK
@@ -87,10 +87,11 @@ static bool g_demo_led_state;
 
 #define AWS_PORT                    (8883)
 
+#define MAX_TNG_CERT_DEVICE_SIZE	546
 #define MAX_TLS_CERT_LENGTH			1024
-#define SIGNER_CERT_MAX_LEN 		(g_tng22_cert_def_1_signer.cert_template_size + 8) // Need some space in case the cert changes size by a few bytes
+#define SIGNER_CERT_MAX_LEN 		(g_tngtls_cert_def_1_signer.cert_template_size + 8) // Need some space in case the cert changes size by a few bytes
 #define SIGNER_PUBLIC_KEY_MAX_LEN 	64
-#define DEVICE_CERT_MAX_LEN			(g_tng22_cert_def_2_device.cert_template_size + 8) // Need some space in case the cert changes size by a few bytes
+#define DEVICE_CERT_MAX_LEN			(MAX_TNG_CERT_DEVICE_SIZE + 8) // Need some space in case the cert changes size by a few bytes
 #define CERT_SN_MAX_LEN				32
 #define TLS_SRV_ECDSA_CHAIN_FILE	"ECDSA.lst"
 #define INIT_CERT_BUFFER_LEN        (MAX_TLS_CERT_LENGTH*sizeof(uint32) - TLS_FILE_NAME_MAX*2 - SIGNER_CERT_MAX_LEN - DEVICE_CERT_MAX_LEN)
@@ -503,7 +504,7 @@ static sint8 ecc_transfer_certificates(uint8_t subject_key_id[20])
 	uint32 sector_buffer[MAX_TLS_CERT_LENGTH];
 	char pem_cert[1024];
 	size_t pem_cert_size;
-	
+	const atcacert_def_t* cert_def = NULL;
     do 
     {
 	    // Clear cert chain buffer
@@ -521,7 +522,7 @@ static sint8 ecc_transfer_certificates(uint8_t subject_key_id[20])
 
 	    // Uncompress the signer certificate from the ATECCx08A device
 	    signer_cert_size = SIGNER_CERT_MAX_LEN;
-	    atca_status = atcacert_read_cert(&g_tng22_cert_def_1_signer, NULL, 
+	    atca_status = atcacert_read_cert(&g_tngtls_cert_def_1_signer, NULL, 
 			signer_cert, &signer_cert_size);
 	    if (atca_status != ATCACERT_E_SUCCESS)
         {
@@ -533,17 +534,22 @@ static sint8 ecc_transfer_certificates(uint8_t subject_key_id[20])
 		printf("Signer Cert : \r\n%s\r\n", pem_cert);
 
 	    // Get the signer's public key from its certificate
-	    atca_status = atcacert_get_subj_public_key(&g_tng22_cert_def_1_signer, signer_cert, 
+	    atca_status = atcacert_get_subj_public_key(&g_tngtls_cert_def_1_signer, signer_cert, 
 			signer_cert_size, signer_public_key);
 	    if (atca_status != ATCACERT_E_SUCCESS)
         {
             // Break the do/while loop
             break;
         }
-	
+	    atca_status = tng_get_device_cert_def(&cert_def);
+	    if (atca_status != ATCA_SUCCESS)
+	    {
+		    break;
+	    }
+		
 	    // Uncompress the device certificate from the ATECCx08A device.
 	    device_cert_size = DEVICE_CERT_MAX_LEN;
-	    atca_status = atcacert_read_cert(&g_tng22_cert_def_2_device, signer_public_key, 
+	    atca_status = atcacert_read_cert(cert_def, signer_public_key, 
 			device_cert, &device_cert_size);
 	    if (atca_status != ATCACERT_E_SUCCESS)
         {
@@ -556,7 +562,7 @@ static sint8 ecc_transfer_certificates(uint8_t subject_key_id[20])
 
         if (subject_key_id)
         {
-            atca_status = atcacert_get_subj_key_id(&g_tng22_cert_def_2_device, device_cert, 
+            atca_status = atcacert_get_subj_key_id(cert_def, device_cert, 
 				device_cert_size, subject_key_id); 
             if (atca_status != ATCACERT_E_SUCCESS)
             {
@@ -567,7 +573,7 @@ static sint8 ecc_transfer_certificates(uint8_t subject_key_id[20])
 	
 	    // Get the device certificate SN for the filename
 	    cert_sn_size = sizeof(cert_sn);
-	    atca_status = atcacert_get_cert_sn(&g_tng22_cert_def_2_device, device_cert, 
+	    atca_status = atcacert_get_cert_sn(cert_def, device_cert, 
 			device_cert_size, cert_sn, &cert_sn_size);
 	    if (atca_status != ATCACERT_E_SUCCESS)
         {
@@ -592,7 +598,7 @@ static sint8 ecc_transfer_certificates(uint8_t subject_key_id[20])
 	
 	    // Get the signer certificate SN for the filename
 	    cert_sn_size = sizeof(cert_sn);
-	    atca_status = atcacert_get_cert_sn(&g_tng22_cert_def_1_signer, signer_cert, 
+	    atca_status = atcacert_get_cert_sn(&g_tngtls_cert_def_1_signer, signer_cert, 
 			signer_cert_size, cert_sn, &cert_sn_size);
 	    if (atca_status != ATCACERT_E_SUCCESS)
         {

@@ -902,7 +902,7 @@ _FAIL_:
 		nm_bsp_sleep(1);
 		spi_cmd(CMD_RESET, 0, 0, 0, 0);
 		spi_cmd_rsp(CMD_RESET);
-		M2M_ERR("Reset and retry %d %x %x\n", retry, addr, u32data);
+		M2M_ERR("Reset and retry %d %x %x\n", retry, (unsigned int)addr, (unsigned int)u32data);
 		nm_bsp_sleep(1);
 		retry--;
 		if (retry)
@@ -968,7 +968,7 @@ _FAIL_:
 		nm_bsp_sleep(1);
 		spi_cmd(CMD_RESET, 0, 0, 0, 0);
 		spi_cmd_rsp(CMD_RESET);
-		M2M_ERR("Reset and retry %d %x %d\n", retry, addr, size);
+		M2M_ERR("Reset and retry %d %x %d\n", retry, (unsigned int)addr, (unsigned int)size);
 		nm_bsp_sleep(1);
 		retry--;
 		if (retry)
@@ -1035,7 +1035,7 @@ _FAIL_:
 		nm_bsp_sleep(1);
 		spi_cmd(CMD_RESET, 0, 0, 0, 0);
 		spi_cmd_rsp(CMD_RESET);
-		M2M_ERR("Reset and retry %d %x\n", retry, addr);
+		M2M_ERR("Reset and retry %d %x\n", retry, (unsigned int)addr);
 		nm_bsp_sleep(1);
 		retry--;
 		if (retry)
@@ -1104,7 +1104,7 @@ _FAIL_:
 		nm_bsp_sleep(1);
 		spi_cmd(CMD_RESET, 0, 0, 0, 0);
 		spi_cmd_rsp(CMD_RESET);
-		M2M_ERR("Reset and retry %d %x %d\n", retry, addr, size);
+		M2M_ERR("Reset and retry %d %x %d\n", retry, (unsigned int)addr, (unsigned int)size);
 		nm_bsp_sleep(1);
 		retry--;
 		if (retry)

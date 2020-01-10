@@ -261,7 +261,7 @@ int config_print_public_key(void)
     }
 
     /* Convert to base 64 */
-    rv = atcab_base64encode(tmp, ATCA_PUB_KEY_SIZE + sizeof(public_key_x509_header), buf, &buf_len);
+    rv = atcab_base64encode(tmp, ATCA_PUB_KEY_SIZE + sizeof(public_key_x509_header), (char*)buf, &buf_len);
 
     if(ATCA_SUCCESS != rv)
     {

@@ -28,6 +28,7 @@ import sys
 import json
 import base64
 import ctypes
+import os, subprocess
 
 from cryptography.hazmat.backends import default_backend
 from cryptography import x509
@@ -274,7 +275,7 @@ def generate_manifest(signer_certificate, device_certificate, log_key_path=LOGGI
 
     for key in device_entry['publicKeySet']['keys']:
         public_key = bytearray(64)
-        print('reading slot {} public key'.format(key['kid']))
+        #print('reading slot {} public key'.format(key['kid']))
         assert atcab_get_pubkey(int(key['kid']), public_key) == ATCA_SUCCESS
         key['x'] = utils.base64url_encode(public_key[0:32]).decode('ascii')
         key['y'] = utils.base64url_encode(public_key[32:64]).decode('ascii')
@@ -295,18 +296,17 @@ def generate_manifest(signer_certificate, device_certificate, log_key_path=LOGGI
     filename = make_valid_filename(device_entry['uniqueId']) + '_manifest' + '.json'
     with open(filename, 'wb') as f:
         f.write(manifest)
-    print('\n\nGenerated the manifest file ' + filename)
+    print('Generated the manifest file ' + filename)
 
 
 def tflxtls_custom_manifest():
 
-    print('Root Certificate:')
     with open(ROOT_CERT, 'rb') as f:
-        print('    Loading from ' + f.name)
+        print('Root Certificate loading from: '+f.name)
+        show_configure_str = 'openssl x509 -in '+ROOT_CERT+' -text'
+        print(subprocess.check_output(show_configure_str,universal_newlines=True, shell=True))
         root_cert = x509.load_pem_x509_certificate(f.read(), default_backend())
 
-    print(get_common_name(root_cert.subject))
-    print(root_cert.public_bytes(encoding=Encoding.PEM).decode('utf-8'))
     root_public_key = root_cert.public_key()
 
 
@@ -319,17 +319,15 @@ def tflxtls_custom_manifest():
     print('OK\n')
 
 
-    print('TFLXTLS Signer Certificate:')
     with open(SIGNER_CERT, 'rb') as f:
-        print('    Loading from ' + f.name)
+        print('Signer Certificate loading from: '+f.name)
+        show_configure_str = 'openssl x509 -in '+SIGNER_CERT+' -text'
+        print(subprocess.check_output(show_configure_str,universal_newlines=True, shell=True))		
         signer_cert = x509.load_pem_x509_certificate(f.read(), default_backend())
 
-
-    print(get_common_name(signer_cert.subject))
-    print(signer_cert.public_bytes(encoding=Encoding.PEM).decode('utf-8'))
     signer_public_key = signer_cert.public_key()
 
-    print('Validate TFLXTLS Signer Certificate:')
+    print('Validate Signer Certificate:')
     root_public_key.verify(
         signature=signer_cert.signature,
         data=signer_cert.tbs_certificate_bytes,
@@ -337,14 +335,11 @@ def tflxtls_custom_manifest():
     )
     print('OK\n')
 
-
-    print('TFLXTLS Device Certificate:')
-
     with open(DEVICE_CERT, 'rb') as f:
-        print('    Loading from ' + f.name)
+        print('Device Certificate loading from: '+f.name)
+        show_configure_str = 'openssl x509 -in '+DEVICE_CERT+' -text'
+        print(subprocess.check_output(show_configure_str,universal_newlines=True, shell=True))
         device_cert = x509.load_pem_x509_certificate(f.read(), default_backend())
-    print(get_common_name(device_cert.subject))
-    print(device_cert.public_bytes(encoding=Encoding.PEM).decode('utf-8'))
 
     print('Validate Device Certificate:')
     signer_public_key.verify(
@@ -361,7 +356,7 @@ def tflxtls_mchp_manifest():
 
     certs = []
 
-    print('TFLXTLS Root Certificate:')
+    print('Root Certificate:')
     root_cert_der_size = AtcaReference(0)
     assert tng_atcacert_root_cert_size(root_cert_der_size) == ATCA_SUCCESS
 
@@ -371,11 +366,13 @@ def tflxtls_mchp_manifest():
     root_cert = x509.load_der_x509_certificate(root_cert_der, default_backend())
     certs.insert(0, root_cert)
 
-    print(get_common_name(root_cert.subject))
-    print(root_cert.public_bytes(encoding=Encoding.PEM).decode('utf-8'))
+    with open('temp_crt', 'wb') as f:
+        f.write(root_cert.public_bytes(encoding=Encoding.PEM))
+    show_configure_str = 'openssl x509 -in temp_crt -text'
+    print(subprocess.check_output(show_configure_str,universal_newlines=True, shell=True))
+    os.remove('temp_crt')
 
 
-    print('TFLXTLS Root Public Key:')
     # Note that we could, of course, pull this from the root certificate above.
     # However, this demonstrates the tng_atcacert_root_public_key() function.
     root_public_key_raw = bytearray(64)
@@ -398,12 +395,6 @@ def tflxtls_mchp_manifest():
     )
     assert cert_spk_der == func_spk_der
 
-    print(root_public_key.public_bytes(
-        format=PublicFormat.SubjectPublicKeyInfo,
-        encoding=Encoding.PEM
-    ).decode('utf-8'))
-
-
     print('Validate Root Certificate:')
     root_public_key.verify(
         signature=root_cert.signature,
@@ -413,7 +404,7 @@ def tflxtls_mchp_manifest():
     print('OK\n')
 
 
-    print('TFLXTLS Signer Certificate:')
+    print('Signer Certificate:')
     signer_cert_der_size = AtcaReference(0)
     assert tng_atcacert_max_signer_cert_size(signer_cert_der_size) == ATCA_SUCCESS
 
@@ -423,11 +414,13 @@ def tflxtls_mchp_manifest():
     signer_cert = x509.load_der_x509_certificate(signer_cert_der, default_backend())
     certs.insert(0, signer_cert)
 
-    print(get_common_name(signer_cert.subject))
-    print(signer_cert.public_bytes(encoding=Encoding.PEM).decode('utf-8'))
+    with open('temp_crt', 'wb') as f:
+        f.write(signer_cert.public_bytes(encoding=Encoding.PEM))
+    show_configure_str = 'openssl x509 -in temp_crt -text'
+    print(subprocess.check_output(show_configure_str,universal_newlines=True, shell=True))
+    os.remove('temp_crt')
 
 
-    print('TFLXTLS Signer Public Key:')
     # Note that we could, of course, pull this from the signer certificate above.
     # However, this demonstrates the tng_atcacert_signer_public_key() function.
     signer_public_key_raw = bytearray(64)
@@ -450,12 +443,6 @@ def tflxtls_mchp_manifest():
     )
     assert cert_spk_der == func_spk_der
 
-    print(signer_public_key.public_bytes(
-        format=PublicFormat.SubjectPublicKeyInfo,
-        encoding=Encoding.PEM
-    ).decode('utf-8'))
-
-
     # Note that this is a simple cryptographic validation and does not check
     # any of the actual certificate data (validity dates, extensions, names,
     # etc...)
@@ -468,7 +455,7 @@ def tflxtls_mchp_manifest():
     print('OK\n')
 
 
-    print('TNG Device Certificate:')
+    print('Device Certificate:')
     device_cert_der_size = AtcaReference(0)
     assert tng_atcacert_max_device_cert_size(device_cert_der_size) == ATCA_SUCCESS
 
@@ -478,11 +465,14 @@ def tflxtls_mchp_manifest():
     device_cert = x509.load_der_x509_certificate(device_cert_der, default_backend())
     certs.insert(0, device_cert)
 
-    print(get_common_name(device_cert.subject))
-    print(device_cert.public_bytes(encoding=Encoding.PEM).decode('utf-8'))
+    with open('temp_crt', 'wb') as f:
+        f.write(device_cert.public_bytes(encoding=Encoding.PEM))
+    show_configure_str = 'openssl x509 -in temp_crt -text'
+    print(subprocess.check_output(show_configure_str,universal_newlines=True, shell=True))
+    os.remove('temp_crt')
 
 
-    print('TFLXTLS Device Public Key:')
+
     # Note that we could, of course, pull this from the device certificate above.
     # However, this demonstrates the tng_atcacert_device_public_key() function.
     device_public_key_raw = bytearray(64)
@@ -505,12 +495,6 @@ def tflxtls_mchp_manifest():
     )
     assert cert_spk_der == func_spk_der
 
-    print(device_public_key.public_bytes(
-        format=PublicFormat.SubjectPublicKeyInfo,
-        encoding=Encoding.PEM
-    ).decode('utf-8'))
-
-
     # Note that this is a simple cryptographic validation and does not check
     # any of the actual certificate data (validity dates, extensions, names,
     # etc...)
@@ -522,6 +506,7 @@ def tflxtls_mchp_manifest():
         signature_algorithm=ec.ECDSA(device_cert.signature_hash_algorithm)
     )
     print('OK\n')
+    print('------------------------------------------------------')	
     generate_manifest(signer_cert,device_cert)
 
 

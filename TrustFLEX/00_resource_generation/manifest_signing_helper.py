@@ -77,7 +77,7 @@ def create_manifest_log_signer(log_key_path='log_signer.key', log_cert_path='log
     log_private_key = load_or_create_key(log_key_path)
 
     # Create root CA certificate
-    print('\nGenerating self-signed logging certificate')
+    print('Generating self-signed logging certificate')
     builder = x509.CertificateBuilder()
     builder = builder.serial_number(random_cert_sn(16))
 

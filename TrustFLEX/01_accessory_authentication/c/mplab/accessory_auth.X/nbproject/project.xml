@@ -30,7 +30,11 @@
             </sourceRootList>
             <confList>
                 <confElem>
-                    <name>default</name>
+                    <name>CONFIG_STANDALONE</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>CONFIG_FIRMWARE_VALIDATION</name>
                     <type>2</type>
                 </confElem>
             </confList>

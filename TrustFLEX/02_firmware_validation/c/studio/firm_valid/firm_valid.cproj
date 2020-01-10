@@ -388,6 +388,7 @@
   <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
 </ArmGcc>
     </ToolchainSettings>
+    <PostBuildEvent>cp "$(OutputDirectory)\firm_valid.hex" ..\..\..\..\..\02_firmware_validation\notebook</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\..\assets\dependencies\common\common.c">

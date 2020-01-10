@@ -27,6 +27,7 @@
                 <sourceRootElem>../../../dependencies/cryptoauthlib/lib</sourceRootElem>
                 <sourceRootElem>../../../../../assets/dependencies/common</sourceRootElem>
                 <sourceRootElem>../../../../../assets/dependencies/cryptoauthlib/lib</sourceRootElem>
+                <sourceRootElem>../../../../01_accessory_authentication/c/mplab/accessory_auth.X/config/default</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

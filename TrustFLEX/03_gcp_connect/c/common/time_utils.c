@@ -72,6 +72,7 @@ uint32_t time_utils_get_utc(void)
         
         return time_utils_convert(date_time.date.year, date_time.date.month, date_time.date.day, date_time.time.hour,date_time.time.min,date_time.time.sec);
 	}
+    return 0;
 }
 
 void time_utils_set(uint32_t year, uint32_t month, uint32_t day, uint32_t hour, uint32_t minute, uint32_t second)

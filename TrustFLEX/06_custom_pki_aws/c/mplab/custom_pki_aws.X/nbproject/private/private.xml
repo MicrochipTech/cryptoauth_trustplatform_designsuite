@@ -12,8 +12,6 @@
             <file>file:/E:/Desktop/usecasetool/TFLXTLS_examples/c/firmware/aws_led_blink.X/atmel_start.c</file>
             <file>file:/E:/Desktop/usecasetool/TFLXTLS_examples/c/firmware/aws_led_blink.X/driver_init.c</file>
         </group>
-        <group>
-            <file>file:/E:/usecase_tool_reorg/TrustFLEX/06_custom_pki_aws/c/mplab/custom_pki_aws.X/samd21a/gcc/gcc/samd21e18a_flash.ld</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

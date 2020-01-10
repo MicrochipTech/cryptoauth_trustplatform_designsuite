@@ -32,8 +32,10 @@
 
 #include "atcacert/atcacert_client.h"
 #include "atcacert/atcacert_host_hw.h"
+#include "atcacert/atcacert_pem.h"
 #include "aws_status.h"
 #include "aws_wifi_task.h"
+#include "bus_wrapper/include/nm_bus_wrapper.h"
 #include "common/include/nm_common.h"
 #include "cryptoauthlib.h"
 #include "driver/include/m2m_periph.h"

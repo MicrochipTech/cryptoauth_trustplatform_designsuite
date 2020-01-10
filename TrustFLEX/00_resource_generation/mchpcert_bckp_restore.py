@@ -310,3 +310,4 @@ def mchp_cert_bckp():
             # Backup does not exist.
             print("Device contains custom device and signer certificates\n\r")
             pass
+    print('------------------------------------------------------')

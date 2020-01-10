@@ -17,6 +17,27 @@ For ease of understanding follow the below sequence
 3. Run the usecase examples provided both in Notebook and Embedded projects
 
 ## Release Notes
+ - 1.2.4
+   - Fixed MPLAB project loading errors
+   - Added build configurations for all projects
+   - Fixed python upgrade bug
+   - Added feature to program hex through ipecmd(MPLAB IPE)
+   - Created internal module to add all common code
+   - Enabled provision to enter subscription id for Azure cloud example
+   - Other minor bug fixes
+
+ - 1.2.3
+   - Fixed subprocess python bug which affected MAC 
+   - Other minor bug fixes
+
+ - 1.2.2
+   - Fixed broken HTML links
+   - Other minor bug fixes
+
+ - 1.2.1
+   - Updated signer name to include organization name.
+   - Other minor updates
+
  - 1.2.0
    - Reorganized the folders for ease of access
    - Azure and Google Connect usecases for TFLXTLS device

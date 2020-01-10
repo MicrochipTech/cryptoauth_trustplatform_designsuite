@@ -462,37 +462,53 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tng22_cert_def_1_signer.c">
+    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tnglora_cert_def_1_signer.c">
       <SubType>compile</SubType>
-      <Link>cryptoauthlib\app\tng\tng22_cert_def_1_signer.c</Link>
+      <Link>cryptoauthlib\app\tng\tnglora_cert_def_1_signer.c</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tng22_cert_def_1_signer.h">
+    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tnglora_cert_def_1_signer.h">
       <SubType>compile</SubType>
-      <Link>cryptoauthlib\app\tng\tng22_cert_def_1_signer.h</Link>
+      <Link>cryptoauthlib\app\tng\tnglora_cert_def_1_signer.h</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tng22_cert_def_2_device.c">
+    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tnglora_cert_def_2_device.c">
       <SubType>compile</SubType>
-      <Link>cryptoauthlib\app\tng\tng22_cert_def_2_device.c</Link>
+      <Link>cryptoauthlib\app\tng\tnglora_cert_def_2_device.c</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tng22_cert_def_2_device.h">
+    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tnglora_cert_def_2_device.h">
       <SubType>compile</SubType>
-      <Link>cryptoauthlib\app\tng\tng22_cert_def_2_device.h</Link>
+      <Link>cryptoauthlib\app\tng\tnglora_cert_def_2_device.h</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tngtn_cert_def_1_signer.c">
+    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tnglora_cert_def_4_device.c">
       <SubType>compile</SubType>
-      <Link>cryptoauthlib\app\tng\tngtn_cert_def_1_signer.c</Link>
+      <Link>cryptoauthlib\app\tng\tnglora_cert_def_4_device.c</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tngtn_cert_def_1_signer.h">
+    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tnglora_cert_def_4_device.h">
       <SubType>compile</SubType>
-      <Link>cryptoauthlib\app\tng\tngtn_cert_def_1_signer.h</Link>
+      <Link>cryptoauthlib\app\tng\tnglora_cert_def_4_device.h</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tngtn_cert_def_2_device.c">
+    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tngtls_cert_def_1_signer.c">
       <SubType>compile</SubType>
-      <Link>cryptoauthlib\app\tng\tngtn_cert_def_2_device.c</Link>
+      <Link>cryptoauthlib\app\tng\tngtls_cert_def_1_signer.c</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tngtn_cert_def_2_device.h">
+    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tngtls_cert_def_1_signer.h">
       <SubType>compile</SubType>
-      <Link>cryptoauthlib\app\tng\tngtn_cert_def_2_device.h</Link>
+      <Link>cryptoauthlib\app\tng\tngtls_cert_def_1_signer.h</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tngtls_cert_def_2_device.c">
+      <SubType>compile</SubType>
+      <Link>cryptoauthlib\app\tng\tngtls_cert_def_2_device.c</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tngtls_cert_def_2_device.h">
+      <SubType>compile</SubType>
+      <Link>cryptoauthlib\app\tng\tngtls_cert_def_2_device.h</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tngtls_cert_def_3_device.c">
+      <SubType>compile</SubType>
+      <Link>cryptoauthlib\app\tng\tngtls_cert_def_3_device.c</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tngtls_cert_def_3_device.h">
+      <SubType>compile</SubType>
+      <Link>cryptoauthlib\app\tng\tngtls_cert_def_3_device.h</Link>
     </Compile>
     <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\app\tng\tng_atca.c">
       <SubType>compile</SubType>

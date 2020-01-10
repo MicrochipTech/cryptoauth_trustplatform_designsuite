@@ -12,8 +12,6 @@
             <file>file:/E:/Desktop/usecasetool/TFLXTLS_examples/c/firmware/aws_led_blink.X/atmel_start.c</file>
             <file>file:/E:/Desktop/usecasetool/TFLXTLS_examples/c/firmware/aws_led_blink.X/driver_init.c</file>
         </group>
-        <group>
-            <file>file:/C:/Users/I18336/Desktop/final/usecasetool/TrustFLEX/07_custom_pki_azure/c/common/cloud_wifi_task.c</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

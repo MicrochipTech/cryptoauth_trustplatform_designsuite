@@ -43,6 +43,7 @@
 #define _NM_BUS_WRAPPER_H_
 
 #include "common/include/nm_common.h"
+#include "hal/include/hal_spi_m_sync.h"
 
 /**
     BUS Type
@@ -157,6 +158,15 @@ sint8 nm_bus_deinit(void);
  *	@return		ZERO in case of success and M2M_ERR_BUS_FAIL in case of failure
  */
 sint8 nm_bus_reinit(void *);
+
+/*
+ *	@fn			set winc spi descriptor
+ *	@brief		re-initialize the bus wrapper
+ *	@param [in]	struct spi_m_sync_descriptor *spi_inst
+ *					Set SPI HAL driver 
+ *	@return		No return
+ */
+void set_winc_spi_descriptor(struct spi_m_sync_descriptor *spi_inst);
 /*
  *	@fn			nm_bus_get_chip_type
  *	@brief		get chip type

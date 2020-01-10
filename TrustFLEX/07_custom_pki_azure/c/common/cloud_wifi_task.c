@@ -32,6 +32,7 @@
 
 #include "atcacert/atcacert_client.h"
 #include "atcacert/atcacert_host_hw.h"
+#include "bus_wrapper/include/nm_bus_wrapper.h"
 #include "cloud_status.h"
 #include "cloud_wifi_task.h"
 #include "common/include/nm_common.h"
