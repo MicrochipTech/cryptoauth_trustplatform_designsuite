@@ -6,48 +6,59 @@ function showTrainingVideos() {
 }
 
 var selectedUseCases = {
-    0: {
+    100: {
         name: "secureBoot",
         selected: false,
         ids: ["Slot15"]
     },
-    1: {
+    101: {
         name: "secureKeyRotation",
         selected: false,
         ids: ["Slot13", "Slot14"]
     },
-    2: {
+    102: {
         name: "ipProtection",
         "selected": false,
         ids: ["Slot5"]
     },
-    3: {
+    103: {
         name: "disposable",
         selected: false,
         ids: ["Slot5"]
     },
-    4: {
+    104: {
         name: "customPKI",
         selected: false,
         ids: ["Slot10", "Slot12", "custCertPubkey"]
     },
-    5: {
+    105: {
+        name: "cloud_gcp_tflex",
+        selected: false,
+        ids: []
+    },
+    106: {
+        name: "disposable_asym_tflx",
+        selected: false,
+        ids: ["Slot10", "Slot12", "custCertPubkey"]
+    },
+
+    200: {
         name: "cloud_connect_aws",
         selected: false,
         ids: []
     },
-    6: {
+    201: {
         name: "cloud_connect_gcp",
         selected: false,
         ids: []
     },
-    7: {
+    202: {
         name: "cloud_connect_azure",
         selected: false,
         ids: []
     },
-    8: {
-        name: "cloud_gcp_tflex",
+    203: {
+        name: "disposable_asym_tng",
         selected: false,
         ids: []
     },
@@ -66,7 +77,7 @@ function toggleUseCase(useCase) {
         selectedUseCases[useCase].selected = true;
         $(uc).show();
         item.style.backgroundColor = "#00bb00";
-        button.innerHTML = "Unselect";
+        button.innerHTML = "UNSELECT";
         button.classList.add("use_case_btn_selected");
     } else {
         selectedUseCases[useCase].ids.forEach(element => {
@@ -76,7 +87,7 @@ function toggleUseCase(useCase) {
         selectedUseCases[useCase].selected = false;
         $(uc).hide();
         item.style.backgroundColor = "#e40222";
-        button.innerHTML = "Select";
+        button.innerHTML = "SELECT";
         button.classList.remove("use_case_btn_selected");
     }
 }

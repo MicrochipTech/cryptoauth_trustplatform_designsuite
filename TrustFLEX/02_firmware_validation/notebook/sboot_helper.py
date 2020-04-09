@@ -151,9 +151,9 @@ def combine_sign_hex(boot_data, app_data):
 
     flooded = hb.merge(flooded)
 
-    hr.save_blocks("mergerd.hex", flooded)
+    hr.save_blocks("combined_image.hex", flooded)
 
-    memory = hr.load_memory("mergerd.hex")
+    memory = hr.load_memory("combined_image.hex")
 
     #a, data = data_blocks[0]
     data = memory[boot_start:(app_start + len(hex_app_length)):b'\xFF']
@@ -196,10 +196,10 @@ def combine_sign_hex(boot_data, app_data):
 
     memory.write(0x3FC00, calc_sign)
     memory.write(0x3FD00, len(hex_app_length).to_bytes(4, byteorder='little'))
-    hr.save_memory('mergerd.hex', memory)
+    hr.save_memory('combined_image.hex', memory)
 
 def get_digest_signature():
-    memory = hr.load_memory("mergerd.hex")
+    memory = hr.load_memory("combined_image.hex")
     signature = memory[signature_start:(signature_start+64):b'\xFF']
     #print("Extracted signature:")
     #print(str(convert_to_hex_bytes(signature)))

@@ -5,10 +5,35 @@ import boto3
 import botocore
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
-from aws_kit_common import *
 from pathlib import Path
+from certs_handler import *
+from aws_helper import *
 
+path = Path(os.getcwd()).parent.parent.parent
+crypto_be = cryptography.hazmat.backends.default_backend()
+kit_info_file = os.path.join(path, 'TrustFLEX', '00_resource_generation', KIT_INFO_FILENAME)
 
+def datetime_to_iso8601(dt):
+    tz = dt.strftime('%z')
+    if tz:
+        tz = tz[0:3] + ':' + tz[3:6] # Add colon between timezone minutes and seconds
+    return dt.strftime("%Y-%m-%dT%H:%M:%S") + tz
+
+def all_datetime_to_iso8601(d):
+    """Traverse a dict or list and convert all datetime objects to ISO8601 strings."""
+    if isinstance(d, dict):
+        for key,value in d.items():
+            if hasattr(value, 'strftime'):
+                d[key] = datetime_to_iso8601(value)
+            if isinstance(value, dict) or isinstance(value, list):
+                d[key] = all_datetime_to_iso8601(value)
+    elif isinstance(d, list):
+        for i in range(len(d)):
+            if hasattr(d[i], 'strftime'):
+                d[i] = datetime_to_iso8601(d[i])
+            if isinstance(d[i], dict) or isinstance(d[i], list):
+                d[i] = all_datetime_to_iso8601(d[i])
+    return d
 
 def aws_register_signer(
         signer_ca_key_path=SIGNER_CA_KEY_FILENAME,
@@ -16,13 +41,13 @@ def aws_register_signer(
         signer_ca_ver_cert_path=SIGNER_CA_VER_CERT_FILENAME,
         aws_profile='default'
 ):
-    kit_info = read_kit_info()
+    kit_info = certs_handler.read_kit_info(kit_info_file)
 
     # Read the signer CA key file needed to sign the verification certificate
     print('\nReading signer CA key file, %s' % SIGNER_CA_KEY_FILENAME)
-    if not os.path.isfile(os.path.join(path, "TrustFLEX/00_resource_generation", SIGNER_CA_KEY_FILENAME)):
+    if not os.path.isfile(os.path.join(path, 'TrustFLEX', '00_resource_generation', SIGNER_CA_KEY_FILENAME)):
         raise AWSZTKitError('Failed to find signer CA key file, ' + SIGNER_CA_KEY_FILENAME + '. Have you run ca_create_signer_csr first?')
-    with open(os.path.join(path, "TrustFLEX/00_resource_generation", SIGNER_CA_KEY_FILENAME), 'rb') as f:
+    with open(os.path.join(path, 'TrustFLEX', '00_resource_generation', SIGNER_CA_KEY_FILENAME), 'rb') as f:
         signer_ca_priv_key = serialization.load_pem_private_key(
             data=f.read(),
             password=None,
@@ -30,9 +55,9 @@ def aws_register_signer(
 
     # Read the signer CA certificate to be registered with AWS IoT
     print('\nReading signer CA certificate file, %s' % SIGNER_CA_CERT_FILENAME)
-    if not os.path.isfile(os.path.join(path, "TrustFLEX/00_resource_generation", SIGNER_CA_CERT_FILENAME)):
-        raise AWSZTKitError('Failed to find signer CA certificate file, ' + SIGNER_CA_CERT_FILENAME + '. Have you run ca_create_signer first?')
-    with open(os.path.join(path, "TrustFLEX/00_resource_generation", SIGNER_CA_CERT_FILENAME), 'rb') as f:
+    if not os.path.isfile(os.path.join(path, 'TrustFLEX', '00_resource_generation',SIGNER_CA_CERT_FILENAME)):
+        raise AWSZTKitError('Failed to find signer CA certificate file, ' + SIGNER_CA_CERT_FILENAME + '. Have you run resource generation first?')
+    with open(os.path.join(path, 'TrustFLEX', '00_resource_generation', SIGNER_CA_CERT_FILENAME), 'rb') as f:
         signer_ca_cert = x509.load_pem_x509_certificate(f.read(), crypto_be)
 
     # Create an AWS session with the credentials from the specified profile
@@ -49,7 +74,6 @@ def aws_register_signer(
     print('    Profile:  %s' % aws_session.profile_name)
     print('    Region:   %s' % aws_session.region_name)
     print('    Endpoint: %s' % aws_iot._endpoint)
-
 
     # Request a registration code required for registering a CA certificate (signer)
     print('\nGetting CA registration code from AWS IoT')
@@ -70,9 +94,8 @@ def aws_register_signer(
         algorithm=hashes.SHA256(),
         backend=crypto_be)
 
-
     # Write signer CA certificate to file for reference
-    with open(os.path.join(path, "TrustFLEX/00_resource_generation", SIGNER_CA_VER_CERT_FILENAME), 'wb') as f:
+    with open(os.path.join(path, 'TrustFLEX', '00_resource_generation', SIGNER_CA_VER_CERT_FILENAME), 'wb') as f:
         print('    Saved to ' + f.name)
         f.write(signer_ca_ver_cert.public_bytes(encoding=serialization.Encoding.PEM))
 
@@ -103,10 +126,8 @@ def aws_register_signer(
     kit_info['endpointAddress'] = response['endpointAddress']
     print('    Hostname: ' + kit_info['endpointAddress'])
 
-    save_kit_info(kit_info)
-
+    certs_handler.save_kit_info(kit_info, kit_info_file)
     print('\nDone')
-
 
 if __name__ == '__main__':
     # Create argument parser to document script use

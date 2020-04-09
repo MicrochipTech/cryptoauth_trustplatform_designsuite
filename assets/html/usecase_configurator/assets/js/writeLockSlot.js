@@ -14,7 +14,7 @@ function x08UpdateWriteLock(xmlObj){
             isChecked = document.getElementById(slotLockId);
             if(isChecked != null){
                 isChecked = isChecked.checked;
-                console.log(isChecked);
+                //console.log(isChecked);
             }
             else{
                 isChecked = false;

@@ -578,7 +578,7 @@
 </ArmGcc>
     </ToolchainSettings>
     <OutputPath>bin\CONFIG_FIRMWARE_VALIDATION\</OutputPath>
-    <PostBuildEvent>cp $(OutputDirectory)\*.hex ..\..\..\..\..\02_firmware_validation\notebook</PostBuildEvent>
+    <PostBuildEvent>cp "$(OutputDirectory)\*.hex" ..\..\..\..\..\02_firmware_validation\notebook</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\00_resource_generation\cust_def_1_signer.c">

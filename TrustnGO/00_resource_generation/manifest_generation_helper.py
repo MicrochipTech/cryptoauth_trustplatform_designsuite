@@ -21,76 +21,38 @@ Manifest generation
 # THE AMOUNT OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR
 # THIS SOFTWARE.
 
-import os, subprocess
+import os
 import unicodedata
 import re
+import base64
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 from cryptography.utils import int_from_bytes
 from cryptoauthlib import *
-from common import *
 from jose import utils
 
-from manifest_signing_helper import *
+from certs_handler import *
+from trustplatform import *
 
-
-ATCA_SUCCESS = Status.ATCA_SUCCESS
-
-
-def get_common_name(name):
-    """
-    Get the common name string from a distinguished name (RDNSequence)
-    """
-    for attr in name:
-        if attr.oid == x509.oid.NameOID.COMMON_NAME:
-            return attr.value
-    return None
-
-
-def make_valid_filename(s):
-    """
-    Convert an arbitrary string into one that can be used in an ascii filename.
-    """
-    if sys.version_info[0] <= 2:
-        if not isinstance(s, unicode):
-            s = str(s).decode('utf-8')
-    else:
-         s = str(s)
-    # Normalize unicode characters
-    s = unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode('ascii')
-    # Remove non-word and non-whitespace characters
-    s = re.sub(r'[^\w\s-]', '', s).strip()
-    # Replace repeated whitespace with an underscore
-    s = re.sub(r'\s+', '_', s)
-    # Replace repeated dashes with a single dash
-    s = re.sub(r'-+', '-', s)
-    return s
-
-
-def tng_data(log_key_path='log_signer.key', log_cert_path='log_signer.crt'):
+def generate_manifest(log_key_path='log_signer.key', log_cert_path='log_signer.crt'):
     """Read the TNG keys and certificate chains from the device."""
 
     certs = []
 
-    print('Root Certificate:')
+    print('Root Certificate loading from Device:')
     root_cert_der_size = AtcaReference(0)
-    assert tng_atcacert_root_cert_size(root_cert_der_size) == ATCA_SUCCESS
+    assert tng_atcacert_root_cert_size(root_cert_der_size) == Status.ATCA_SUCCESS
 
     root_cert_der = bytearray(root_cert_der_size.value)
-    assert tng_atcacert_root_cert(root_cert_der, root_cert_der_size) == ATCA_SUCCESS
+    assert tng_atcacert_root_cert(root_cert_der, root_cert_der_size) == Status.ATCA_SUCCESS
 
     root_cert = x509.load_der_x509_certificate(root_cert_der, default_backend())
     certs.insert(0, root_cert)
-
-    with open('temp_crt', 'wb') as f:
-        f.write(root_cert.public_bytes(encoding=Encoding.PEM))
-    show_configure_str = 'openssl x509 -in temp_crt -text'
-    print(subprocess.check_output(show_configure_str,universal_newlines=True, shell=True))
-    os.remove('temp_crt')
+    print(certs_handler.get_cert_print_bytes(root_cert.public_bytes(encoding=Encoding.PEM)))
 
     # Note that we could, of course, pull this from the root certificate above.
     # However, this demonstrates the tng_atcacert_root_public_key() function.
     root_public_key_raw = bytearray(64)
-    assert tng_atcacert_root_public_key(root_public_key_raw) == ATCA_SUCCESS
+    assert tng_atcacert_root_public_key(root_public_key_raw) == Status.ATCA_SUCCESS
 
     root_public_key = ec.EllipticCurvePublicNumbers(
         curve=ec.SECP256R1(),
@@ -117,26 +79,21 @@ def tng_data(log_key_path='log_signer.key', log_cert_path='log_signer.crt'):
     )
     print('OK\n')
 
-    print('Signer Certificate:')
+    print('Signer Certificate loading from Device:')
     signer_cert_der_size = AtcaReference(0)
-    assert tng_atcacert_max_signer_cert_size(signer_cert_der_size) == ATCA_SUCCESS
+    assert tng_atcacert_max_signer_cert_size(signer_cert_der_size) == Status.ATCA_SUCCESS
 
     signer_cert_der = bytearray(signer_cert_der_size.value)
-    assert tng_atcacert_read_signer_cert(signer_cert_der, signer_cert_der_size) == ATCA_SUCCESS
+    assert tng_atcacert_read_signer_cert(signer_cert_der, signer_cert_der_size) == Status.ATCA_SUCCESS
 
     signer_cert = x509.load_der_x509_certificate(signer_cert_der, default_backend())
     certs.insert(0, signer_cert)
-
-    with open('temp_crt', 'wb') as f:
-        f.write(signer_cert.public_bytes(encoding=Encoding.PEM))
-    show_configure_str = 'openssl x509 -in temp_crt -text'
-    print(subprocess.check_output(show_configure_str,universal_newlines=True, shell=True))
-    os.remove('temp_crt')
+    print(certs_handler.get_cert_print_bytes(signer_cert.public_bytes(encoding=Encoding.PEM)))
 
     # Note that we could, of course, pull this from the signer certificate above.
     # However, this demonstrates the tng_atcacert_signer_public_key() function.
     signer_public_key_raw = bytearray(64)
-    assert tng_atcacert_signer_public_key(signer_public_key_raw) == ATCA_SUCCESS
+    assert tng_atcacert_signer_public_key(signer_public_key_raw) == Status.ATCA_SUCCESS
 
     signer_public_key = ec.EllipticCurvePublicNumbers(
         curve=ec.SECP256R1(),
@@ -167,26 +124,21 @@ def tng_data(log_key_path='log_signer.key', log_cert_path='log_signer.crt'):
     )
     print('OK\n')
 
-    print('Device Certificate:')
+    print('Device Certificate loading from Device:')
     device_cert_der_size = AtcaReference(0)
-    assert tng_atcacert_max_device_cert_size(device_cert_der_size) == ATCA_SUCCESS
+    assert tng_atcacert_max_device_cert_size(device_cert_der_size) == Status.ATCA_SUCCESS
 
     device_cert_der = bytearray(device_cert_der_size.value)
-    assert tng_atcacert_read_device_cert(device_cert_der, device_cert_der_size) == ATCA_SUCCESS
+    assert tng_atcacert_read_device_cert(device_cert_der, device_cert_der_size) == Status.ATCA_SUCCESS
 
     device_cert = x509.load_der_x509_certificate(device_cert_der, default_backend())
     certs.insert(0, device_cert)
-
-    with open('temp_crt', 'wb') as f:
-        f.write(device_cert.public_bytes(encoding=Encoding.PEM))
-    show_configure_str = 'openssl x509 -in temp_crt -text'
-    print(subprocess.check_output(show_configure_str,universal_newlines=True, shell=True))
-    os.remove('temp_crt')
+    print(certs_handler.get_cert_print_bytes(device_cert.public_bytes(encoding=Encoding.PEM)))
 
     # Note that we could, of course, pull this from the device certificate above.
     # However, this demonstrates the tng_atcacert_device_public_key() function.
     device_public_key_raw = bytearray(64)
-    assert tng_atcacert_device_public_key(device_public_key_raw, device_cert_der) == ATCA_SUCCESS
+    assert tng_atcacert_device_public_key(device_public_key_raw, device_cert_der) == Status.ATCA_SUCCESS
 
     device_public_key = ec.EllipticCurvePublicNumbers(
         curve=ec.SECP256R1(),
@@ -218,7 +170,7 @@ def tng_data(log_key_path='log_signer.key', log_cert_path='log_signer.crt'):
     )
     print('OK\n')
     print('------------------------------------------------------')
-	
+
     device_entry = {
         'version': 1,
         'model': 'ATECC608A',
@@ -240,7 +192,7 @@ def tng_data(log_key_path='log_signer.key', log_cert_path='log_signer.crt'):
     device_entry['provisioningTimestamp'] = device_cert.not_valid_before.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
 
     serial_number = bytearray(9)
-    assert atcab_read_serial_number(serial_number) == ATCA_SUCCESS
+    assert atcab_read_serial_number(serial_number) == Status.ATCA_SUCCESS
     device_entry['uniqueId'] = serial_number.hex()
 
     device_entry['publicKeySet'] = {
@@ -266,24 +218,24 @@ def tng_data(log_key_path='log_signer.key', log_cert_path='log_signer.crt'):
     for key in device_entry['publicKeySet']['keys']:
         public_key = bytearray(64)
         #print('reading slot {} public key'.format(key['kid']))
-        assert atcab_get_pubkey(int(key['kid']), public_key) == ATCA_SUCCESS
+        assert atcab_get_pubkey(int(key['kid']), public_key) == Status.ATCA_SUCCESS
         key['x'] = utils.base64url_encode(public_key[0:32]).decode('ascii')
         key['y'] = utils.base64url_encode(public_key[32:64]).decode('ascii')
 
     # If a logging key and certificate was provided create a manifest file
-    log_key, log_cert = load_key_and_cert(log_key_path, log_cert_path)
+    log_key, log_cert = certs_handler.load_key_and_cert(log_key_path, log_cert_path)
 
     # Generate the key and certificate ids for JWS
-    log_key_id = jws_b64encode(log_cert.extensions.get_extension_for_class(x509.SubjectKeyIdentifier).value.digest)
-    log_cert_id = jws_b64encode(log_cert.fingerprint(hashes.SHA256()))
+    log_key_id = certs_handler.jws_b64encode(log_cert.extensions.get_extension_for_class(x509.SubjectKeyIdentifier).value.digest)
+    log_cert_id = certs_handler.jws_b64encode(log_cert.fingerprint(hashes.SHA256()))
 
     # Precompute the JWT header
     jws_header = {'typ': 'JWT', 'alg': 'ES256', 'kid': log_key_id, 'x5t#S256': log_cert_id}
-    jws_header = jws_b64encode(json.dumps(jws_header).encode('ascii'))
+    jws_header = certs_handler.jws_b64encode(json.dumps(jws_header).encode('ascii'))
 
-    manifest = json.dumps([create_signed_entry(device_entry, log_key, jws_header)], indent=2).encode('ascii')
+    manifest = json.dumps([certs_handler.create_signed_entry(device_entry, log_key, jws_header)], indent=2).encode('ascii')
 
-    filename = make_valid_filename(device_entry['uniqueId']) + '_manifest' + '.json'
+    filename = common_helper.make_valid_filename(device_entry['uniqueId'].upper()) + '_manifest' + '.json'
     with open(filename, 'wb') as f:
         f.write(manifest)
     print('Generated the manifest file ' + filename)

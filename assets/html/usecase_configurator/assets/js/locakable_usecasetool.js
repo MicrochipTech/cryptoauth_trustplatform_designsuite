@@ -92,10 +92,10 @@ function x08UpdateLockable(xmlObj){
             isChecked = document.getElementById(slotLockId);
             if(isChecked != null){
                 isChecked = isChecked.checked;
-                console.log(isChecked);
+                //console.log(isChecked);
             }
             else{
-                isChecked = false;           
+                isChecked = false;
             }
         }
         catch(e){
@@ -104,9 +104,9 @@ function x08UpdateLockable(xmlObj){
         finally{
             if(isChecked){
                 xmlDoc.getElementsByTagName("SlotConfiguration")[i].textContent = getSlotConfigLockable(i, isChecked);
-                xmlDoc.getElementsByTagName("KeyConfiguration")[i].textContent = getKeyConfigLockable(i, isChecked); 
+                xmlDoc.getElementsByTagName("KeyConfiguration")[i].textContent = getKeyConfigLockable(i, isChecked);
             }
-        }        
+        }
     }
 
     return xmlDoc;

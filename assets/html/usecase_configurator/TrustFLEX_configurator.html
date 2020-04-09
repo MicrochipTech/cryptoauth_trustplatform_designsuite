@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <!-- Copyright (c) 2018-2019 Microchip Technology Inc. and its subsidiaries
 
     Subject to your compliance with these terms, you may use Microchip software
@@ -30,7 +30,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Microchip Secure Products Group Use Case Tool</title>
+    <title>Microchip Secure Products Group TrustFLEX Use Case Tool</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="assets/images/favicon.ico">
@@ -109,7 +109,7 @@
         <!--Home page style-->
 
 
-        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+        <nav class="navbar navbar-default navbar-fixed no-background bootsnav">
             <!-- Start Top Search -->
             <div class="top-search">
                 <div class="container">
@@ -148,6 +148,8 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li><a href="#welcome">Home</a></li>
+                        <li><a href="#method">TrustFLEX Methodology</a></li>
                         <li><a href="#standard_config">TrustFLEX Use Cases Library</a></li>
                         <li><a href="#trustflex_config">TrustFLEX Configurator</a></li>
                         <li><a href="#contact">Contact</a></li>
@@ -162,6 +164,8 @@
                 <div class="widget">
                     <h6 class="title">Quick Links</h6>
                     <ul class="link">
+                        <li><a href="#welcome">Home</a></li>
+                        <li><a href="#method">TrustFLEX Methodology</a></li>
                         <li><a href="#standard_config">TrustFLEX Use Cases Library</a></li>
                         <li><a href="#trustflex_config">TrustFLEX Configurator</a></li>
                         <li><a href="#contact">Contact</a></li>
@@ -181,29 +185,127 @@
 
         </nav>
 
+        <!-- Welcome sections-->
+        <section id="welcome" class="method lightbg roomy-100">
+             <h1 align=center>TrustFLEX TLS Use Cases Library & Configurator Tool</h1>
+        </section> <!-- End off home section -->
 
-        <!--Home Sections-->
+        <!--methodology Sections-->
+        <section id="method" class="method lightbg roomy-100">
 
-        <section id="hello" class="home bg-mega">
-            <div class="overlay"></div>
             <div class="container">
                 <div class="row">
-                    <div class="main_home">
-                        <div class="home_text p-top-110">
-                            <br>
-                            <br>
-                            <br>
-                            <h1 class="text-white">SECURE YOUR DESIGN WITH MICROCHIP SECURE PRODUCTS GROUP!</h1>
+                    <div class="main_method">
+                        <div class="col-md-10">
+                            <div class="method_content">
+                                <h3>TrustFLEX TLS METHODOLOGY</h3>
+                                <div class="separator_left"></div>
+
+                                <p>To help your design journey, Microchip is offering this Use-case Tool.
+                                    It is a step by step guide for application developers to go from concept to
+                                    production.
+                                    Starting from identifying your Use Case, all the way to creating prototype ready
+                                    configuration and finally to setup a custom part number for their required
+                                    configuration before going in production.
+                                    This tool is intended to provide various Use Cases where secure elements provide
+                                    value for customers to reduce risk,
+                                    increase revenue or reduce cost in their applications.<br>
+                                    In each use-case, we have provided following information for you to easily get
+                                    started.
+                                    You will be guided through the following process.</p><br>
+                            </div>
+                            <div class="method_accordion wow fadeIn">
+                                <div id="faq_main_content" class="faq_main_content">
+                                    <h6><i class="fa fa-angle-right"></i> 1. USE CASE IDENTIFICATION </h6>
+                                    <div>
+                                        <div class="content">
+                                        <p> From the range of TrustFLEX <a href="#standard_config">Use Cases Library</a> available below, choose the one(s) that fits closly to your application. Each Use Case comes with an example (Python Notebook & C code) and its respective documentation.</p>
+                                        </div>
+                                    </div>
+                                    <h6><i class="fa fa-angle-right"></i> 2. TRANSACTION DIAGRAM</h6>
+                                    <div>
+                                        <div class="content">
+                                            <p>Once the use-case is identified, it is important to understand the
+                                                communication flow between the Host MCU and Secure element for
+                                                accomplishing the use-case with secure element. Generally each of the
+                                                Use Case would consist in a host sending a “Challenge” and expecting a
+                                                “Response”. This flow is called the transaction diagram.</p>
+
+                                            <p>In some use-cases, there could be more than one way to achieve the goal
+                                                based on the secure element features and we will illustrate these paths
+                                                and explain the pros/cons of each path for the user to select the path
+                                                that fits best for them.</p>
+                                        </div>
+                                    </div> <!-- End off accordion item-2 -->
+
+                                    <h6> <i class="fa fa-angle-right"></i> 3. INFER CRYPTOGRAPHIC ASSETS</h6>
+                                    <div>
+                                        <div class="content">
+                                            <p>An asset relates to credentials, token, certificates, key(s) etc.. . A
+                                                Policy relates to what a memory slot can do such as writing, reading, or
+                                                both, if the slot is locked or not etc…</p>
+
+                                            <p>As part of the use-case configuration flow, certain cryptographic assets
+                                                need to be stored inside the secure element and this section will
+                                                explain the required assets needed along with the security policies
+                                                needed and the importance of these assets as it pertains to the
+                                                use-case.</p>
+
+                                            <p>At this stage of the document, it is assumed that the reader has good
+                                                understanding of the use-case and also the communication protocol
+                                                between the host MCU and secure element as well as various crypto assets
+                                                needed in the secure element. It is time to allocate secure element
+                                                slots for storing necessary cryptographic assets and set the appropriate
+                                                policy settings. In each of the use-case pages, you will find proposed
+                                                standard templates. If you want to make any changes to this
+                                                configuration, you can go to the interactive tool in the  Configurator
+                                                tab to customize your configuration. </p>
+
+                                            <p>For development purpose, you will need to generate the development keys & certificates through the Jupyter Notebook:<br>
+                                            <b>Start Jupyter</b> by launching <b>Trust Platform GUI</b> then run <b>TrustFLEX\00_resource_generation\TFLXTLS_resource_generator.ipynb</b></p>
+                                        </div>
+                                    </div> <!-- End off accordion item-3 -->
+
+                                    <h6><i class="fa fa-angle-right"></i> 4. SECURE ELEMENT CONFIGURATION</h6>
+                                    <div>
+                                        <div class="content">
+                                            <p>ATECC608A-TFLXTLS devices are already configured for <a href="#standard_config">Use Cases</a> listed.</p>
+                                        </div>
+                                    </div> <!-- End off accordion item-4 -->
+                                    <h6><i class="fa fa-angle-right"></i> 5. PROTOTYPING</h6>
+                                    <div>
+                                        <div class="content">
+                                            <p>Test the configuration and host/Secure Element transactions on the <a href="https://www.microchip.com/DevelopmentTools/ProductDetails/DM320118" target="_blank">DM320118 prototyping platform</a> (check "PROTYPING PLATFORM" section in <a href="../../../start_here.html#hardware" target="_blank">START HERE</a>)</p>
+                                            <p>Notebooks are executable tutorials allowing to prototype the entire set of transactions using the host PC and the actual Secure Element. <b>Start Jupyter</b> by launching <b>Trust Platform GUI</b> then run the selected Use Case(s). As an example for Firmware Validation: <b>"TrustFLEX\02_firmware_validation\notebook\TFLXTLS_firmware_validation.ipynb"</b></p>
+                                            <p>Cryptoauthlib is C library which supports Microchip CryptoAuth devices. A collection of reference C code examples are available for the most common use cases.
+                                            As an example for Firmware Validation, navigate to : <b>"TrustFLEX\02_firmware_validation\c"</b> and retrieve the C code to be implemented in your embedded project.</p>
+
+
+                                        </div>
+                                    </div> <!-- End off accordion item-4 -->
+                                    <h6><i class="fa fa-angle-right"></i> 6. SECRET EXCHANGE PROCESS</h6>
+                                    <div>
+                                        <div class="content">
+                                            <p>The Secret Exchange process consists of securely transmitting the secrets, keys and certificate authority to Microchip Hardware Security Modules (HSMs) to allow for volume production</p>
+
+                                            <p>The TrustPlatform Design Suite provides the <a href="#trustflex_config">TrustFLEX Configurator</a> to generate the encrypted secret exchange files.</p>
+                                        </div>
+                                    </div> <!-- End of accordion item 5 -->
+                                    <h6><i class="fa fa-angle-right"></i> 7. PRODUCTION GRADE PROVISIONING</h6>
+                                    <div>
+                                        <div class="content">
+                                            <p>Once Secrets, keys and Certificate Authorities are securely loaded in Microchip HSMs, the products can be produced from very low to extremely high volume without the need for any further setup thanks to the extreme scalability of Microchip's provisioning system.</p>
+                                        </div>
+                                    </div> <!-- end of accordion item-5 -->
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!--End off row-->
             </div>
             <!--End off container -->
-        </section>
-        <!--End off Home Sections-->
-
-
+        </section> <!-- End off methodology section -->
 
 
 
@@ -229,7 +331,7 @@
                                 </div>
                                 <div class="use_case_border text-center">
                                     <div class="use_case_text" id="secureBootItem">
-                                        <a href="javascript:toggleUseCase(0)" id="secureBootBtn" class="use_casse_btn use_case_btn-primary text-white">SELECT</a>
+                                        <a href="javascript:toggleUseCase(100)" id="secureBootBtn" class="use_casse_btn use_case_btn-primary text-white">SELECT</a>
                                     </div>
                                 </div>
 
@@ -248,7 +350,7 @@
                                 </div>
                                 <div class="use_case_border text-center">
                                     <div class="use_case_text" id="secureKeyRotationItem">
-                                        <a href= "javascript:toggleUseCase(1)" id="secureKeyRotationBtn" class="use_casse_btn use_case_btn-primary text-white">SELECT</a>
+                                        <a href= "javascript:toggleUseCase(101)" id="secureKeyRotationBtn" class="use_casse_btn use_case_btn-primary text-white">SELECT</a>
                                     </div>
                                 </div>
 
@@ -267,17 +369,15 @@
                                 </div>
                                 <div class="use_case_border text-center">
                                     <div class="use_case_text" id="ipProtectionItem">
-                                        <a href="javascript:toggleUseCase(2)" id="ipProtectionBtn" class="use_casse_btn use_case_btn-primary text-white">SELECT</a>
+                                        <a href="javascript:toggleUseCase(102)" id="ipProtectionBtn" class="use_casse_btn use_case_btn-primary text-white">SELECT</a>
                                     </div>
                                 </div>
-
                                 <div class="pricing_body bg-white p-top-110 p-bottom-60">
                                     <div class="pricing_btn text-center m-top-40">
                                     </div>
                                 </div>
                             </div>
                         </div><!-- End off col-md-4 -->
-
                     </div>
                 </div><!-- End of the row -->
             </div><!-- End of the container -->
@@ -289,13 +389,11 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="use_case_item">
                                 <div class="use_case_head p-top-30 p-bottom-30 text-center">
-                                    <p>Accessory or</p>
-                                    <p>Disposable</p>
-                                    <p>Authentication</p>
+                                    <p>Accessory / Disposable </p>    <p>Symmetric-Authentication</p>
                                 </div>
                                 <div class="use_case_border text-center">
                                     <div class="use_case_text" id="disposableItem">
-                                        <a href="javascript:toggleUseCase(3)" id="disposableBtn" class="use_casse_btn use_case_btn-primary text-white">SELECT</a>
+                                        <a href="javascript:toggleUseCase(103)" id="disposableBtn" class="use_casse_btn use_case_btn-primary text-white">SELECT</a>
                                     </div>
                                 </div>
 
@@ -309,13 +407,11 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="use_case_item sm-m-top-30">
                                 <div class="use_case_head p-top-30 p-bottom-30 text-center">
-                                    <p>Custom</p>
-                                    <p>Public Key</p>
-                                    <p>Infrastructure</p>
+                                    <p>Custom Public Key</p> <p>Infrastructure</p>
                                 </div>
                                 <div class="use_case_border text-center">
                                     <div class="use_case_text" id="customPKIItem">
-                                        <a href="javascript:toggleUseCase(4)" id="customPKIBtn" class="use_casse_btn use_case_btn-primary text-white">SELECT</a>
+                                        <a href="javascript:toggleUseCase(104)" id="customPKIBtn" class="use_casse_btn use_case_btn-primary text-white">SELECT</a>
                                     </div>
                                 </div>
 
@@ -328,13 +424,11 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="use_case_item sm-m-top-30">
                                 <div class="use_case_head p-top-30 p-bottom-30 text-center">
-                                    <p>Cloud Connect</p>
-                                    <p>Google</p>
-                                    <p>IoT</p>
+                                    <p>Cloud Connect</p> <p>Google - IoT</p>
                                 </div>
                                 <div class="use_case_border text-center">
                                     <div class="use_case_text" id="cloud_gcp_tflexItem">
-                                        <a href="javascript:toggleUseCase(8)" id="cloud_gcp_tflexBtn" class="use_casse_btn use_case_btn-primary text-white">SELECT</a>
+                                        <a href="javascript:toggleUseCase(105)" id="cloud_gcp_tflexBtn" class="use_casse_btn use_case_btn-primary text-white">SELECT</a>
                                     </div>
                                 </div>
 
@@ -348,11 +442,28 @@
                 </div>
                 <!--End off row-->
             </div>
-            <!--End off container -->
+            <div class="container">
+                <div class="row">
+                    <div class="use_cases_row_2 roomy-50">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="use_case_item">
+                                <div class="use_case_head p-top-30 p-bottom-30 text-center">
+                                <p>Accessory / Disposable </p> <p>Asymmetric-Authentication</p></div></div>
+                            <div class="use_case_border text-center">
+                                <div class="use_case_text" id="disposable_asym_tflxItem">
+                                    <a href="javascript:toggleUseCase(106)" id="disposable_asym_tflxBtn" class="use_casse_btn use_case_btn-primary text-white">SELECT</a></div></div>
+                            <div class="pricing_body bg-white p-top-110 p-bottom-60">
+                                <div class="pricing_btn text-center m-top-40">
+                                </div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <br />
             <br />
             <br />
         </section>
+
         <!--Enf of TrustFLEX Use Case selection Section -->
 
     <!--Secure Boot Section-->
@@ -649,7 +760,6 @@
     </div><!-- end of accordion item-6 -->
     </div>
     </section>
-
     <!--End off IP Protection section -->
 
     <!-- Secure Public Key Rotation -->
@@ -1263,6 +1373,155 @@
     </div>
     </section>
 
+    <!-- Accessory / Disposable Asym Authentication section -->
+    <section id="disposable_asym_tflx" class="lightbg roomy-100" style="display: none">
+        <div class="container">
+        <div class="row">
+        <div class="main_disposable">
+        <div class="col-md-10">
+        <div class="disposable_use_case">
+        <h2>Accessory / Disposable - Asymmetric Authentication</h2>
+        <div class="separator_left"></div>
+        <p>In terms of computer security, Asymmetric Authentication is a process in which two entities exchange information to authenticate the identity of the other. The purpose of authentication is to prevent cloning and counterfeiting and to ensure that an object is genuine and authorized to connect to a product.</p>
+        <p>In this use case example, we will authenticate an object. It can be an accessory, peripheral, battery, or cartridge. Generally, an object that is removable and replaceable by the consumer. The purpose of authenticating an object is to ensure that it is genuine and it is authorized to connect to a product. Another purpose is to prevent cloning and counterfeiting.</p>
+        <p>Asymmetric authentication uses asymmetric key algorithms (also known as public key cryptography) where each entity has a public and private key.</p>
+        </div>
+        </div>
+        </div>
+        </div> <!-- end of row -->
+        <br>
+        <br>
+        </div>
+        <div class="container">
+        <div class="row">
+        <div class="disposable">
+        <div class="col-md-10">
+        <div class="disposable_steps">
+        <h4><i class="fa fa-angle-right"></i> 1. TRANSACTION DIAGRAM </h4>
+        <div class="separator_left"></div>
+        <div class="content">
+        <p> The first step is to define the transaction diagram for a given use case. Here is the set of transactions required to implement an accessory authentication.</p>
+        </div><!-- End off accordion item-1 -->
+        <object id="svg_canvas_asymm_auth_tflx" style="color: chocolate"></object>
+        <img uml="
+        title Asymmetric Authentication (TFLXTLS)
+        participant OEM
+        participant HostMCU
+        participant CryptoAuthLib
+        participant Accessory
+        skinparam participantpadding 75
+
+        note over OEM, Accessory #FFAAAA : Setup
+
+        note right of Accessory
+        **TFLXTLS** is part of Accessory
+        end note
+
+        note left of OEM
+        **Custom Certificates**
+            - Update certs using Resource generation
+            - Provide custom cert definitions to HostMCU
+            - Provide root public key to HostMCU
+        end note
+
+        note over HostMCU, Accessory #FFAAAA : Client: Rebuild Certs
+
+        HostMCU->CryptoAuthLib:Signer Cert: [[https://github.com/MicrochipTech/cryptoauthlib/blob/102d7fcfa2cc1671fddb814bf8079756f70f7109/lib/atcacert/atcacert_client.c#L111{Read certificate; Ctrl+Click to open in new Tab}atcacert_read_cert(...)]]
+        CryptoAuthLib->Accessory:[[https://github.com/MicrochipTech/cryptoauthlib/blob/102d7fcfa2cc1671fddb814bf8079756f70f7109/lib/basic/atca_basic_read.c#L57{Read Zone; Ctrl+Click to open in new Tab}atcab_read_zone(...)]]
+        Accessory-->CryptoAuthLib:
+        CryptoAuthLib-->HostMCU:
+
+        HostMCU->CryptoAuthLib:Device Cert: [[https://github.com/MicrochipTech/cryptoauthlib/blob/102d7fcfa2cc1671fddb814bf8079756f70f7109/lib/atcacert/atcacert_client.c#L111{Read certificate; Ctrl+Click to open in new Tab}atcacert_read_cert(...)]]
+        CryptoAuthLib->Accessory:[[https://github.com/MicrochipTech/cryptoauthlib/blob/102d7fcfa2cc1671fddb814bf8079756f70f7109/lib/basic/atca_basic_read.c#L57{Read Zone; Ctrl+Click to open in new Tab}atcab_read_zone(...)]]
+        Accessory-->CryptoAuthLib:
+        CryptoAuthLib-->HostMCU:
+
+
+        note over HostMCU, Accessory #FFAAAA : Host: Verify Cert Chain
+        HostMCU-->HostMCU: Verify Signer cert with CA
+        HostMCU-->HostMCU:  Verify Device cert  with CA
+
+        note over HostMCU, Accessory #FFAAAA : Challenge-Response-Verify
+        HostMCU->CryptoAuthLib:[[https://github.com/MicrochipTech/cryptoauthlib/blob/102d7fcfa2cc1671fddb814bf8079756f70f7109/lib/atcacert/atcacert_client.c#L46{Get challenge response from device; Ctrl+Click to open in new Tab}atcacert_get_response(...)]]
+        CryptoAuthLib->Accessory:[[https://github.com/MicrochipTech/cryptoauthlib/blob/102d7fcfa2cc1671fddb814bf8079756f70f7109/lib/basic/atca_basic_sign.c#L109{Get challenge signed by device; Ctrl+Click to open in new Tab}atcab_sign(...)]]
+        Accessory-->CryptoAuthLib: Accessory response (Signature for Challenge)
+        CryptoAuthLib-->HostMCU: Accessory response
+
+        HostMCU-->HostMCU:  Verify response with Public Key
+
+        note over HostMCU
+        HostMCU authenticates Accessory
+        based on result
+        end note
+        ">
+
+        <br />
+        <br />
+        <h4><i class="fa fa-angle-right"></i> 2. INFER CRYPTOGRAPHIC ASSETS</h4>
+        <div class="separator_left"></div>
+        <div class="content">
+        <p>Considering the above transaction diagram, the following assets are needed on TrustFLEX device.
+        <ol><li>Device private key</li>
+            <li>Device certificate</li>
+            <li>Signer certificate</li>
+            <li>Signer public key</li></ol></p>
+        <p>Client (Device) authentication will be done in two stages. First stage is verifying the certificate chain validity and the second stage is verifying the client’s public key. Host asks for Signer and Device certificates to verify thier signatures using Root's public key.</p>
+        <p>Device certificate will be generated based on the Device's public key. TrustFLEX device can generate and store its private key. This key can never leave TrustFLEX, associated Public key would be read from the device and be used to generate the device CSR. Once the device CSR is generated, it needs to be certified through Signer to become the certificate. This Device certificate would be written to secure element along with Signer ceritificate (as compressed certificate) and Signer Public Key for further use. Signer Public key helps in validating the device certificate before it being used for secure connections. </p>
+        <p>In this example, Root's Public key is available with the host. Using this key, first the Signer certificate would be validated. Once the Signer certificate is validated, Public key of this certificate will be extracted. Using this key, the client’s (Device) certificate would be validated. Once the client’s (Device) certificate is validated, Public key will be extracted. In this example, the validation is limited only to signature verification.</p>
+        <p>Its time now to verify the client contains the associated private key or not. This would be achieved by asking the client to sign a random number, often called a challenge or nonce, with its private key. If the host is then able to verify the signature with the client’s public key, it can be confident that the certificates indeed belong to the device they came from.</p>
+        </div>
+        <br />
+        <br />
+        <h4> <i class="fa fa-angle-right"></i> 3. SECURE ELEMENT CONFIGURATION </h4>
+        <div class="separator_left"></div>
+        <div class="content">
+        <p> TrustFLEX devices are already configured for a collection of use cases. This use case is one among them. Hence there is no separate configuration is required. </p>
+
+        <p>The prototype TrustFLEX device comes with options to rewrite Signer and Device certificates with custom certificates. This can be done using resource generation.</p>
+        <p>However, for the production devices, as part of provisioning this slot can be marked for permanent locking to enhance the system security.</p>
+        </div><!-- End off accordion item-3 -->
+
+        <br />
+        <br />
+        <h4><i class="fa fa-angle-right"></i> 4. PROTOTYPING </h4>
+        <div class="separator_left"></div>
+        <div class="content">
+        <p>On completing the secure element configuration, it’s possible to test the configuration and assets through host and Secure Element transactions on the prototyping platform. The required code to perform this use case is available as Jupyter Notebook and C example. Jupyter Notebooks are written in Python and are accompanied with extensive documentation.</p>
+        <p>Refer to <a href="../../../docs/TrustFLEX_guide_accessory_asym_authentication.pdf" target="_blank"> Usecase step by step guide </a> for hands-on instructions. Below is the sequence of steps for prototyping an usecase,</p>
+        <p><img src="assets/images/Protype Sequence.png"></p>
+        <p>The <strong>TFLXTLS_resource_generator.ipynb</strong> notebook helps to generate the required resources for the use case. On executing the resource generator, secure element data zone is written with required secrets, keys, and certificates. The secrets or certificates loaded in this stage can be found in the same folder. Note that these secrets should be used ONLY for prototyping. </p>
+        <p>Once the resources are generated, the accessory asymmetric authentication flow can be prototyped both on Notebook and C project</p>
+        <p>The <strong>TrustFLEX\08_asymmetric_authentication\notebook\TFLXTLS_asymmetric_authentication.ipynb</strong> notebook helps in running prototype using Crypto Auth Trust Platform. The major steps involved in this notebook are,
+            <ol><li>Rebuilding Signer and Device certificates</li>
+            <li>Verifying chain of trust</li>
+            <li>verifying Device Private key</li></ol></p>
+        <p><strong>TrustFLEX\08_asymmetric_authentication\c\</strong> contains the embedded project that does accessory authentication by using TurstFLEX devices on Crypto Trust Platform. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
+        <p>Once all the steps are performed as in step by step guide, return back here to continue with Secret Exchange Process for loading actual secrets to TrustFLEX securely.</p>
+        </div><!-- End off accordion item-4 -->
+
+        <br />
+        <br />
+        <h4><i class="fa fa-angle-right"></i> 5. SECRET EXCHANGE PROCESS</h4>
+        <div class="separator_left"></div>
+        <div class="content">
+        <p>On completing the prototyping, it’s important to load the final secrets, keys and certificate authority details to the Secure Element. The Trust Platform Design Suite provides <strong>TrustFLEX XML Generator</strong> which helps in generating the Secret Exchange Package. </p>
+        <p>Microchip will provide encryption utility to encrypt sensitive data so that only you have the knowledge of product / application specific secrets. The encrypted data are handled by Thales Hardware Secure Modules installed within our production plants across the globe.
+        </p>
+        <p>Refer to <a href = "../../../docs/TrustFLEX_guide_secret_exchange_process.pdf", target="_blank"> Secret Exchange guide</a> for detailed steps involved in secret exchange, certificate signing and tracking secure provisioning state. </p>
+        </div><!-- End of accordion item 5 -->
+
+        <br />
+        <br />
+        <h4><i class="fa fa-angle-right"></i> 6. VOLUME PROVISIONING</h4>
+        <div class="separator_left"></div>
+        <div class="content">
+        <p> You can work with Microchip sales team to setup the custom part number and provide the package you have developed. Leverage the package from the previous step to fast track the process.</p>
+        <p>Microchip will review the package and setup the part number for you to place order and build your product in volume.</p>
+        </div><!-- end of accordion item-6 -->
+        </div>
+    </section>
+    <!-- End of Accessory / Disposable Asym Authentication section -->
+
     <!--TrustFLEX Configuration Section-->
         <section id="trustflex_config" class="trustflex_config">
             <div class="container">
@@ -1855,16 +2114,36 @@
                                                         <input id="1002" type="radio" name="slot10certopt"
                                                             value="custCert" onclick="">
                                                         <label class="radiotext" for="1002">Custom
-                                                            Certificate</label><br>
-
+                                                            Certificate</label><br><br>
+                                                        <div class="divcertnotes" id="device_custcert_notes">
+                                                            <strong>Notes on Custom Device Certificate</strong><br/>
+                                                            <ol>
+                                                                <li>The custom definition files (.c, .h) being generated assumes the size of Organization and Common Names matches with MCHP standard certificates. </li>
+                                                                <li>The Distinguished Names, both for the Issuer and for the Subject in all certificates must be comprised of an Organization Name and a Common Name entry, in that order.</li>
+                                                                <li>The Organization Name entered here gets padded and spaces replaced with '_' to match with MCHP standard certificates sizes.</li>
+                                                                <li>It is recommended to use default CommonName i.e. device serial prefixed with sn. If this needs to be different, its size would be matched to MCHP standard certificates with spaces replaced by '_'</li>
+                                                                <li>For the Device certificate Basic Constraints come before the Key Usage, following is the order of extensions:
+                                                                    <ol>
+                                                                        <li>Basic Constraints: critical, CA:FALSE</li>
+                                                                        <li>Key Usage: critical Digital Signature, Key Agreement</li>
+                                                                        <li>Subject Key Identifier</li>
+                                                                        <li>Authority Key Identifier</li>
+                                                                    </ol>
+                                                                </li>
+                                                            </ol>
+                                                            <strong>Populate below to customize certificate fields: </strong>
+                                                            <br>
+                                                        </div>
                                                         <input
                                                             class="advancedSearchTextboxReduced placeholder slotTextEnabled"
-                                                            type="text" name="slot10certname" id="10certname"
+                                                        type="text" name="slot10certname" id="10certname"  onchange = "custom_cert_string(this.id, this.value, device_org_name_len)"
                                                             placeholder="Organization name for device cert"><br />
                                                         <input
                                                             class="advancedSearchTextboxReduced placeholder slotTextEnabled"
-                                                            type="text" name="slot10certcommonname" id="10certcommonname"
-                                                            placeholder="Common name for device cert"><br />
+                                                        type="text" name="slot10certcommonname" id="10certcommonname"  onchange = "custom_cert_string(this.id, this.value, device_common_name_len)"
+                                                        placeholder="Common name for device cert"> &nbsp;
+                                                    <input type="checkbox" id="cbid_devcertcn" name="cbn_devcertcn" checked onchange = "change_devcertcn()">
+                                                        <label class="radiotext" for="cbid_devcertcn">Use default CN i.e. Serial Number</label> <br/>
                                                         <input
                                                             class="advancedSearchTextboxReduced placeholder slotTextEnabled"
                                                             type="number" name="slot10certyear" min="0" max="31"
@@ -1964,14 +2243,33 @@
                                                         <input id="1202" type="radio" name="slot12certopt"
                                                             value="custCert" onclick="">
                                                         <label class="radiotext" for="1202">Custom
-                                                            Certificate</label><br>
+                                                            Certificate</label><br><br>
+                                                        <div class="divcertnotes" id="signer_custcert_notes">
+                                                            <strong>Notes on Custom Signer Certificate:</strong><br/>
+                                                            <ol>
+                                                                <li>The custom definition files (.c, .h) being generated assumes the length of Organization and Common Names matches with MCHP standard certificates. </li>
+                                                                <li>The Distinguished Names, both for the Issuer and for the Subject in all certificates must be comprised of an Organization Name and a Common Name entry, in that order</li>
+                                                                <li>The Organization Name entered here gets padded and spaces replaced with '_' to match MCHP standard certificates sizes.</li>
+                                                                <li>The Subject Common Name in the Signer certificate resp. the Issuer Common Name in the Device certificate gets padded and spaces replaced with '_' to match MCHP standard certificates sizes.</li>
+                                                                <li>The Signer certificates must contain exactly the following extensions in exactly the same order:
+                                                                    <ol>
+                                                                        <li>Key Usage, critical: Digital Signature, Certificate Sign, CRL Sign</li>
+                                                                        <li>Basic Constraints, critical: CA: TRUE, PATHLEN: 0</li>
+                                                                        <li>Subject Key Identifier</li>
+                                                                        <li>Authority Key Identifier</li>
+                                                                    </ol>
+                                                                </li>
+                                                            </ol>
+                                                            <strong>Populate below to customize certificate fields: </strong>
+                                                            <br>
+                                                        </div>
                                                         <input
                                                             class="advancedSearchTextboxReduced placeholder slotTextEnabled"
-                                                            type="text" name="slot12certname" id="12certname"
+                                                        type="text" name="slot12certname" id="12certname" onchange = "custom_cert_string(this.id, this.value, signer_org_name_len)"
                                                             placeholder="Organization name for signer cert"><br />
                                                         <input
                                                             class="advancedSearchTextboxReduced placeholder slotTextEnabled"
-                                                            type="text" name="slot12certcommonname" id="12certcommonname"
+                                                        type="text" name="slot12certcommonname" id="12certcommonname" onchange = "custom_cert_string(this.id, this.value, signer_common_name_len)"
                                                             placeholder="Common name for signer cert"><br />
                                                         <input
                                                             class="advancedSearchTextboxReduced placeholder slotTextEnabled"
@@ -2194,16 +2492,14 @@
 
                                         <div class="divPresets" id="custCertPubkey">
                                             <strong>Custom root CA provisioning</strong><br />
-
                                             <br>
-
                                             <input
                                                 class="advancedSearchTextboxReduced placeholder slotTextEnabled"
-                                                type="text" name="slot16certname" id="16certname"
+                                            type="text" name="slot16certname" id="16certname"  onchange = "custom_cert_string(this.id, this.value, root_org_name_len)"
                                                 placeholder="Enter Organization Name"><br />
                                             <input
                                                 class="advancedSearchTextboxReduced placeholder slotTextEnabled"
-                                                type="text" name="slot16certcommonname" id="16certcommonname"
+                                            type="text" name="slot16certcommonname" id="16certcommonname"  onchange = "custom_cert_string(this.id, this.value, root_common_name_len)"
                                                 placeholder="Enter Common Name"><br />
                                             <input class="opt2button" type="button" name="verify16"
                                                 id="16verify" value="Verify">
@@ -2226,16 +2522,21 @@
                                             <div id="slot16dataoptspan"></div>
                                             <div id="slot16dataoptverify"></div>
                                             <br />
-
-                                            MAN-ID is a number assigned to a customer part during secret exchange process.
-                                            For prototyping, leave the MAN-ID text box empty.
-                                            <br />
+                                        <strong>Upload Certificate Templates for MCHP reference:</strong><br>
+                                        1. Upload Root certificate (<b>.crt</b> only): <input id="1604" type="file" accept=".crt" name="custom_root" value="root_crt" onchange = "process_cert_template(this)"><br>
+                                        2. Upload Signer certificate (<b>.crt</b> only): <input id="1605" type="file" accept=".crt" name="custom_signer" value="signer_crt" onchange = "process_cert_template(this)"><br>
+                                        3. Upload Device certificate (<b>.crt</b> only): <input id="1606" type="file" accept=".crt" name="custom_device" value="device_crt"  onchange = "process_cert_template(this)"><br>
+                                    </div>
+                                    <br/><strong>Part Number details</strong><br/>
+                                    Before generating the Secret Exchange Packet, its required to have MAN-ID and custom Part Number. When customer is availing MCHP provisioning services to load their secrets and certificates, MCHP assigns unique values. These can be requested through support ticket. Refer to <a href="../../../docs/TrustFLEX_guide_secret_exchange_process.pdf" target="_blank"> Secret Exchange Process</a> guide for details. For prototyping, one can leave these blank.<br></br>
                                             <input
                                                 class="advancedSearchTextboxReduced placeholder slotTextEnabled"
                                                 type="text" name="manIdHex" id="manIdHexId"
-                                                placeholder="Enter MAN-ID here"><br />
-                                        </div>
-                                        <br>
+                                        placeholder="MAN-ID (SN8), ex: 0x01"><br>
+                                    <input
+                                        class="advancedSearchTextboxReduced placeholder slotTextEnabled"
+                                        type="text" name="partNumberHex" id="partNumberId"
+                                        placeholder="Part number, ex: ATECC608A-MAHAA-T"><br><br>
                                         <p>The "Generate TFLXTLS provisioning package" button compiles all the data provided in the above slots
                                             into zip package containing .xml, .c and .h files. </p>
 
@@ -2288,27 +2589,7 @@
                                     <div class="separator_left"></div>
                                     <a href="mailto:SPG_personalization@microchip.com">Send us feedback here</a>
                                 </div>
-                                <p>Trust Platform Design Suite version 1.2.4</p>
-                                <p>Copyright (c) 2018-2019 Microchip Technology Inc. and its subsidiaries</p>
-                                <p>
-                                    Subject to your compliance with these terms, you may use Microchip software
-                                    and any derivatives exclusively with Microchip products. It is your
-                                    responsibility to comply with third party license terms applicable to your
-                                    use of third party software (including open source software) that may
-                                    accompany Microchip software.
-
-                                    THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-                                    EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-                                    WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-                                    PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT,
-                                    SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE
-                                    OF ANY KIND WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF
-                                    MICROCHIP HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE
-                                    FORESEEABLE. TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL
-                                    LIABILITY ON ALL CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED
-                                    THE AMOUNT OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR
-                                    THIS SOFTWARE.</p>
-
+                                <p id="id_version_license">This text will be replaced</p>
 
                             </div>
                         </div>
@@ -2581,147 +2862,141 @@
     template.
     -->
     <CompressedCerts CompressedCerts="2">
-    <CompressedCert Index="0" Type="X509" TemplateID="2" ChainID="0" SNSource="A" ChainLevel="0" TbsSize="415" TbsLoc="4" ValidYears="28">
-        <Element Name="SubjectPublicKey" DataLoc="257" NumBytes="64" />
-        <Element Name="Signature" DataLoc="431" NumBytes="64" />
+    <CompressedCert Index="0" Type="X509" TemplateID="3" ChainID="0" SNSource="A" ChainLevel="0" TbsSize="411" TbsLoc="4" ValidYears="28">
+        <Element Name="SerialNumber" DataLoc="15" NumBytes="16" />
+        <Element Name="SignerID" DataLoc="120" NumBytes="4" Format="Hex-BE" />
         <Element Name="IssueDate" DataLoc="128" NumBytes="13" DateFormat="RFC2459.UTC.Zulu" />
         <Element Name="ExpireDate" DataLoc="143" NumBytes="15" DateFormat="RFC2459.Generalized.Zulu" />
-        <Element Name="SignerID" DataLoc="120" NumBytes="4" Format="Hex-BE" />
-        <Element Name="SerialNumber" DataLoc="15" NumBytes="16" />
-        <Element Name="AuthorityKeyId" DataLoc="399" NumBytes="20" />
-        <Element Name="SubjectKeyId" DataLoc="366" NumBytes="20" />
-        <Element Name="SN03" DataLoc="206" NumBytes="8" DeviceLoc="Config" Offset="0" Transforms="TF_BIN2HEX_UC" />
-        <Element Name="SN48" DataLoc="214" NumBytes="10" DeviceLoc="Config" Offset="8" Transforms="TF_BIN2HEX_UC" />
-        <TemplateData Size="505">
-        30 82 01 F5 30 82 01 9B A0 03 02 01 02 02 10 55
-        CE 2E 8F F6 1C 62 50 B7 E1 68 03 54 14 1C 94 30
-        0A 06 08 2A 86 48 CE 3D 04 03 02 30 4F 31 21 30
-        1F 06 03 55 04 0A 0C 18 4D 69 63 72 6F 63 68 69
-        70 20 54 65 63 68 6E 6F 6C 6F 67 79 20 49 6E 63
-        31 2A 30 28 06 03 55 04 03 0C 21 43 72 79 70 74
-        6F 20 41 75 74 68 65 6E 74 69 63 61 74 69 6F 6E
-        20 53 69 67 6E 65 72 20 46 46 46 46 30 20 17 0D
-        31 38 31 31 30 38 30 35 30 30 30 30 5A 18 0F 32
-        30 34 36 31 31 30 38 30 35 30 30 30 30 5A 30 46
-        31 21 30 1F 06 03 55 04 0A 0C 18 4D 69 63 72 6F
-        63 68 69 70 20 54 65 63 68 6E 6F 6C 6F 67 79 20
-        49 6E 63 31 21 30 1F 06 03 55 04 03 0C 18 30 31
-        32 33 30 31 30 32 30 33 30 34 30 35 30 36 30 31
-        20 41 54 45 43 43 30 59 30 13 06 07 2A 86 48 CE
-        3D 02 01 06 08 2A 86 48 CE 3D 03 01 07 03 42 00
-        04 71 F1 A7 0D A3 79 A3 FD ED 6B 50 10 BD AD 6E
-        1F B9 E8 EB A7 DF 2C 4B 5C 67 D3 5E BA 84 DA 09
-        E7 7A E8 DB 2C CB 96 28 EE EB 85 CD AA B3 5C 92
-        E5 3E 1C 44 D5 5A 2B A7 A0 24 AA 92 60 3B 68 94
-        8A A3 60 30 5E 30 0C 06 03 55 1D 13 01 01 FF 04
-        02 30 00 30 0E 06 03 55 1D 0F 01 01 FF 04 04 03
-        02 03 88 30 1D 06 03 55 1D 0E 04 16 04 14 1A 90
-        B2 22 37 A4 51 B7 57 DD 36 D1 3A 85 2B E1 3D 2E
-        F2 CA 30 1F 06 03 55 1D 23 04 18 30 16 80 14 BC
-        D4 FD E8 80 8A 2D C9 0B 6D 01 A8 C5 B9 B2 47 33
-        7E BD DA 30 0A 06 08 2A 86 48 CE 3D 04 03 02 03
-        48 00 30 45 02 20 31 0D 58 C9 D5 F8 96 D3 FA 8B
-        EA 6A 13 53 7E 14 10 54 B5 AD 17 38 A6 65 B1 42
-        F8 FF E9 EF BC A8 02 21 00 D6 23 3A 8B 1A 10 93
-        AE A1 43 B1 0C 96 80 56 6E 19 41 82 EB 84 FF 1F
-        D3 9F 3D F6 3E E5 B3 7A 19
+        <Element Name="SN03" DataLoc="208" NumBytes="8" DeviceLoc="Config" Offset="0" Transforms="TF_BIN2HEX_UC" />
+        <Element Name="SN48" DataLoc="216" NumBytes="10" DeviceLoc="Config" Offset="8" Transforms="TF_BIN2HEX_UC" />
+        <Element Name="SubjectPublicKey" DataLoc="253" NumBytes="64" />
+        <Element Name="SubjectKeyId" DataLoc="362" NumBytes="20" />
+        <Element Name="AuthorityKeyId" DataLoc="395" NumBytes="20" />
+        <Element Name="Signature" DataLoc="427" NumBytes="64" />
+        <TemplateData Size="500">
+        30 82 01 F0 30 82 01 97  A0 03 02 01 02 02 10 55
+        CE 2E 8F F6 1C 62 50 B7  E1 68 03 54 14 1C 94 30
+        0A 06 08 2A 86 48 CE 3D  04 03 02 30 4F 31 21 30
+        1F 06 03 55 04 0A 0C 18  4D 69 63 72 6F 63 68 69
+        70 20 54 65 63 68 6E 6F  6C 6F 67 79 20 49 6E 63
+        31 2A 30 28 06 03 55 04  03 0C 21 43 72 79 70 74
+        6F 20 41 75 74 68 65 6E  74 69 63 61 74 69 6F 6E
+        20 53 69 67 6E 65 72 20  46 46 46 46 30 20 17 0D
+        31 38 31 31 30 38 30 35  30 30 30 30 5A 18 0F 32
+        30 34 36 31 31 30 38 30  35 30 30 30 30 5A 30 42
+        31 21 30 1F 06 03 55 04  0A 0C 18 4D 69 63 72 6F
+        63 68 69 70 20 54 65 63  68 6E 6F 6C 6F 67 79 20
+        49 6E 63 31 1D 30 1B 06  03 55 04 03 0C 14 73 6E
+        30 31 32 33 30 31 30 32  30 33 30 34 30 35 30 36
+        30 31 30 59 30 13 06 07  2A 86 48 CE 3D 02 01 06
+        08 2A 86 48 CE 3D 03 01  07 03 42 00 04 71 F1 A7
+        0D A3 79 A3 FD ED 6B 50  10 BD AD 6E 1F B9 E8 EB
+        A7 DF 2C 4B 5C 67 D3 5E  BA 84 DA 09 E7 7A E8 DB
+        2C CB 96 28 EE EB 85 CD  AA B3 5C 92 E5 3E 1C 44
+        D5 5A 2B A7 A0 24 AA 92  60 3B 68 94 8A A3 60 30
+        5E 30 0C 06 03 55 1D 13  01 01 FF 04 02 30 00 30
+        0E 06 03 55 1D 0F 01 01  FF 04 04 03 02 03 88 30
+        1D 06 03 55 1D 0E 04 16  04 14 1A 90 B2 22 37 A4
+        51 B7 57 DD 36 D1 3A 85  2B E1 3D 2E F2 CA 30 1F
+        06 03 55 1D 23 04 18 30  16 80 14 BC D4 FD E8 80
+        8A 2D C9 0B 6D 01 A8 C5  B9 B2 47 33 7E BD DA 30
+        0A 06 08 2A 86 48 CE 3D  04 03 02 03 47 00 30 44
+        02 20 56 73 96 E4 9C 0A  A7 4E 61 60 12 E3 8A 60
+        C3 A8 11 09 7D 9C 5D A4  CD 37 89 C3 62 96 88 7E
+        2A 0C 02 20 1E 69 B2 AF  0A D6 C6 7E E1 2D 5D BE
+        5A 44 5A D9 1D F1 A5 98  35 8E D0 69 D9 8B D7 DB
+        B2 99 CC 34
         </TemplateData>
     </CompressedCert>
     <CompressedCert Index="1" Type="X509" TemplateID="1" ChainID="0" SNSource="A" ChainLevel="1" TbsSize="430" TbsLoc="4" ValidYears="31">
-        <Element Name="SubjectPublicKey" DataLoc="266" NumBytes="64" />
-        <Element Name="Signature" DataLoc="446" NumBytes="64" />
+        <Element Name="SerialNumber" DataLoc="15" NumBytes="16" />
         <Element Name="IssueDate" DataLoc="128" NumBytes="13" DateFormat="RFC2459.UTC.Zulu" />
         <Element Name="ExpireDate" DataLoc="143" NumBytes="15" DateFormat="RFC2459.Generalized.Zulu" />
         <Element Name="SignerID" DataLoc="235" NumBytes="4" Format="Hex-BE" />
-        <Element Name="SerialNumber" DataLoc="15" NumBytes="16" />
-        <Element Name="AuthorityKeyId" DataLoc="414" NumBytes="20" />
+        <Element Name="SubjectPublicKey" DataLoc="266" NumBytes="64" />
         <Element Name="SubjectKeyId" DataLoc="381" NumBytes="20" />
+        <Element Name="AuthorityKeyId" DataLoc="414" NumBytes="20" />
+        <Element Name="Signature" DataLoc="446" NumBytes="64" />
         <TemplateData Size="520">
-        30 82 02 04 30 82 01 AA A0 03 02 01 02 02 10 44
-        0E E4 17 0C B5 45 CE 59 69 8E 30 56 99 0A 5D 30
-        0A 06 08 2A 86 48 CE 3D 04 03 02 30 4F 31 21 30
-        1F 06 03 55 04 0A 0C 18 4D 69 63 72 6F 63 68 69
-        70 20 54 65 63 68 6E 6F 6C 6F 67 79 20 49 6E 63
-        31 2A 30 28 06 03 55 04 03 0C 21 43 72 79 70 74
-        6F 20 41 75 74 68 65 6E 74 69 63 61 74 69 6F 6E
-        20 52 6F 6F 74 20 43 41 20 30 30 32 30 20 17 0D
-        31 38 31 31 30 38 30 34 30 30 30 30 5A 18 0F 32
-        30 34 39 31 31 30 38 30 34 30 30 30 30 5A 30 4F
-        31 21 30 1F 06 03 55 04 0A 0C 18 4D 69 63 72 6F
-        63 68 69 70 20 54 65 63 68 6E 6F 6C 6F 67 79 20
-        49 6E 63 31 2A 30 28 06 03 55 04 03 0C 21 43 72
-        79 70 74 6F 20 41 75 74 68 65 6E 74 69 63 61 74
-        69 6F 6E 20 53 69 67 6E 65 72 20 46 46 46 46 30
-        59 30 13 06 07 2A 86 48 CE 3D 02 01 06 08 2A 86
-        48 CE 3D 03 01 07 03 42 00 04 84 98 44 0A 31 9B
-        3F 71 E2 5D 52 26 00 90 00 C7 56 BD 5C 0F AE 4A
-        1B 84 1A D4 A3 3F 21 AB A0 9A 48 10 1C 75 C8 28
-        24 90 B3 B6 5A 52 80 27 29 BD 3A 75 2C 3D F0 DD
-        1B 04 A2 A1 B5 7E 0C 92 24 47 A3 66 30 64 30 0E
-        06 03 55 1D 0F 01 01 FF 04 04 03 02 01 86 30 12
-        06 03 55 1D 13 01 01 FF 04 08 30 06 01 01 FF 02
-        01 00 30 1D 06 03 55 1D 0E 04 16 04 14 BC D4 FD
-        E8 80 8A 2D C9 0B 6D 01 A8 C5 B9 B2 47 33 7E BD
-        DA 30 1F 06 03 55 1D 23 04 18 30 16 80 14 7A ED
-        7D 6D C6 B7 78 9D B2 38 01 A5 E8 4A 8C B0 A4 0E
-        2A 8C 30 0A 06 08 2A 86 48 CE 3D 04 03 02 03 48
-        00 30 45 02 21 00 C5 07 B8 2A 7B F9 A3 3A 1B 78
-        DC EB 01 C9 26 92 9E F3 78 3D 46 8E 69 A2 84 D3
-        6A BA B9 25 1B EF 02 20 0E 6D 7F 76 8D 65 A7 49
-        FA 71 2D DA 2B 69 25 35 CD 57 7D 65 01 96 A3 D2
+        30 82 02 04 30 82 01 AA  A0 03 02 01 02 02 10 44
+        0E E4 17 0C B5 45 CE 59  69 8E 30 56 99 0A 5D 30
+        0A 06 08 2A 86 48 CE 3D  04 03 02 30 4F 31 21 30
+        1F 06 03 55 04 0A 0C 18  4D 69 63 72 6F 63 68 69
+        70 20 54 65 63 68 6E 6F  6C 6F 67 79 20 49 6E 63
+        31 2A 30 28 06 03 55 04  03 0C 21 43 72 79 70 74
+        6F 20 41 75 74 68 65 6E  74 69 63 61 74 69 6F 6E
+        20 52 6F 6F 74 20 43 41  20 30 30 32 30 20 17 0D
+        31 38 31 31 30 38 30 34  30 30 30 30 5A 18 0F 32
+        30 34 39 31 31 30 38 30  34 30 30 30 30 5A 30 4F
+        31 21 30 1F 06 03 55 04  0A 0C 18 4D 69 63 72 6F
+        63 68 69 70 20 54 65 63  68 6E 6F 6C 6F 67 79 20
+        49 6E 63 31 2A 30 28 06  03 55 04 03 0C 21 43 72
+        79 70 74 6F 20 41 75 74  68 65 6E 74 69 63 61 74
+        69 6F 6E 20 53 69 67 6E  65 72 20 46 46 46 46 30
+        59 30 13 06 07 2A 86 48  CE 3D 02 01 06 08 2A 86
+        48 CE 3D 03 01 07 03 42  00 04 84 98 44 0A 31 9B
+        3F 71 E2 5D 52 26 00 90  00 C7 56 BD 5C 0F AE 4A
+        1B 84 1A D4 A3 3F 21 AB  A0 9A 48 10 1C 75 C8 28
+        24 90 B3 B6 5A 52 80 27  29 BD 3A 75 2C 3D F0 DD
+        1B 04 A2 A1 B5 7E 0C 92  24 47 A3 66 30 64 30 0E
+        06 03 55 1D 0F 01 01 FF  04 04 03 02 01 86 30 12
+        06 03 55 1D 13 01 01 FF  04 08 30 06 01 01 FF 02
+        01 00 30 1D 06 03 55 1D  0E 04 16 04 14 BC D4 FD
+        E8 80 8A 2D C9 0B 6D 01  A8 C5 B9 B2 47 33 7E BD
+        DA 30 1F 06 03 55 1D 23  04 18 30 16 80 14 7A ED
+        7D 6D C6 B7 78 9D B2 38  01 A5 E8 4A 8C B0 A4 0E
+        2A 8C 30 0A 06 08 2A 86  48 CE 3D 04 03 02 03 48
+        00 30 45 02 21 00 C5 07  B8 2A 7B F9 A3 3A 1B 78
+        DC EB 01 C9 26 92 9E F3  78 3D 46 8E 69 A2 84 D3
+        6A BA B9 25 1B EF 02 20  0E 6D 7F 76 8D 65 A7 49
+        FA 71 2D DA 2B 69 25 35  CD 57 7D 65 01 96 A3 D2
         BF 3B 22 78 8E 75 41 86
         </TemplateData>
         <CAPublicKey>
-        BD 54 E6 6D E3 87 54 84 00 6B 53 AE 15 80 D5 0A A0 69 E7 8A DF 55 78 D8 5C E2 D5 4D D5 B8 30 29
-        6B FF DD 6E 6F 72 56 FB D9 9E F1 A1 16 B1 1D 33 AD 49 10 3A A1 85 87 39 DC FA E4 37 E1 9D 63 4E
+        BD 54 E6 6D E3 87 54 84  00 6B 53 AE 15 80 D5 0A
+        A0 69 E7 8A DF 55 78 D8  5C E2 D5 4D D5 B8 30 29
+        6B FF DD 6E 6F 72 56 FB  D9 9E F1 A1 16 B1 1D 33
+        AD 49 10 3A A1 85 87 39  DC FA E4 37 E1 9D 63 4E
         </CAPublicKey>
     </CompressedCert>
     </CompressedCerts>
 </ATECC608A>
     </script>
 
-        <script id="cert_def_2_device_h" type="text/plain">
-
-#ifndef CERT_DEF_2_DEVICE_H
-#define CERT_DEF_2_DEVICE_H
+    <script id="tflxtls_cust_cert_def_device_h" type="text/plain">
+#ifndef TFLXTLS_CUST_CERT_DEF_DEVICE_H
+#define TFLXTLS_CUST_CERT_DEF_DEVICE_H
 
 #include "atcacert/atcacert_def.h"
 
-extern const atcacert_def_t g_cert_def_2_device;
+extern const atcacert_def_t tflxtls_cust_cert_def_device;
 
 #endif
-
 </script>
 
-
-        <script id="cert_def_1_signer_h" type="text/plain">
-
-#ifndef CERT_DEF_1_SIGNER_H
-#define CERT_DEF_1_SIGNER_H
+    <script id="tflxtls_cust_cert_def_signer_h" type="text/plain">
+#ifndef TFLXTLS_CUST_CERT_DEF_SIGNER_H
+#define TFLXTLS_CUST_CERT_DEF_SIGNER_H
 
 #include "atcacert/atcacert_def.h"
 
-extern const atcacert_def_t g_cert_def_1_signer;
-extern const uint8_t g_cert_ca_public_key_1_signer;
+extern const atcacert_def_t tflxtls_cust_cert_def_signer;
+extern const uint8_t tflxtls_cust_cert_ca_public_key_signer;
 
 #endif
-
 </script>
 
-
-        <script id="cert_def_2_device_c_p1" type="text/plain">
-
+    <script id="tflxtls_cust_cert_def_device_c_p1" type="text/plain">
 #include "atcacert/atcacert_def.h"
 
-const uint8_t g_cert_template_2_device[505] = {
-
+const uint8_t tflxtls_cust_cert_template_device[500] = {
 </script>
 
-
-        <script id="cert_def_2_device_c_p2" type="text/plain">
+    <script id="tflxtls_cust_cert_def_device_c_p2" type="text/plain">
 };
 
-const atcacert_cert_element_t g_cert_elements_2_device[] = {
+const atcacert_cert_element_t tflxtls_cust_cert_elements_device[] =
+{
     {
         .id = "SN03",
         .device_loc = {
@@ -2732,7 +3007,7 @@ const atcacert_cert_element_t g_cert_elements_2_device[] = {
             .count = 4
         },
         .cert_loc = {
-            .offset = 206,
+            .offset = 208,
             .count = 8
         },
         .transforms = {
@@ -2750,7 +3025,7 @@ const atcacert_cert_element_t g_cert_elements_2_device[] = {
             .count = 5
         },
         .cert_loc = {
-            .offset = 214,
+            .offset = 216,
             .count = 10
         },
         .transforms = {
@@ -2758,11 +3033,14 @@ const atcacert_cert_element_t g_cert_elements_2_device[] = {
             TF_NONE
         }
     }
+</script>
+
+    <script id="tflxtls_cust_cert_def_device_c_p3" type="text/plain">
 };
 
-const atcacert_def_t g_cert_def_2_device = {
+const atcacert_def_t tflxtls_cust_cert_def_device = {
     .type = CERTTYPE_X509,
-    .template_id = 2,
+    .template_id = 3,
     .chain_id = 0,
     .private_key_slot = 0,
     .sn_source = SNSRC_PUB_KEY_HASH,
@@ -2777,7 +3055,7 @@ const atcacert_def_t g_cert_def_2_device = {
     .expire_date_format = DATEFMT_RFC5280_GEN,
     .tbs_cert_loc = {
         .offset = 4,
-        .count = 415
+        .count = 457
     },
     .expire_years = 28,
     .public_key_dev_loc = {
@@ -2796,11 +3074,11 @@ const atcacert_def_t g_cert_def_2_device = {
     },
     .std_cert_elements = {
         { // STDCERT_PUBLIC_KEY
-            .offset = 257,
+            .offset = 253,
             .count = 64
         },
         { // STDCERT_SIGNATURE
-            .offset = 431,
+            .offset = 427,
             .count = 64
         },
         { // STDCERT_ISSUE_DATE
@@ -2820,42 +3098,49 @@ const atcacert_def_t g_cert_def_2_device = {
             .count = 16
         },
         { // STDCERT_AUTH_KEY_ID
-            .offset = 399,
+            .offset = 395,
             .count = 20
         },
         { // STDCERT_SUBJ_KEY_ID
-            .offset = 366,
+            .offset = 362,
             .count = 20
         }
     },
-    .cert_elements = g_cert_elements_2_device,
-    .cert_elements_count = sizeof(g_cert_elements_2_device) / sizeof(g_cert_elements_2_device[0]),
-    .cert_template = g_cert_template_2_device,
-    .cert_template_size = sizeof(g_cert_template_2_device)
-};
+</script>
 
+    <script id="tflxtls_cust_cert_def_device_c_p4" type="text/plain">
+    .cert_elements = NULL,
+    .cert_elements_count = 0,
+    .cert_template = tflxtls_cust_cert_template_device,
+    .cert_template_size = sizeof(tflxtls_cust_cert_template_device)
+};
+</script>
+
+<script id="tflxtls_cust_cert_def_device_c_p5" type="text/plain">
+    .cert_elements = tflxtls_cust_cert_elements_device,
+    .cert_elements_count = sizeof(tflxtls_cust_cert_elements_device) / sizeof(tflxtls_cust_cert_elements_device[0]),
+    .cert_template = tflxtls_cust_cert_template_device,
+    .cert_template_size = sizeof(tflxtls_cust_cert_template_device)
+};
 </script>
 
 
-        <script id="cert_def_1_signer_c_p1" type="text/plain">
-
+    <script id="tflxtls_cust_cert_def_signer_c_p1" type="text/plain">
 #include "atcacert/atcacert_def.h"
 
-const uint8_t g_cert_template_1_signer[520] = {
+const uint8_t tflxtls_cust_cert_template_signer[520] = {
 </script>
 
-
-        <script id="cert_def_1_signer_c_p2" type="text/plain">
+    <script id="tflxtls_cust_cert_def_signer_c_p2" type="text/plain">
 };
 
-const uint8_t g_cert_ca_public_key_1_signer[64] = {
-    0xbd, 0x54, 0xe6, 0x6d, 0xe3, 0x87, 0x54, 0x84, 0x00, 0x6b, 0x53, 0xae, 0x15, 0x80, 0xd5, 0x0a,
-    0xa0, 0x69, 0xe7, 0x8a, 0xdf, 0x55, 0x78, 0xd8, 0x5c, 0xe2, 0xd5, 0x4d, 0xd5, 0xb8, 0x30, 0x29,
-    0x6b, 0xff, 0xdd, 0x6e, 0x6f, 0x72, 0x56, 0xfb, 0xd9, 0x9e, 0xf1, 0xa1, 0x16, 0xb1, 0x1d, 0x33,
-    0xad, 0x49, 0x10, 0x3a, 0xa1, 0x85, 0x87, 0x39, 0xdc, 0xfa, 0xe4, 0x37, 0xe1, 0x9d, 0x63, 0x4e
+const uint8_t tflxtls_cust_cert_ca_public_key_signer[64] = {
+</script>
+
+    <script id="tflxtls_cust_cert_def_signer_c_p3" type="text/plain">
 };
 
-const atcacert_def_t g_cert_def_1_signer = {
+const atcacert_def_t tflxtls_cust_cert_def_signer = {
     .type = CERTTYPE_X509,
     .template_id = 1,
     .chain_id = 0,
@@ -2925,13 +3210,12 @@ const atcacert_def_t g_cert_def_1_signer = {
     },
     .cert_elements = NULL,
     .cert_elements_count = 0,
-    .cert_template = g_cert_template_1_signer,
-    .cert_template_size = sizeof(g_cert_template_1_signer)
+    .cert_template = tflxtls_cust_cert_template_signer,
+    .cert_template_size = sizeof(tflxtls_cust_cert_template_signer)
 };
-
 </script>
 
-        <script id="cert_def_1_signer_c_hex" type="text/plain">
+    <script id="tflxtls_cust_cert_def_signer_c_hex" type="text/plain">
     0x30, 0x82, 0x02, 0x04, 0x30, 0x82, 0x01, 0xaa, 0xa0, 0x03, 0x02, 0x01, 0x02, 0x02, 0x10, 0x44,
     0x0e, 0xe4, 0x17, 0x0c, 0xb5, 0x45, 0xce, 0x59, 0x69, 0x8e, 0x30, 0x56, 0x99, 0x0a, 0x5d, 0x30,
     0x0a, 0x06, 0x08, 0x2a, 0x86, 0x48, 0xce, 0x3d, 0x04, 0x03, 0x02, 0x30, 0x4f, 0x31, 0x21, 0x30,
@@ -2967,46 +3251,45 @@ const atcacert_def_t g_cert_def_1_signer = {
     0xbf, 0x3b, 0x22, 0x78, 0x8e, 0x75, 0x41, 0x86
     </script>
 
-        <script id="cert_def_2_device_c_hex" type="text/plain">
-    0x30, 0x82, 0x01, 0xf5, 0x30, 0x82, 0x01, 0x9b, 0xa0, 0x03, 0x02, 0x01, 0x02, 0x02, 0x10, 0x55,
-    0xce, 0x2e, 0x8f, 0xf6, 0x1c, 0x62, 0x50, 0xb7, 0xe1, 0x68, 0x03, 0x54, 0x14, 0x1c, 0x94, 0x30,
-    0x0a, 0x06, 0x08, 0x2a, 0x86, 0x48, 0xce, 0x3d, 0x04, 0x03, 0x02, 0x30, 0x4f, 0x31, 0x21, 0x30,
-    0x1f, 0x06, 0x03, 0x55, 0x04, 0x0a, 0x0c, 0x18, 0x4d, 0x69, 0x63, 0x72, 0x6f, 0x63, 0x68, 0x69,
-    0x70, 0x20, 0x54, 0x65, 0x63, 0x68, 0x6e, 0x6f, 0x6c, 0x6f, 0x67, 0x79, 0x20, 0x49, 0x6e, 0x63,
-    0x31, 0x2a, 0x30, 0x28, 0x06, 0x03, 0x55, 0x04, 0x03, 0x0c, 0x21, 0x43, 0x72, 0x79, 0x70, 0x74,
-    0x6f, 0x20, 0x41, 0x75, 0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-    0x20, 0x53, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x20, 0x46, 0x46, 0x46, 0x46, 0x30, 0x20, 0x17, 0x0d,
-    0x31, 0x38, 0x31, 0x31, 0x30, 0x38, 0x30, 0x35, 0x30, 0x30, 0x30, 0x30, 0x5a, 0x18, 0x0f, 0x32,
-    0x30, 0x34, 0x36, 0x31, 0x31, 0x30, 0x38, 0x30, 0x35, 0x30, 0x30, 0x30, 0x30, 0x5a, 0x30, 0x46,
-    0x31, 0x21, 0x30, 0x1f, 0x06, 0x03, 0x55, 0x04, 0x0a, 0x0c, 0x18, 0x4d, 0x69, 0x63, 0x72, 0x6f,
-    0x63, 0x68, 0x69, 0x70, 0x20, 0x54, 0x65, 0x63, 0x68, 0x6e, 0x6f, 0x6c, 0x6f, 0x67, 0x79, 0x20,
-    0x49, 0x6e, 0x63, 0x31, 0x21, 0x30, 0x1f, 0x06, 0x03, 0x55, 0x04, 0x03, 0x0c, 0x18, 0x30, 0x31,
-    0x32, 0x33, 0x30, 0x31, 0x30, 0x32, 0x30, 0x33, 0x30, 0x34, 0x30, 0x35, 0x30, 0x36, 0x30, 0x31,
-    0x20, 0x41, 0x54, 0x45, 0x43, 0x43, 0x30, 0x59, 0x30, 0x13, 0x06, 0x07, 0x2a, 0x86, 0x48, 0xce,
-    0x3d, 0x02, 0x01, 0x06, 0x08, 0x2a, 0x86, 0x48, 0xce, 0x3d, 0x03, 0x01, 0x07, 0x03, 0x42, 0x00,
-    0x04, 0x71, 0xf1, 0xa7, 0x0d, 0xa3, 0x79, 0xa3, 0xfd, 0xed, 0x6b, 0x50, 0x10, 0xbd, 0xad, 0x6e,
-    0x1f, 0xb9, 0xe8, 0xeb, 0xa7, 0xdf, 0x2c, 0x4b, 0x5c, 0x67, 0xd3, 0x5e, 0xba, 0x84, 0xda, 0x09,
-    0xe7, 0x7a, 0xe8, 0xdb, 0x2c, 0xcb, 0x96, 0x28, 0xee, 0xeb, 0x85, 0xcd, 0xaa, 0xb3, 0x5c, 0x92,
-    0xe5, 0x3e, 0x1c, 0x44, 0xd5, 0x5a, 0x2b, 0xa7, 0xa0, 0x24, 0xaa, 0x92, 0x60, 0x3b, 0x68, 0x94,
-    0x8a, 0xa3, 0x60, 0x30, 0x5e, 0x30, 0x0c, 0x06, 0x03, 0x55, 0x1d, 0x13, 0x01, 0x01, 0xff, 0x04,
-    0x02, 0x30, 0x00, 0x30, 0x0e, 0x06, 0x03, 0x55, 0x1d, 0x0f, 0x01, 0x01, 0xff, 0x04, 0x04, 0x03,
-    0x02, 0x03, 0x88, 0x30, 0x1d, 0x06, 0x03, 0x55, 0x1d, 0x0e, 0x04, 0x16, 0x04, 0x14, 0x1a, 0x90,
-    0xb2, 0x22, 0x37, 0xa4, 0x51, 0xb7, 0x57, 0xdd, 0x36, 0xd1, 0x3a, 0x85, 0x2b, 0xe1, 0x3d, 0x2e,
-    0xf2, 0xca, 0x30, 0x1f, 0x06, 0x03, 0x55, 0x1d, 0x23, 0x04, 0x18, 0x30, 0x16, 0x80, 0x14, 0xbc,
-    0xd4, 0xfd, 0xe8, 0x80, 0x8a, 0x2d, 0xc9, 0x0b, 0x6d, 0x01, 0xa8, 0xc5, 0xb9, 0xb2, 0x47, 0x33,
-    0x7e, 0xbd, 0xda, 0x30, 0x0a, 0x06, 0x08, 0x2a, 0x86, 0x48, 0xce, 0x3d, 0x04, 0x03, 0x02, 0x03,
-    0x48, 0x00, 0x30, 0x45, 0x02, 0x20, 0x31, 0x0d, 0x58, 0xc9, 0xd5, 0xf8, 0x96, 0xd3, 0xfa, 0x8b,
-    0xea, 0x6a, 0x13, 0x53, 0x7e, 0x14, 0x10, 0x54, 0xb5, 0xad, 0x17, 0x38, 0xa6, 0x65, 0xb1, 0x42,
-    0xf8, 0xff, 0xe9, 0xef, 0xbc, 0xa8, 0x02, 0x21, 0x00, 0xd6, 0x23, 0x3a, 0x8b, 0x1a, 0x10, 0x93,
-    0xae, 0xa1, 0x43, 0xb1, 0x0c, 0x96, 0x80, 0x56, 0x6e, 0x19, 0x41, 0x82, 0xeb, 0x84, 0xff, 0x1f,
-    0xd3, 0x9f, 0x3d, 0xf6, 0x3e, 0xe5, 0xb3, 0x7a, 0x19
+    <script id="tflxtls_cust_cert_def_device_c_hex" type="text/plain">
+0x30, 0x82, 0x01, 0xF0, 0x30, 0x82, 0x01, 0x97, 0xA0, 0x03, 0x02, 0x01, 0x02, 0x02, 0x10, 0x55,
+0xCE, 0x2E, 0x8F, 0xF6, 0x1C, 0x62, 0x50, 0xB7, 0xE1, 0x68, 0x03, 0x54, 0x14, 0x1C, 0x94, 0x30,
+0x0A, 0x06, 0x08, 0x2A, 0x86, 0x48, 0xCE, 0x3D, 0x04, 0x03, 0x02, 0x30, 0x4F, 0x31, 0x21, 0x30,
+0x1F, 0x06, 0x03, 0x55, 0x04, 0x0A, 0x0C, 0x18, 0x4D, 0x69, 0x63, 0x72, 0x6F, 0x63, 0x68, 0x69,
+0x70, 0x20, 0x54, 0x65, 0x63, 0x68, 0x6E, 0x6F, 0x6C, 0x6F, 0x67, 0x79, 0x20, 0x49, 0x6E, 0x63,
+0x31, 0x2A, 0x30, 0x28, 0x06, 0x03, 0x55, 0x04, 0x03, 0x0C, 0x21, 0x43, 0x72, 0x79, 0x70, 0x74,
+0x6F, 0x20, 0x41, 0x75, 0x74, 0x68, 0x65, 0x6E, 0x74, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6F, 0x6E,
+0x20, 0x53, 0x69, 0x67, 0x6E, 0x65, 0x72, 0x20, 0x46, 0x46, 0x46, 0x46, 0x30, 0x20, 0x17, 0x0D,
+0x31, 0x38, 0x31, 0x31, 0x30, 0x38, 0x30, 0x35, 0x30, 0x30, 0x30, 0x30, 0x5A, 0x18, 0x0F, 0x32,
+0x30, 0x34, 0x36, 0x31, 0x31, 0x30, 0x38, 0x30, 0x35, 0x30, 0x30, 0x30, 0x30, 0x5A, 0x30, 0x42,
+0x31, 0x21, 0x30, 0x1F, 0x06, 0x03, 0x55, 0x04, 0x0A, 0x0C, 0x18, 0x4D, 0x69, 0x63, 0x72, 0x6F,
+0x63, 0x68, 0x69, 0x70, 0x20, 0x54, 0x65, 0x63, 0x68, 0x6E, 0x6F, 0x6C, 0x6F, 0x67, 0x79, 0x20,
+0x49, 0x6E, 0x63, 0x31, 0x1D, 0x30, 0x1B, 0x06, 0x03, 0x55, 0x04, 0x03, 0x0C, 0x14, 0x73, 0x6E,
+0x30, 0x31, 0x32, 0x33, 0x30, 0x31, 0x30, 0x32, 0x30, 0x33, 0x30, 0x34, 0x30, 0x35, 0x30, 0x36,
+0x30, 0x31, 0x30, 0x59, 0x30, 0x13, 0x06, 0x07, 0x2A, 0x86, 0x48, 0xCE, 0x3D, 0x02, 0x01, 0x06,
+0x08, 0x2A, 0x86, 0x48, 0xCE, 0x3D, 0x03, 0x01, 0x07, 0x03, 0x42, 0x00, 0x04, 0x71, 0xF1, 0xA7,
+0x0D, 0xA3, 0x79, 0xA3, 0xFD, 0xED, 0x6B, 0x50, 0x10, 0xBD, 0xAD, 0x6E, 0x1F, 0xB9, 0xE8, 0xEB,
+0xA7, 0xDF, 0x2C, 0x4B, 0x5C, 0x67, 0xD3, 0x5E, 0xBA, 0x84, 0xDA, 0x09, 0xE7, 0x7A, 0xE8, 0xDB,
+0x2C, 0xCB, 0x96, 0x28, 0xEE, 0xEB, 0x85, 0xCD, 0xAA, 0xB3, 0x5C, 0x92, 0xE5, 0x3E, 0x1C, 0x44,
+0xD5, 0x5A, 0x2B, 0xA7, 0xA0, 0x24, 0xAA, 0x92, 0x60, 0x3B, 0x68, 0x94, 0x8A, 0xA3, 0x60, 0x30,
+0x5E, 0x30, 0x0C, 0x06, 0x03, 0x55, 0x1D, 0x13, 0x01, 0x01, 0xFF, 0x04, 0x02, 0x30, 0x00, 0x30,
+0x0E, 0x06, 0x03, 0x55, 0x1D, 0x0F, 0x01, 0x01, 0xFF, 0x04, 0x04, 0x03, 0x02, 0x03, 0x88, 0x30,
+0x1D, 0x06, 0x03, 0x55, 0x1D, 0x0E, 0x04, 0x16, 0x04, 0x14, 0x1A, 0x90, 0xB2, 0x22, 0x37, 0xA4,
+0x51, 0xB7, 0x57, 0xDD, 0x36, 0xD1, 0x3A, 0x85, 0x2B, 0xE1, 0x3D, 0x2E, 0xF2, 0xCA, 0x30, 0x1F,
+0x06, 0x03, 0x55, 0x1D, 0x23, 0x04, 0x18, 0x30, 0x16, 0x80, 0x14, 0xBC, 0xD4, 0xFD, 0xE8, 0x80,
+0x8A, 0x2D, 0xC9, 0x0B, 0x6D, 0x01, 0xA8, 0xC5, 0xB9, 0xB2, 0x47, 0x33, 0x7E, 0xBD, 0xDA, 0x30,
+0x0A, 0x06, 0x08, 0x2A, 0x86, 0x48, 0xCE, 0x3D, 0x04, 0x03, 0x02, 0x03, 0x47, 0x00, 0x30, 0x44,
+0x02, 0x20, 0x56, 0x73, 0x96, 0xE4, 0x9C, 0x0A, 0xA7, 0x4E, 0x61, 0x60, 0x12, 0xE3, 0x8A, 0x60,
+0xC3, 0xA8, 0x11, 0x09, 0x7D, 0x9C, 0x5D, 0xA4, 0xCD, 0x37, 0x89, 0xC3, 0x62, 0x96, 0x88, 0x7E,
+0x2A, 0x0C, 0x02, 0x20, 0x1E, 0x69, 0xB2, 0xAF, 0x0A, 0xD6, 0xC6, 0x7E, 0xE1, 0x2D, 0x5D, 0xBE,
+0x5A, 0x44, 0x5A, 0xD9, 0x1D, 0xF1, 0xA5, 0x98, 0x35, 0x8E, 0xD0, 0x69, 0xD9, 0x8B, 0xD7, 0xDB,
+0xB2, 0x99, 0xCC, 0x34
     </script>
 
         <!-- scroll up-->
         <div class="scrollup">
             <a href="#"><i class="fa fa-chevron-up"></i></a>
         </div><!-- End off scroll up -->
-
 
         <footer id="footer" class="footer bgblack">
             <div class="container">
@@ -3023,25 +3306,18 @@ const atcacert_def_t g_cert_def_1_signer = {
             </div>
         </footer>
 
-
-
-
         <!--</div>-->
-
         <!-- JS includes -->
-
         <script src="assets/js/vendor/jquery-1.11.2.min.js"></script>
         <script src="assets/js/vendor/bootstrap.min.js"></script>
-
         <script src="assets/js/jquery.magnific-popup.js"></script>
         <script src="assets/js/jquery.easing.1.3.js"></script>
         <script src="assets/js/slick.min.js"></script>
         <script src="assets/js/jquery.collapse.js"></script>
         <script src="assets/js/bootsnav.js"></script>
         <script src="assets/js/script_strings.js"></script>
-
-
         <script src="assets/js/testjs.js"></script>
+        <script src="assets/js/VERSION"></script>
         <script src="assets/js/flexParser.js"></script>
         <script src="assets/js/jszip.js"></script>
         <script src="assets/js/fileZip.js"></script>
@@ -3050,6 +3326,8 @@ const atcacert_def_t g_cert_def_1_signer = {
         <script src="assets/js/validate_slot.js"></script>
         <script src="assets/js/man-id.js"></script>
         <script src="assets/js/gmaps.min.js"></script>
+        <script src="assets/js/plugins.js"></script>
+        <script src="assets/js/main.js"></script>
 
         <script>
             function showmap() {
@@ -3063,15 +3341,48 @@ const atcacert_def_t g_cert_def_1_signer = {
                 $('.mapheight').css('height', '350');
                 $('.maps_text h3').hide();
             }
+            function custom_cert_string(elementid, user_val, target_len)
+            {
+                document.getElementById(elementid).value = String(user_val.substring(0,target_len)).padEnd(target_len, '_').replaceAll(' ', '_');
+            }
+            function change_devcertcn()
+            {
+                var sn_selection = is_sn_selected_as_CN();
+
+                document.getElementById("10certcommonname").disabled = sn_selection;
+                if(sn_selection)
+                    document.getElementById("10certcommonname").value = 'sn010203040506070809';
+                else
+                {
+                    document.getElementById("10certcommonname").value = '';
+                    document.getElementById("10certcommonname").placeholder = 'Common name for device cert'
+                }
+            }
+            function is_sn_selected_as_CN()
+            {
+                return document.getElementById("cbid_devcertcn").checked;
+            }
+            var root_cert, signer_crt, device_crt;
+            function process_cert_template(elem_obj)
+            {
+                var file = elem_obj.files[0];
+                if (file.name.toLowerCase().indexOf(".crt") < 0)
+                    alert("It accepts only .crt files");
+                var reader = new FileReader();
+                reader.readAsText(file);
+                reader.onload = function(progressEvent){
+                    if(elem_obj.id == "1604")
+                        root_cert = this.result;
+                    else if(elem_obj.id == "1605")
+                        signer_crt = this.result;
+                    else if(elem_obj.id == "1606")
+                        device_crt = this.result;
+                };
+            }
+            function get_certs()
+            {
+                return [root_cert, signer_crt, device_crt];
+            }
         </script>
-
-
-
-
-
-        <script src="assets/js/plugins.js"></script>
-        <script src="assets/js/main.js"></script>
-
 </body>
-
 </html>

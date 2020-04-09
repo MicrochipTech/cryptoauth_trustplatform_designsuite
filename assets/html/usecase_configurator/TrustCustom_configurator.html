@@ -70,7 +70,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
-<body onload="" data-spy="scroll" data-target=".navbar-collapse">
+<body onload="load_version()" data-spy="scroll" data-target=".navbar-collapse">
     <div id="templates" style="display:none">
         <div id="note-msg-template" class="config-note">
             <svg viewBox="0 0 75 75" width="0.2in" height="0.2in">
@@ -233,28 +233,7 @@
                                     <div class="separator_left"></div>
                                     <a href="mailto:SPG_personalization@microchip.com">Send us feedback here</a>
                                 </div>
-                                <p>Trust Platform Design Suite version 1.2.4</p>
-                                <p>Copyright (c) 2018-2019 Microchip Technology Inc. and its subsidiaries</p>
-                                <p>
-                                    Subject to your compliance with these terms, you may use Microchip software
-                                    and any derivatives exclusively with Microchip products. It is your
-                                    responsibility to comply with third party license terms applicable to your
-                                    use of third party software (including open source software) that may
-                                    accompany Microchip software.
-
-                                    THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-                                    EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-                                    WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-                                    PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT,
-                                    SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE
-                                    OF ANY KIND WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF
-                                    MICROCHIP HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE
-                                    FORESEEABLE. TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL
-                                    LIABILITY ON ALL CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED
-                                    THE AMOUNT OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR
-                                    THIS SOFTWARE.</p>
-
-
+                                <p id="id_version_license">This text will be replaced</p>
                             </div>
                         </div>
 
@@ -280,8 +259,13 @@
 
         <script src="assets/js/usecase_library.js"></script>
         <script src="assets/js/gmaps.min.js"></script>
+        <script src="assets/js/VERSION"></script>
 
         <script>
+            function load_version()
+            {
+                document.getElementById("id_version_license").innerHTML = TPDS_CUSTOM_VERSION_STRING + TPDS_LICENSE;
+            }
             function showmap() {
                 var mapOptions = {
                     zoom: 8,

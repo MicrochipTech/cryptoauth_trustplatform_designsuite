@@ -67,7 +67,7 @@ function cert12RadioHandler(){
         $('#custCertPubkey').hide();
         setRadioValue(formNameMain, "slot10certopt", "MCHPCert");
     }
-    
+
      radVal = getFormRadioValue(formNameMain, "slot10certopt");
 
     if (radVal === 'custCert') {
@@ -85,7 +85,7 @@ function cert12RadioHandler(){
         $('#custCertPubkey').hide();
         setRadioValue(formNameMain, "slot12certopt", "MCHPCert");
     }
-    
+
 }
 
 $('#12certname').hide();
@@ -128,7 +128,7 @@ function certVerify() {
         if(document.getElementById(this.id.replace("verify", "certyear")) != null){
             var certValidity = document.getElementById(this.id.replace("verify", "certyear")).value;
             console.log(certValidity);
-            if (parseInt(certValidity) < 31 && parseInt(certValidity) >= 0) {
+            if (parseInt(certValidity) <= 31 && parseInt(certValidity) >= 0) {
                 certDataValid2 = true;
             } else {
                 alert("Error: Certificate validity can be 0 to 31 years, entering 0 will set the certificate expiry date to year 9999");
@@ -192,7 +192,7 @@ function rootVerify(){
         document.getElementById(this.id.replace("verify", "certname")).disabled = false;
         document.getElementById(this.id.replace("verify", "certcommonname")).disabled = false;
         this.value = "Verify";
-    }    
+    }
 }
 
 // Common function to add input element
@@ -242,7 +242,7 @@ function radioEventHandler() {
         removeElement(this.name + "id");
         removeElement(this.name + "idverify");
         removeElement(this.name + "idButton");
-        
+
     } else if (this.value == "hexdata") {
         removeElement(this.name + "id");
         removeElement(this.name + "idverify");
@@ -331,7 +331,7 @@ function getPemBeginName(text){
     } else {
         console.log("Not a valid pem file");
         return null;
-    }   
+    }
 }
 
 function b64ToArrayBuffer(b64) {
@@ -355,7 +355,7 @@ function _base64ToArrayBuffer(base64) {
     return bytes.buffer;
 }
 
-function buf2hex(buffer) { 
+function buf2hex(buffer) {
     // buffer is an ArrayBuffer ...... Uint8Array
     return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
 }
@@ -388,7 +388,7 @@ function handlePemSymmetric(text){
         key = decodedText.slice(28, decodedText.length);
         console.log(key);
         var keySize = parseInt(key.slice(0,2), 16) - 2;
-        
+
         var isCompressed = parseInt(key.slice(4, 4 + 2), 16);
         console.log(isCompressed);
 
@@ -420,7 +420,7 @@ function pemKeyHandler(event) {
         console.log(text);
         var pemName = getPemBeginName(text);
         console.log(pemName);
-        
+
         if(pemName != null){
             if(getPemBeginName(text).toUpperCase().includes("PRIVATE") == true){
                 pemData = handlePemPrivate(strippedPem);

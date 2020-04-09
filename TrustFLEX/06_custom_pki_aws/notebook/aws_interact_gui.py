@@ -3,19 +3,22 @@ import json
 import boto3
 import botocore
 import sys
-from aws_kit_common import *
 from argparse import ArgumentParser
 from PyQt5 import QtGui, QtWidgets, QtCore, uic
+from certs_handler import *
+from pathlib import Path
+from aws_helper import *
 
 qtUiFile = "aws_trust.ui"
+path = Path(os.getcwd()).parent.parent.parent
+kit_info_file = os.path.join(path, 'TrustFLEX', '00_resource_generation', KIT_INFO_FILENAME)
 
 def aws_interact_gui(aws_profile='default'):
     print('Execution started')
-    # Read kit info for the device serial number, which is used as the thing name
-    
-    kit_info = read_kit_info()
+
+    kit_info = certs_handler.read_kit_info(kit_info_file)
     if 'thing_name' not in kit_info:
-        raise AWSZTKitError('thing_name not found in %s. Have you run kit_provision yet?' % KIT_INFO_FILENAME)
+        raise AWSZTKitError('thing_name not found in %s. Have you run resource generation?' % kit_info_file)
 
     # Create an AWS session with the credentials from the specified profile
     print('\nInitializing AWS IoTDataPlane client')
@@ -31,7 +34,7 @@ def aws_interact_gui(aws_profile='default'):
     print('    Profile:  %s' % aws_session.profile_name)
     print('    Region:   %s' % aws_session.region_name)
     print('    Endpoint: %s' % aws_iot_data._endpoint)
-    
+
     # Create the GUI
     app = QtWidgets.QApplication(sys.argv)
     window = Ui(aws_iot_data=aws_iot_data, thing_name=kit_info['thing_name'])
@@ -67,7 +70,7 @@ class Ui(QtWidgets.QMainWindow):
     def on_update(self):
         try:
             response = self.aws_iot_data.get_thing_shadow(thingName=self.thing_name)
-            
+
             self.shadow = json.loads(response['payload'].read().decode('ascii'))
             curr_state = self.shadow['state']
 
@@ -76,7 +79,7 @@ class Ui(QtWidgets.QMainWindow):
                 self.lineEdit.setText(self.thing_name)
 
                 print('get_thing_shadow(): state changed\n%s\n' % json.dumps(self.shadow, sort_keys=True))
-                
+
                 if 'desired' in curr_state:
                     led_label = 'led1'
                     if led_label in curr_state['desired']:
@@ -84,7 +87,7 @@ class Ui(QtWidgets.QMainWindow):
                             self.rBtnOn.setChecked(True)
                         else:
                             self.rBtnOn.setChecked(False)
-                
+
         except botocore.exceptions.ClientError as e:
             if e.response['Error']['Code'] == 'ResourceNotFoundException':
                 if self.state != 'no thing shadow':
@@ -94,7 +97,7 @@ class Ui(QtWidgets.QMainWindow):
                     print(status_msg)
             else:
                 raise
-        
+
         QtCore.QTimer.singleShot(2000, self.on_update)
 
 if __name__ == '__main__':

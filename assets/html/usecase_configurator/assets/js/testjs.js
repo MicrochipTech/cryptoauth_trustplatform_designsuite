@@ -12,14 +12,24 @@ function cert10RadioHandler(){
         $('#10certcommonname').show();
         $('#10certyear').show();
         $('#10verify').show();
+        $('#device_custcert_notes').show();
         $('#custCertPubkey').show();
+        $('#cbid_devcertcn').show();
+        $('label[for="cbid_devcertcn"]').show();
+        document.getElementById("cbid_devcertcn").checked = true;
+        change_devcertcn();
         setRadioValue(formNameMain, "slot12certopt", "custCert");
     } else {
         $('#10certname').hide();
         $('#10certcommonname').hide();
         $('#10certyear').hide();
         $('#10verify').hide();
+        $('#device_custcert_notes').hide();
         $('#custCertPubkey').hide();
+        $('#cbid_devcertcn').hide();
+        $('label[for="cbid_devcertcn"]').hide();
+        document.getElementById("cbid_devcertcn").checked = false;
+        change_devcertcn();
         setRadioValue(formNameMain, "slot12certopt", "MCHPCert");
     }
 
@@ -30,6 +40,7 @@ function cert10RadioHandler(){
         $('#12certcommonname').show();
         $('#12certyear').show();
         $('#12verify').show();
+        $('#signer_custcert_notes').show();
         $('#custCertPubkey').show();
         setRadioValue(formNameMain, "slot10certopt", "custCert");
     } else {
@@ -37,6 +48,7 @@ function cert10RadioHandler(){
         $('#12certcommonname').hide();
         $('#12certyear').hide();
         $('#12verify').hide();
+        $('#signer_custcert_notes').hide();
         $('#custCertPubkey').hide();
         setRadioValue(formNameMain, "slot10certopt", "MCHPCert");
     }
@@ -47,6 +59,9 @@ $('#10certcommonname').hide();
 $('#10certyear').hide();
 $('#10verify').hide();
 $('#custCertPubkey').hide();
+$('#device_custcert_notes').hide();
+$('#cbid_devcertcn').hide();
+$('label[for="cbid_devcertcn"]').hide();
 
 
 function cert12RadioHandler(){
@@ -57,6 +72,7 @@ function cert12RadioHandler(){
         $('#12certcommonname').show();
         $('#12certyear').show();
         $('#12verify').show();
+        $('#signer_custcert_notes').show();
         $('#custCertPubkey').show();
         setRadioValue(formNameMain, "slot10certopt", "custCert");
     } else {
@@ -64,10 +80,11 @@ function cert12RadioHandler(){
         $('#12certcommonname').hide();
         $('#12certyear').hide();
         $('#12verify').hide();
+        $('#signer_custcert_notes').hide();
         $('#custCertPubkey').hide();
         setRadioValue(formNameMain, "slot10certopt", "MCHPCert");
     }
-    
+
     radVal = getFormRadioValue(formNameMain, "slot10certopt");
 
     if (radVal === 'custCert') {
@@ -75,16 +92,27 @@ function cert12RadioHandler(){
         $('#10certcommonname').show();
         $('#10certyear').show();
         $('#10verify').show();
+        $('#device_custcert_notes').show();
         $('#custCertPubkey').show();
+        $('#cbid_devcertcn').show();
+        $('#cbid_devcertcn').show();
+        $('label[for="cbid_devcertcn"]').show();
+        document.getElementById("cbid_devcertcn").checked = true;
+        change_devcertcn();
         setRadioValue(formNameMain, "slot12certopt", "custCert");
     } else {
         $('#10certname').hide();
         $('#10certcommonname').hide();
         $('#10certyear').hide();
         $('#10verify').hide();
+        $('#device_custcert_notes').hide();
         $('#custCertPubkey').hide();
+        $('#cbid_devcertcn').hide();
+        $('label[for="cbid_devcertcn"]').hide();
+        document.getElementById("cbid_devcertcn").checked = false;
+        change_devcertcn();
         setRadioValue(formNameMain, "slot12certopt", "MCHPCert");
-    }    
+    }
 }
 
 $('#12certname').hide();
@@ -92,11 +120,11 @@ $('#12certcommonname').hide();
 $('#12certyear').hide();
 $('#12verify').hide();
 $('#custCertPubkey').hide();
-
+$('#signer_custcert_notes').hide();
 
 // Function to handle custom certificate data
 function certVerify() {
-    console.log(this.name);
+    //console.log(this.name);
     if (this.value == "Verify") {
         var certName = document.getElementById(this.id.replace("verify", "certname")).value;
         //console.log(certName);
@@ -104,10 +132,7 @@ function certVerify() {
         var certDataValid2 = false;
         var certDataValid3 = false;
 
-        if (certName.length > 24) {
-            alert("Error: Org name length must be less that or equal to 24 characters");
-            certDataValid1 = false;
-        } else if (certName.length == 0) {
+        if (certName.length == 0) {
             alert("Error: Org name field cannot be empty");
             certDataValid1 = false;
         } else {
@@ -115,10 +140,7 @@ function certVerify() {
         }
 
         var certName = document.getElementById(this.id.replace("verify", "certcommonname")).value;
-        if (certName.length > 24) {
-            alert("Error: Common name length must be less that or equal to 24 characters");
-            certDataValid3 = false;
-        } else if (certName.length == 0) {
+        if (certName.length == 0) {
             alert("Error: Common name field cannot be empty");
             certDataValid3 = false;
         } else {
@@ -127,8 +149,8 @@ function certVerify() {
 
         if(document.getElementById(this.id.replace("verify", "certyear")) != null){
             var certValidity = document.getElementById(this.id.replace("verify", "certyear")).value;
-            console.log(certValidity);
-            if (parseInt(certValidity) < 31 && parseInt(certValidity) >= 0) {
+            //console.log(certValidity);
+            if (parseInt(certValidity) <= 31 && parseInt(certValidity) >= 0) {
                 certDataValid2 = true;
             } else {
                 alert("Error: Certificate validity can be 0 to 31 years, entering 0 will set the certificate expiry date to year 9999");
@@ -140,7 +162,7 @@ function certVerify() {
         }
 
         if (certDataValid1 == true && certDataValid2 == true && certDataValid3 == true) {
-            console.log(this.id);
+            //console.log(this.id);
             document.getElementById(this.id.replace("verify", "certname")).disabled = true;
             document.getElementById(this.id.replace("verify", "certyear")).disabled = true;
             document.getElementById(this.id.replace("verify", "certcommonname")).disabled = true;
@@ -161,10 +183,7 @@ function rootVerify(){
         var certDataValid1 = false;
         var certDataValid2 = false;
 
-        if (certName.length > 24) {
-            alert("Error: Org name length must be less that or equal to 24 characters");
-            certDataValid1 = false;
-        } else if (certName.length == 0) {
+        if (certName.length == 0) {
             alert("Error: Org name field cannot be empty");
             certDataValid1 = false;
         } else {
@@ -172,10 +191,7 @@ function rootVerify(){
         }
 
         var certName = document.getElementById(this.id.replace("verify", "certcommonname")).value;
-        if (certName.length > 24) {
-            alert("Error: Common name length must be less that or equal to 24 characters");
-            certDataValid2 = false;
-        } else if (certName.length == 0) {
+        if (certName.length == 0) {
             alert("Error: Common name field cannot be empty");
             certDataValid2 = false;
         } else {
@@ -183,7 +199,7 @@ function rootVerify(){
         }
 
         if (certDataValid1 == true && certDataValid2 == true) {
-            console.log(this.id);
+            //console.log(this.id);
             document.getElementById(this.id.replace("verify", "certname")).disabled = true;
             document.getElementById(this.id.replace("verify", "certcommonname")).disabled = true;
             this.value = "Modify";
@@ -192,7 +208,7 @@ function rootVerify(){
         document.getElementById(this.id.replace("verify", "certname")).disabled = false;
         document.getElementById(this.id.replace("verify", "certcommonname")).disabled = false;
         this.value = "Verify";
-    }    
+    }
 }
 
 // Common function to add input element
@@ -244,7 +260,7 @@ function radioEventHandler() {
         removeElement(this.name + "id");
         removeElement(this.name + "idverify");
         removeElement(this.name + "idButton");
-        
+
         // Disable validate fo this slot
         slotValidateDict[slotNumberInt] = "none";
     } else if (this.value == "hexdata") {
@@ -284,7 +300,7 @@ function radioEventHandler() {
         newInputObject.className += "slotTextArea";
         newInputObject.rows = "8";
         newInputObject.style.display = "none";
-    
+
         // Enable validate fo this slot
         slotValidateDict[slotNumberInt] = "invalid";
     } else {
@@ -314,7 +330,7 @@ function stripPemHeadnFoot(text) {
             strippedPem = null;
         }
     } else {
-        console.log("Not a valid pem file");
+        //console.log("Not a valid pem file");
         strippedPem = null;
     }
 
@@ -339,9 +355,9 @@ function getPemBeginName(text){
             return null;
         }
     } else {
-        console.log("Not a valid pem file");
+        //console.log("Not a valid pem file");
         return null;
-    }   
+    }
 }
 
 function b64ToArrayBuffer(b64) {
@@ -365,7 +381,7 @@ function _base64ToArrayBuffer(base64) {
     return bytes.buffer;
 }
 
-function buf2hex(buffer) { 
+function buf2hex(buffer) {
     // buffer is an ArrayBuffer ...... Uint8Array
     return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
 }
@@ -376,7 +392,7 @@ function handlePemPrivate(text){
     // console.log(ascii_to_hexa(decodedText));
     // Checking of 0x04 Uncompressed identifier, 0x02 is compressed
     if(parseInt(decodedText[decodedText.length - 134], 16) == 0x04){
-        console.log(decodedText.slice(decodedText.length - 128, decodedText.length));
+        //console.log(decodedText.slice(decodedText.length - 128, decodedText.length));
         return decodedText.slice(decodedText.length - 128, decodedText.length);
     }
     else{
@@ -386,24 +402,24 @@ function handlePemPrivate(text){
 
 function handlePemSymmetric(text){
     var decodedText = buf2hex(_base64ToArrayBuffer(text)).toUpperCase();
-    console.log(decodedText);
+    //console.log(decodedText);
     // http://oid-info.com/get/1.2.840.10060.3.1
     // https://tools.ietf.org/html/rfc6031#page-3
     // http://oid-info.com/get/1.2.840.113549.1.9.16.1.25
     var identifier = "300906072A8648CE4C030103";
-    console.log(identifier);
+    //console.log(identifier);
     var key;
 
     if (decodedText.includes(identifier)) {
         key = decodedText.slice(28, decodedText.length);
-        console.log(key);
+        //console.log(key);
         var keySize = parseInt(key.slice(0,2), 16) - 2;
-        
+
         var isCompressed = parseInt(key.slice(4, 4 + 2), 16);
-        console.log(isCompressed);
+        //console.log(isCompressed);
 
         if(isCompressed == 0x04){
-            console.log(key.slice(6, 6 + (keySize * 2)));
+            //console.log(key.slice(6, 6 + (keySize * 2)));
             return key.slice(6, 6 + (keySize * 2));
         }
     }
@@ -420,17 +436,17 @@ function pemKeyHandler(event) {
     var radioName = "slot" + currentSlotNumber + "dataopt";
     var textBoxId = radioName + "id";
 
-    console.log(currentSlotNumber);
+    //console.log(currentSlotNumber);
 
     reader.onload = function () {
         var text = reader.result;
         var strippedPem = stripPemHeadnFoot(text);
         var pemData = null;
 
-        console.log(text);
+        //console.log(text);
         var pemName = getPemBeginName(text);
-        console.log(pemName);
-        
+        //console.log(pemName);
+
         if(pemName != null){
             if(getPemBeginName(text).toUpperCase().includes("PRIVATE") == true){
                 pemData = handlePemPrivate(strippedPem);
@@ -446,9 +462,9 @@ function pemKeyHandler(event) {
             }
 
             if(pemData != null){
-                console.log(textBoxId);
+                //console.log(textBoxId);
                 loadPemKeyTextArea(pemData, textBoxId);
-                
+
                 // Validate this slot
                 slotValidateDict[currentSlotNumber] = "valid";
             }
@@ -463,7 +479,7 @@ function pemKeyHandler(event) {
 }
 
 function verifyButtonHandler() {
-    var slotNumberInt = parseInt(this.name.replace("slot", ""), 10); 
+    var slotNumberInt = parseInt(this.name.replace("slot", ""), 10);
 
     if (this.value == "Verify") {
         var slotData = getDataFromSlot(this.name.replace("nameverify", ""));
@@ -474,7 +490,7 @@ function verifyButtonHandler() {
         slotDataValid = checkTextAreaString(slotData, currentSlotSize);
 
         if (slotDataValid == true) {
-            console.log(this.id);
+            //console.log(this.id);
             document.getElementById(this.id.replace("verify", "")).disabled = true;
             this.value = "Modify";
 
@@ -485,7 +501,7 @@ function verifyButtonHandler() {
         document.getElementById(this.id.replace("verify", "")).disabled = false;
         this.value = "Verify";
     }
-    
+
 }
 
 function checkTextAreaString(stringData, expectedLength) {
@@ -581,9 +597,11 @@ function invokeRadioListners() {
         cert12OptRadios[i].onchange = cert12RadioHandler;
     }
 
+    change_devcertcn();
     document.getElementById("10verify").addEventListener("click", certVerify);
     document.getElementById("12verify").addEventListener("click", certVerify);
     document.getElementById("16verify").addEventListener("click", rootVerify);
+    document.getElementById("id_version_license").innerHTML = TPDS_VERSION_STRING + TPDS_LICENSE;
 }
 
 String.prototype.replaceAll = function (search, replacement) {

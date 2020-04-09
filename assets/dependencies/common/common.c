@@ -128,9 +128,10 @@ ATCADeviceType get_device_type_id(uint8_t revision_byte)
 ATCA_STATUS check_device_type_in_cfg(ATCAIfaceCfg* cfg, bool overwrite)
 {
    uint8_t revision[4];
+   uint8_t serial_number[9];
    ATCADeviceType device_type;
    ATCA_STATUS status = !ATCA_SUCCESS;
-   char displaystr[400];
+   char displaystr[200];
    size_t displaylen;
 
    do
@@ -148,8 +149,18 @@ ATCA_STATUS check_device_type_in_cfg(ATCAIfaceCfg* cfg, bool overwrite)
          break;
       }
       displaylen = sizeof(displaystr);
-      atcab_bin2hex(revision, 4, displaystr, &displaylen);
-      printf("\nDevice revision:\r\n%s\r\n", displaystr);
+      atcab_bin2hex(revision, sizeof(revision), displaystr, &displaylen);
+      printf("\nDevice revision: %s\r\n", displaystr);
+
+      // Request the Serial Number
+      if ((status = atcab_read_serial_number(serial_number)) != ATCA_SUCCESS)
+      {
+         printf("atcab_info() failed with ret=0x%08X\r\n", status);
+         break;
+      }
+      displaylen = sizeof(displaystr);
+      atcab_bin2hex(serial_number, sizeof(serial_number), displaystr, &displaylen);
+      printf("\nDevice serial number: %s\r\n\r\n", displaystr);
 
       //Selecting the right device based on the revision
       device_type = get_device_type_id(revision[2]);

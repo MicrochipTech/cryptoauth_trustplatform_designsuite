@@ -7,8 +7,7 @@ import json
 class requirements_installer():
     def __init__(self, requirements_file):
         self.file_name = requirements_file
-        self.json_piplist_path = os.path.join(os.path.dirname(self.file_name), "python", "requirements_helper", "piplist.json")
-        self.pip_list_json = self.check_pip_list()
+        self.json_piplist_path = ""
         self.__install_dependency()
 
     def count_valid_lines(self, file_name):
@@ -23,18 +22,18 @@ class requirements_installer():
                 sline = f.readline()
         return count
 
-    def versionCompare(self, ver1, ver2): 
-        arr1 = ver1.split(".") 
-        arr2 = ver2.split(".") 
-        i = 0 
+    def versionCompare(self, ver1, ver2):
+        arr1 = ver1.split(".")
+        arr2 = ver2.split(".")
+        i = 0
 
-        while(i < len(arr1)): 
-            if int(arr2[i]) > int(arr1[i]): 
+        while(i < len(arr1)):
+            if int(arr2[i]) > int(arr1[i]):
                 return -1
 
-            if int(arr1[i]) > int(arr2[i]): 
+            if int(arr1[i]) > int(arr2[i]):
                 return 1
-    
+
             i += 1
         return 0
 
@@ -45,7 +44,7 @@ class requirements_installer():
         else:
             # Pip list json file does not exist
             print("Creating outdated package list, please wait...")
-            proc = subprocess.Popen([sys.executable, "-m", "pip", "list", "--outdated", "--format", "json", "--disable-pip-version-check"], 
+            proc = subprocess.Popen([sys.executable, "-m", "pip", "list", "--outdated", "--format", "json", "--disable-pip-version-check"],
                     stdout= subprocess.PIPE,
                     stderr= subprocess.PIPE,
                     universal_newlines= True,
@@ -59,7 +58,7 @@ class requirements_installer():
 
         # Pip list json obj
         print("Fetching all installed packages...")
-        proc = subprocess.Popen([sys.executable, "-m", "pip", "list", "--format", "json", "--disable-pip-version-check"], 
+        proc = subprocess.Popen([sys.executable, "-m", "pip", "list", "--format", "json", "--disable-pip-version-check"],
                 stdout= subprocess.PIPE,
                 stderr= subprocess.PIPE,
                 universal_newlines= True,
@@ -72,9 +71,9 @@ class requirements_installer():
     def parse_pip_list(self, module_name):
         with open(self.json_piplist_path) as json_file:
             json_object = json.load(json_file)
-        
+
         latest = "0.0.0"
-        
+
         for dict in json_object:
             if dict['name'] == module_name:
                 latest = dict['latest_version']
@@ -101,7 +100,7 @@ class requirements_installer():
                 print("Checking module ({} of {}): {}".format(cnt, numValidLines, package.strip()))
                 cnt +=1
                 if not package in package_list:
-                    proc = subprocess.Popen([sys.executable, "-m", "pip", "install", "--upgrade", package], 
+                    proc = subprocess.Popen([sys.executable, "-m", "pip", "install", "--upgrade", package],
                             stdout= subprocess.PIPE,
                             stderr= subprocess.PIPE,
                             universal_newlines= True,
@@ -109,20 +108,6 @@ class requirements_installer():
                     stdout, stderr = proc.communicate()
                     print(stdout)
                     print(stderr)
-                else:
-                    package_outdated, installed, latest = self.parse_pip_list(package)
-                    if(package_outdated):
-                        print("Package update available")
-                        print("Installed version:", installed)
-                        print("Latest verion", latest)
-                        proc = subprocess.Popen([sys.executable, "-m", "pip", "install", "--upgrade", package], 
-                                stdout= subprocess.PIPE,
-                                stderr= subprocess.PIPE,
-                                universal_newlines= True,
-                                shell = False)
-                        stdout, stderr = proc.communicate()
-                        print(stdout)
-                        print(stderr)
 
                 print("-----------------------------------------")
                 package = f.readline().strip()

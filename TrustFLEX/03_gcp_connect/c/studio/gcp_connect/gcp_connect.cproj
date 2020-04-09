@@ -593,7 +593,7 @@
 </ArmGcc>
     </ToolchainSettings>
     <OutputPath>bin\CONFIG_FIRMWARE_VALIDATION\</OutputPath>
-    <PostBuildEvent>cp $(OutputDirectory)\*.hex ..\..\..\..\..\02_firmware_validation\notebook</PostBuildEvent>
+    <PostBuildEvent>cp "$(OutputDirectory)\*.hex" ..\..\..\..\..\02_firmware_validation\notebook</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\..\assets\dependencies\cryptoauthlib\lib\atcacert\atcacert.h">

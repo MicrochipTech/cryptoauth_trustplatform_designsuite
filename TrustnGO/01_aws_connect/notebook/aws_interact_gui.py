@@ -3,11 +3,13 @@ import json
 import boto3
 import botocore
 import sys
-from aws_kit_common import *
 from argparse import ArgumentParser
 from PyQt5 import QtGui, QtWidgets, QtCore, uic
 
 qtUiFile = "aws_trust.ui"
+
+class AWSZTKitError(RuntimeError):
+    pass
 
 def aws_interact_gui(aws_profile, thing_id):
     print('Execution started')
@@ -27,7 +29,7 @@ def aws_interact_gui(aws_profile, thing_id):
     print('    Profile:  %s' % aws_session.profile_name)
     print('    Region:   %s' % aws_session.region_name)
     print('    Endpoint: %s' % aws_iot_data._endpoint)
-    
+
     # Create the GUI
     app = QtWidgets.QApplication(sys.argv)
     window = Ui(aws_iot_data=aws_iot_data, thing_name=thing_id)
@@ -63,7 +65,7 @@ class Ui(QtWidgets.QMainWindow):
     def on_update(self):
         try:
             response = self.aws_iot_data.get_thing_shadow(thingName=self.thing_name)
-            
+
             self.shadow = json.loads(response['payload'].read().decode('ascii'))
             curr_state = self.shadow['state']
 
@@ -72,7 +74,7 @@ class Ui(QtWidgets.QMainWindow):
                 self.lineEdit.setText(self.thing_name)
 
                 print('get_thing_shadow(): state changed\n%s\n' % json.dumps(self.shadow, sort_keys=True))
-                
+
                 if 'desired' in curr_state:
                     led_label = 'led1'
                     if led_label in curr_state['desired']:
@@ -80,7 +82,7 @@ class Ui(QtWidgets.QMainWindow):
                             self.rBtnOn.setChecked(True)
                         else:
                             self.rBtnOn.setChecked(False)
-                
+
         except botocore.exceptions.ClientError as e:
             if e.response['Error']['Code'] == 'ResourceNotFoundException':
                 if self.state != 'no thing shadow':
@@ -90,7 +92,7 @@ class Ui(QtWidgets.QMainWindow):
                     print(status_msg)
             else:
                 raise
-        
+
         QtCore.QTimer.singleShot(2000, self.on_update)
 
 if __name__ == '__main__':

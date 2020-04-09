@@ -2,15 +2,14 @@ from ipywidgets import widgets
 from IPython.display import display
 from tkinter import Tk, filedialog
 import cryptography
-from common import *
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import ec, utils
 import os
-from pyasn1_modules import pem
-from cryptoauthlib import *
 import struct
 import copy
+
+from cryptoauthlib import *
 from cryptography.utils import int_from_bytes, int_to_bytes
 from hashlib import sha256
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
@@ -19,8 +18,8 @@ from cryptoauthlib.library import ctypes_to_bytes
 from cryptoauthlib.iface import *
 import binascii
 from pathlib import Path
+from trustplatform import *
 
-ATCA_SUCCESS = 0x00
 ATCA_ZONE_DATA = 0x02
 ATCA_KIT_I2C_IFACE = 1
 
@@ -28,6 +27,7 @@ VALIDATION_AUTHORITY = "slot_13_ecc_key_pair.pem"
 ROTATING_KEY = "slot_14_ecc_key_pair.pem"
 rotating_key_slot = 14
 authority_key_slot = 13
+
 path = Path(os.getcwd()).parent.parent.parent
 
 def calc_nonce(mode, zero, num_in, rand_out=None, temp_key=None):
@@ -160,21 +160,19 @@ def public_key_validate_invalidate(validation_status,perform_on_device=True):
     public_key = bytearray(64)
 
     if(perform_on_device == True):
-        assert atcab_read_pubkey(rotating_key_slot,public_key) == ATCA_SUCCESS
+        assert atcab_read_pubkey(rotating_key_slot,public_key) == Status.ATCA_SUCCESS
     else:
         rotating_private_key = get_rotating_key()
         public_key = rotating_private_key.public_key().public_bytes(encoding=Encoding.X962, format=PublicFormat.UncompressedPoint)[1:]
 
     validation_authority_key = get_validating_authority_key()
 
-    assert ATCA_SUCCESS == atcab_read_config_zone(config_data)
+    assert Status.ATCA_SUCCESS == atcab_read_config_zone(config_data)
     config = Atecc608aConfig.from_buffer(config_data)
     if(perform_on_device == True):
-        assert ATCA_SUCCESS == atcab_nonce(nonce)
+        assert Status.ATCA_SUCCESS == atcab_nonce(nonce)
 
     nonce = calc_nonce(mode=0x03, zero=0x0000, num_in=nonce)
-
-
 
     pubkey_digest = calc_genkey_pubkey_digest(
         mode=0x10,
@@ -201,19 +199,19 @@ def public_key_validate_invalidate(validation_status,perform_on_device=True):
     # Note that other_data is ignored and not required for this mode
     public_key = bytearray(64)
     if(perform_on_device == True):
-        assert ATCA_SUCCESS == atcab_genkey_base(mode=0x10, key_id=rotating_key_slot, other_data=b'\x00'*3, public_key=public_key)
-
+        atcab_genkey_base(mode=0x10, key_id=rotating_key_slot, other_data=b'\x00'*3, public_key=public_key)
 
     signature = sign_host(msg_digest,validation_authority_key)
 
     if(perform_on_device == True):
         if(validation_status == True):
-            assert atcab_verify_invalidate(rotating_key_slot,signature, other_data, is_verified) == ATCA_SUCCESS
+            assert atcab_verify_invalidate(rotating_key_slot,signature, other_data, is_verified) == Status.ATCA_SUCCESS
         else:
-            assert atcab_verify_validate(rotating_key_slot,signature, other_data, is_verified) == ATCA_SUCCESS
+            assert atcab_verify_validate(rotating_key_slot,signature, other_data, is_verified) == Status.ATCA_SUCCESS
     else:
         is_verified = True
-    return is_verified,nonce,signature
+
+    return is_verified, nonce, signature
 
 def public_key_validate():
     return public_key_validate_invalidate(False)[0]
@@ -228,41 +226,39 @@ def resource_generate():
     application_h = 'public_key_rotation.h'
     with open(os.path.join(path, "TrustFLEX/00_resource_generation", application_h), 'w') as f:
         f.write('uint8_t validated_nonce[] = {\n')
-        f.write(str(convert_to_hex_bytes(nonce)))
+        f.write(str(common_helper.convert_to_hex_bytes(nonce)))
         f.write('};\n\n')
 
         f.write('uint8_t validated_signature[] = {\n')
-        f.write(str(convert_to_hex_bytes(signature)))
+        f.write(str(common_helper.convert_to_hex_bytes(signature)))
         f.write('};\n\n')
 
     validate_status,nonce,signature = public_key_validate_invalidate(True,False)
     assert validate_status == True
     with open(os.path.join(path, "TrustFLEX/00_resource_generation", application_h), 'a') as f:
         f.write('uint8_t invalidated_nonce[] = {\n')
-        f.write(str(convert_to_hex_bytes(nonce)))
+        f.write(str(common_helper.convert_to_hex_bytes(nonce)))
         f.write('};\n\n')
 
         f.write('uint8_t invalidated_signature[] = {\n')
-        f.write(str(convert_to_hex_bytes(signature)))
+        f.write(str(common_helper.convert_to_hex_bytes(signature)))
         f.write('};\n\n')
     with open(os.path.join(path, "TrustFLEX/00_resource_generation", application_h), 'a') as f:
         msg_digest = os.urandom(32)
         rotating_private_key = get_rotating_key()
         signature = sign_host(msg_digest,rotating_private_key)
         f.write('uint8_t rotating_digest[] = {\n')
-        f.write(str(convert_to_hex_bytes(msg_digest)))
+        f.write(str(common_helper.convert_to_hex_bytes(msg_digest)))
         f.write('};\n\n')
 
         f.write('uint8_t rotating_signature[] = {\n')
-        f.write(str(convert_to_hex_bytes(signature)))
+        f.write(str(common_helper.convert_to_hex_bytes(signature)))
         f.write('};\n\n')
         public_key = rotating_private_key.public_key().public_bytes(encoding=Encoding.X962, format=PublicFormat.UncompressedPoint)[1:]
 
         f.write('uint8_t public_key[] = {\n')
-        f.write(str(convert_to_hex_bytes(public_key)))
+        f.write(str(common_helper.convert_to_hex_bytes(public_key)))
         f.write('};')
-
-
 
 def generate_new_rotate_public_key_pair():
         priv_key = ec.generate_private_key(ec.SECP256R1(), default_backend())
@@ -282,7 +278,7 @@ def get_rotating_public_key():
 
 def public_key_digest(nonce,public_key):
     config_data = bytearray(128)
-    assert ATCA_SUCCESS == atcab_read_config_zone(config_data)
+    assert Status.ATCA_SUCCESS == atcab_read_config_zone(config_data)
     config = Atecc608aConfig.from_buffer(config_data)
     nonce = calc_nonce(mode=0x03, zero=0x0000, num_in=nonce)
 
@@ -309,7 +305,6 @@ def public_key_digest(nonce,public_key):
     )
     return msg_digest
 
-
 def public_key_validate_from_authority(nonce, signature):
     is_verified = AtcaReference(False)
     config_data = bytearray(128)
@@ -318,10 +313,9 @@ def public_key_validate_from_authority(nonce, signature):
     rotating_private_key = get_rotating_key()
     public_key = rotating_private_key.public_key().public_bytes(encoding=Encoding.X962, format=PublicFormat.UncompressedPoint)[1:]
 
-
-    assert ATCA_SUCCESS == atcab_read_config_zone(config_data)
+    assert Status.ATCA_SUCCESS == atcab_read_config_zone(config_data)
     config = Atecc608aConfig.from_buffer(config_data)
-    assert ATCA_SUCCESS == atcab_nonce(nonce)
+    assert Status.ATCA_SUCCESS == atcab_nonce(nonce)
 
     nonce = calc_nonce(mode=0x03, zero=0x0000, num_in=nonce)
 
@@ -349,7 +343,7 @@ def public_key_validate_from_authority(nonce, signature):
 
     # Note that other_data is ignored and not required for this mode
     public_key = bytearray(64)
-    assert ATCA_SUCCESS == atcab_genkey_base(mode=0x10, key_id=rotating_key_slot, other_data=b'\x00'*3, public_key=public_key)
+    atcab_genkey_base(mode=0x10, key_id=rotating_key_slot, other_data=b'\x00'*3, public_key=public_key)
 
-    assert atcab_verify_validate(rotating_key_slot,signature, other_data, is_verified) == ATCA_SUCCESS
+    assert atcab_verify_validate(rotating_key_slot,signature, other_data, is_verified) == Status.ATCA_SUCCESS
     return is_verified

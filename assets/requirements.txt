@@ -3,8 +3,10 @@ cryptoauthlib
 cryptography
 ipywidgets
 pyasn1-modules
+asn1crypto
 pytz
 python-jose
+pyOpenSSL
 boto3
 requests-aws4auth
 hexrec

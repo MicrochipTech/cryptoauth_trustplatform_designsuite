@@ -144,6 +144,20 @@ function done_deflating(e) {
       svgObj.setAttribute("type", "image/svg+xml");
       document.getElementById("svg_canvas_cloud_gcp_tng").appendChild(svgObj);
     }
+    else if(u2.includes('Asymmetric Authentication (TNG)'))
+    {
+      var svgObj = document.createElement('object');
+      svgObj.setAttribute("data", "http://www.plantuml.com/plantuml/svg/"+encode64(e.data));
+      svgObj.setAttribute("type", "image/svg+xml");
+      document.getElementById("svg_canvas_asymm_auth_tng").appendChild(svgObj);
+    }
+    else if(u2.includes('Asymmetric Authentication (TFLXTLS)'))
+    {
+      var svgObj = document.createElement('object');
+      svgObj.setAttribute("data", "http://www.plantuml.com/plantuml/svg/"+encode64(e.data));
+      svgObj.setAttribute("type", "image/svg+xml");
+      document.getElementById("svg_canvas_asymm_auth_tflx").appendChild(svgObj);
+    }
     else
     {
 

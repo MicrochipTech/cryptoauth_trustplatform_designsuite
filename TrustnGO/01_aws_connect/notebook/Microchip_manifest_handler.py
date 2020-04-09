@@ -74,7 +74,7 @@ def make_thing(device_id, certificate_arn):
         response = client.attach_thing_principal(thingName=device_id,
                                                  principal=certificate_arn)
     except:
-        print("MANIFEST_IMPORT\tINFO\tattach_thing_principal failed.")
+        print("MANIFEST_IMPORT\t\tINFO\tattach_thing_principal failed.")
         return False
 
     return thing_arn
@@ -111,7 +111,7 @@ def import_certificate(certificate_x509_pem, policy_name):
     """Load a certificate from the manifest into AWS-IOT and attach a policy to it"""
     client = boto3.client('iot')
     client2 = boto3.client('iot2')
-    print("About to try certificate import")
+    print("\nTry importing certificate...")
     try:
         response = client2.register_certificate_without_ca(certificatePem=certificate_x509_pem)
         print("Response: {}".format(response))
@@ -123,7 +123,7 @@ def import_certificate(certificate_x509_pem, policy_name):
 
         return response["certificateArn"]
     except BaseException as e:
-        print("exception occurred: {}".format(e))
+        print("Exception occurred: {}".format(e))
 
     # Need to check here for attribute error first
     return False
@@ -175,10 +175,8 @@ class ManifestItem:
         return self.certificate_chain
 
     def run(self):
-        print('uniqueId: {}'.format(
-            self.signed_se['header']['uniqueId']
-        ))
         self.identifier = self.signed_se['header']['uniqueId']
+        print('\tUnique ID: {}'.format(self.identifier.upper()))
 
         # Decode the protected header
         protected = json.loads(
@@ -226,10 +224,10 @@ def invoke_import_manifest(policy_name, manifest, cert_pem):
     verification_cert = x509.load_pem_x509_certificate(data=cert_pem, backend=default_backend())
 
     iterator = _ManifestIterator(manifest)
-    print("number of certificates: {}\n".format(iterator.index))
+    print("Number of certificates: {}\n".format(iterator.index))
 
     while iterator.index != 0:
-        print("Loading the manifest_item")
+        print("Loading the manifest_item...")
         manifest_item = ManifestItem(next(iterator), verification_cert)
 
         certificate_arn = import_certificate(manifest_item.get_certificate_chain(), policy_name)
@@ -237,9 +235,9 @@ def invoke_import_manifest(policy_name, manifest, cert_pem):
         thing_arn = make_thing(manifest_item.identifier, certificate_arn)
 
         if thing_arn is False:
-            print("MANIFEST_IMPORT\tFAIL\t{}".format(certificate_arn))
+            print("MANIFEST_IMPORT\t\tFAIL\t{}".format(certificate_arn))
 
-        print("MANIFEST_IMPORT\tSUCCESS\t{}\t{}".format(certificate_arn, thing_arn))
+        print("MANIFEST_IMPORT\t\tSUCCESS\t{}\t{}".format(certificate_arn, thing_arn))
 
 
 def invokeImportLocal(skuname, manifest_filename, pem_filename):
@@ -261,12 +259,11 @@ def invoke_validate_manifest_import(manifest, cert_pem):
     verification_cert = x509.load_pem_x509_certificate(data=cert_pem, backend=default_backend())
 
     iterator = _ManifestIterator(manifest)
-    print("number of thingIds to check: {}\n".format(iterator.index))
+    print("\nNumber of ThingIDs to check: {}".format(iterator.index))
 
     client = boto3.client('iot')
-
     while iterator.index != 0:
-        print("Checking the manifest_item")
+        print("Checking the manifest item({})".format(iterator.index))
         manifest_item = ManifestItem(next(iterator), verification_cert)
 
         try:
@@ -277,7 +274,7 @@ def invoke_validate_manifest_import(manifest, cert_pem):
                 raise BaseException('Certificate Mismatch for {}'.format(manifest_item.get_identifier()))
 
         except BaseException as e:
-            print("exception occurred: {}".format(e))
+            print("Exception occurred: {}".format(e))
 
     print("Manifest was loaded successfully")
 

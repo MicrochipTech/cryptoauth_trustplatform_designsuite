@@ -8,9 +8,27 @@ if not module_path in sys.path:
 
 from trustplatform import sys_helper
 
+ROOT_CA_FILENAME_BASE = 'root_crt'
+ROOT_CA_KEY_FILENAME  = ROOT_CA_FILENAME_BASE + '.pem'
+ROOT_CA_CERT_FILENAME = ROOT_CA_FILENAME_BASE + '.crt'
+
+SIGNER_CA_FILENAME_BASE = 'signer_FFFF'
+SIGNER_CA_KEY_FILENAME  = SIGNER_CA_FILENAME_BASE + '.key'
+SIGNER_CA_CSR_FILENAME  = SIGNER_CA_FILENAME_BASE + '.csr'
+SIGNER_CA_CERT_FILENAME = SIGNER_CA_FILENAME_BASE + '.crt'
+SIGNER_CA_VER_CERT_FILENAME = SIGNER_CA_FILENAME_BASE + '-verification.crt'
+
+KIT_INFO_FILENAME = 'kit-info.json'
+
+DEVICE_FILENAME_BASE  = 'device'
+DEVICE_CSR_FILENAME   = DEVICE_FILENAME_BASE + '.csr'
+DEVICE_CERT_FILENAME  = DEVICE_FILENAME_BASE + '.crt'
 
 account_CSV = "AWS_test_account_credentials.csv"
 ACCOUNT_CREDENTIALS = os.path.join(home_path, 'docs', account_CSV)
+
+class AWSZTKitError(RuntimeError):
+    pass
 
 #Shows the current configuration of the AWS for Access key, secret key and the region.
 def list_current_configuration():
@@ -54,4 +72,3 @@ def configure_aws_cli(selected_region):
     except:
         print("Verify account csv file existence and its content!")
         return 'danger'
-

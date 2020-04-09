@@ -7,6 +7,9 @@ function validateManIdText(){
     var isManIdValid = true;
     manIdHexString = document.getElementById("manIdHexId").value;
 
+    if(manIdHexString == "")
+        manIdHexString = "0x01"
+
     if(manIdHexString != null){
         var formatedString = manIdHexString.replaceAll(" ", "").replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").replaceAll("0x", "").replaceAll(",", "").toUpperCase();
 

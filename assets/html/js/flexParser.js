@@ -283,7 +283,7 @@ function processXML(xmlObj) {
     }
 
     if("custCert" == getFormRadioValue(formNameMain, "slot12certopt")){
-        xmlDoc.getElementsByTagName("CompressedCerts")[0].getElementsByTagName("CompressedCert")[1].getElementsByTagName("CAPublicKey")[0].textContent = "\n\t\t" + prettyPrintHex(getFormDataSlot(formNameMain, 16), 32).replaceAll("\n", "\n\t\t");
+        xmlDoc.getElementsByTagName("CompressedCerts")[0].getElementsByTagName("CompressedCert")[1].getElementsByTagName("CAPublicKey")[0].textContent = "\n\t\t" + prettyPrintHex(unprettifyHexData(getFormDataSlot(formNameMain, 16)), 32).replaceAll("\n", "\n\t\t");
     }
 
     // Process secureboot/persistant latch on slot 0

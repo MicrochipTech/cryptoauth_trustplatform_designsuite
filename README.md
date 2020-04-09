@@ -17,6 +17,16 @@ For ease of understanding follow the below sequence
 3. Run the usecase examples provided both in Notebook and Embedded projects
 
 ## Release Notes
+
+ - 1.3.0
+   - Added TrustPlatform GUI, the repo can be pulled directly from GUI
+   - Added asymmetric authentication usecase
+   - Added support for devices with the new common name
+   - Updated HTML content for asymmetric authentication usecase
+   - Updated HTML, JS content for man id, common name and org name.
+   - trustplatform.config file is now used to store settings instead of settings.json
+   - Other minor changes and minor bug fixes
+
  - 1.2.4
    - Fixed MPLAB project loading errors
    - Added build configurations for all projects
@@ -27,7 +37,7 @@ For ease of understanding follow the below sequence
    - Other minor bug fixes
 
  - 1.2.3
-   - Fixed subprocess python bug which affected MAC 
+   - Fixed subprocess python bug which affected MAC
    - Other minor bug fixes
 
  - 1.2.2

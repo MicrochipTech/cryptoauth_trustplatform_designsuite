@@ -8,7 +8,6 @@ if not module_path in sys.path:
 
 from trustplatform import sys_helper
 
-
 account_CSV = "AWS_test_account_credentials.csv"
 ACCOUNT_CREDENTIALS = os.path.join(home_path, 'docs', account_CSV)
 
@@ -30,23 +29,26 @@ def configure_aws_cli(selected_region):
                 secret_key_access = row["Secret access key"]
 
             #Setting the aws cli for the access key
-            print("Setting aws access key...")
+            print("Setting aws access key...", end='')
             subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "set", "aws_access_key_id", access_key_id])
             if subProcessOut.returncode != 0:
                 print("Setting AWS access key failed\r\n")
                 return 'danger'
+            print('OK')
 
-            print("Setting aws secret access key...")
+            print("Setting aws secret access key...", end='')
             subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "set", "aws_secret_access_key", secret_key_access])
             if subProcessOut.returncode != 0:
                 print("Setting AWS secret key failed\r\n")
                 return 'danger'
+            print('OK')
 
-            print("Setting aws region...\r\n")
+            print("Setting aws region...", end='')
             subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "set", "region", selected_region])
             if subProcessOut.returncode != 0:
                 print("Setting AWS region failed\r\n")
                 return 'danger'
+            print('OK')
 
             list_current_configuration()
 

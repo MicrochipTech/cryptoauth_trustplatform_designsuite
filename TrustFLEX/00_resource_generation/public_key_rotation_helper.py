@@ -2,12 +2,11 @@ from ipywidgets import widgets
 from IPython.display import display
 from tkinter import Tk, filedialog
 import cryptography
-from common import *
+from helper import *
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import ec, utils
 import os
-from pyasn1_modules import pem
 from cryptoauthlib import *
 import struct
 import copy
@@ -27,6 +26,12 @@ VALIDATION_AUTHORITY = "slot_13_ecc_key_pair.pem"
 ROTATING_KEY = "slot_14_ecc_key_pair.pem"
 rotating_key_slot = 14
 authority_key_slot = 13
+
+def convert_to_hex_bytes(a):
+    hex_bytes = ''
+    for x in range(0, len(a), 16):
+        hex_bytes += (''.join(['0x%02X, ' % y for y in a[x:x+16]]) + '\n')
+    return hex_bytes
 
 def calc_nonce(mode, zero, num_in, rand_out=None, temp_key=None):
     """Replicate the internal TempKey calculations of the Nonce command"""
@@ -151,8 +156,6 @@ def get_validating_authority_key():
                 password=None,
                 backend=default_backend())
 
-
-
 def public_key_validate_invalidate(validation_status,perform_on_device=True):
     is_verified = AtcaReference(False)
     config_data = bytearray(128)
@@ -173,8 +176,6 @@ def public_key_validate_invalidate(validation_status,perform_on_device=True):
         assert ATCA_SUCCESS == atcab_nonce(nonce)
 
     nonce = calc_nonce(mode=0x03, zero=0x0000, num_in=nonce)
-
-
 
     pubkey_digest = calc_genkey_pubkey_digest(
         mode=0x10,
@@ -201,7 +202,7 @@ def public_key_validate_invalidate(validation_status,perform_on_device=True):
     # Note that other_data is ignored and not required for this mode
     public_key = bytearray(64)
     if(perform_on_device == True):
-        assert ATCA_SUCCESS == atcab_genkey_base(mode=0x10, key_id=rotating_key_slot, other_data=b'\x00'*3, public_key=public_key)
+        atcab_genkey_base(mode=0x10, key_id=rotating_key_slot, other_data=b'\x00'*3, public_key=public_key)
 
 
     signature = sign_host(msg_digest,validation_authority_key)
@@ -220,7 +221,6 @@ def public_key_validate():
 
 def public_key_invalidate():
     return public_key_validate_invalidate(True)[0]
-
 
 def resource_generate():
     validate_status,nonce,signature = public_key_validate_invalidate(False,False)
@@ -262,11 +262,6 @@ def resource_generate():
         f.write(str(convert_to_hex_bytes(public_key)))
         f.write('};')
 
-
-
-
-
-
 def public_key_check_validate():
     valid_buf = bytearray(4)
     assert atcab_read_zone(ATCA_ZONE_DATA, rotating_key_slot, 0, 0, valid_buf, 4) == ATCA_SUCCESS
@@ -274,4 +269,3 @@ def public_key_check_validate():
         #Already Rotating Public key slot is valided,so invalidating the slot
         assert public_key_validate_invalidate(True)[0] == 1
     resource_generate()
-

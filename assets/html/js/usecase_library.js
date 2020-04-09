@@ -46,7 +46,7 @@ function toggleUseCase(useCase) {
         selectedUseCases[useCase].selected = true;
         $(uc).show();
         item.style.backgroundColor = "#00bb00";
-        button.innerHTML = "Unselect";
+        button.innerHTML = "UNSELECT";
         button.classList.add("use_case_btn_selected");
     } else {
         selectedUseCases[useCase].ids.forEach(element => {
@@ -56,7 +56,7 @@ function toggleUseCase(useCase) {
         selectedUseCases[useCase].selected = false;
         $(uc).hide();
         item.style.backgroundColor = "#e40222";
-        button.innerHTML = "Select";
+        button.innerHTML = "SELECT";
         button.classList.remove("use_case_btn_selected");
     }
 }

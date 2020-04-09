@@ -1,5 +1,11 @@
-var OutXmlFileName = "ECC608_TNG";
 var formNameMain = slotdataform;
+
+var device_org_name_len = 24;
+var device_common_name_len = 20;
+var signer_org_name_len = 24;
+var signer_common_name_len = 33;
+var root_org_name_len = 24;
+var root_common_name_len = 33;
 
 var keyLoadConfig = {
     0: "noLoad",
@@ -103,7 +109,6 @@ function setRadioValue(form, radioName, radioSelect){
     var radios = form.elements[radioName];
 
     for (var i = 0; i < radios.length; i++){
-        //console.log(radios[i]);
         if (radios[i].value == radioSelect){
             radios[i].checked = true;
         }
@@ -131,8 +136,6 @@ function getFormDataSlot(form, slotNumber){
     var radioName = "slot" + slotNumber + "dataopt";
     var status;
     var slotData = null;
-
-    //console.log(slotNumber);
 
     if(null != (status = getFormRadioValue(form, radioName))){
         if(status == "unused"){
@@ -162,7 +165,6 @@ function getDataFromSlot(radioName){
     if(null != (status = getFormRadioValue(formNameMain, radioName))){
         if(status == "unused"){
             //Do nothing?
-            console.log(status);
             slotData = null;
         }
         else if(status == "hexdata"){
@@ -211,46 +213,51 @@ function processXML(xmlObj) {
         console.error("Invalid interface value")
     }
 
+    if("custCert" == getFormRadioValue(formNameMain, "slot12certopt")){
+        xmlDoc.getElementsByTagName("CompressedCerts")[0].getElementsByTagName("CompressedCert")[1].getElementsByTagName("CAPublicKey")[0].textContent = "\n\t\t" + prettyPrintHex(unprettifyHexData(getFormDataSlot(formNameMain, 16)), 32).replaceAll("\n", "\n\t\t");
+    }
 
+    if(!is_sn_selected_as_CN())
+    {
+        xmlDoc.getElementsByTagName("CompressedCerts")[0].getElementsByTagName("CompressedCert")[0].getElementsByTagName("Element")[5].remove();
+        xmlDoc.getElementsByTagName("CompressedCerts")[0].getElementsByTagName("CompressedCert")[0].getElementsByTagName("Element")[4].remove();
+    }
 
     // Update the slots with user's data.
     for (var i = 0; i < 16; i++) {
         if (keyLoadConfig[i] == "noLoad") {
-            //console.log(i);
         }
         else if (keyLoadConfig[i] == "load") {
-            //console.log(i);
             var data = getFormDataSlot(formNameMain, i);
-            //console.log(data);
             if(data != null){
-            xmlDoc = tflexUpdataXmlSlot(xmlObj, i, data);
+                xmlDoc = tflexUpdataXmlSlot(xmlObj, i, data);
             }
         }
         else if (keyLoadConfig[i] == "cert"){
             var radioName = "slot" + i + "certopt";
             // Getting value from selection button
             var certOptValue = getFormRadioValue(formNameMain, radioName);
-            //console.log(certOptValue);
 
             if (certOptValue == "MCHPCert") {
                 // Form the .c and .h files to download
                 if(i == 10){
-                    var deviceCertH = document.getElementById('cert_def_2_device_h').innerHTML;
-                    //saveAsFileWithType("cert_def_2_device.h", deviceCertH, 'application/h');
-                    jsZipAddFile("cert_def_2_device.h", deviceCertH);
+                    var deviceCertH = document.getElementById('tflxtls_cust_cert_def_device_h').innerHTML;
+                    jsZipAddFile("tflxtls_cust_cert_def_device.h", deviceCertH);
 
-                    var deviceCertC = document.getElementById('cert_def_2_device_c_p1').innerHTML + document.getElementById('cert_def_2_device_c_hex').innerHTML + document.getElementById('cert_def_2_device_c_p2').innerHTML;
-                    //saveAsFileWithType("cert_def_2_device.c", deviceCertC, 'application/c');
-                    jsZipAddFile("cert_def_2_device.c", deviceCertC);
+                    var deviceCertC =
+                        document.getElementById('tflxtls_cust_cert_def_device_c_p1').innerHTML +
+                        document.getElementById('tflxtls_cust_cert_def_device_c_hex').innerHTML +
+                        document.getElementById('tflxtls_cust_cert_def_device_c_p2').innerHTML +
+                        document.getElementById('tflxtls_cust_cert_def_device_c_p3').innerHTML +
+                        document.getElementById('tflxtls_cust_cert_def_device_c_p5').innerHTML;
+                    jsZipAddFile("tflxtls_cust_cert_def_device.c", deviceCertC);
                 }
                 else if(i == 12){
-                    var signerCertH = document.getElementById('cert_def_1_signer_h').innerHTML;
-                    //saveAsFileWithType("cert_def_1_signer.h", signerCertH, 'application/h');
-                    jsZipAddFile("cert_def_1_signer.h", signerCertH);
-
-                    var signerCertC = document.getElementById('cert_def_1_signer_c_p1').innerHTML + document.getElementById('cert_def_1_signer_c_hex').innerHTML + document.getElementById('cert_def_1_signer_c_p2').innerHTML;
-                    //saveAsFileWithType("cert_def_2_signer.c", signerCertC, 'application/c');
-                    jsZipAddFile("cert_def_2_signer.c", signerCertC);
+                    var signerCertH = document.getElementById('tflxtls_cust_cert_def_signer_h').innerHTML;
+                    jsZipAddFile("tflxtls_cust_cert_def_signer.h", signerCertH);
+                    var ca_pub_key = xmlDoc.getElementsByTagName("CompressedCerts")[0].getElementsByTagName("CompressedCert")[1].getElementsByTagName("CAPublicKey")[0].textContent;
+                    var signerCertC = document.getElementById('tflxtls_cust_cert_def_signer_c_p1').innerHTML + document.getElementById('tflxtls_cust_cert_def_signer_c_hex').innerHTML + document.getElementById('tflxtls_cust_cert_def_signer_c_p2').innerHTML + convertHextoChex(ca_pub_key, 32) + document.getElementById('tflxtls_cust_cert_def_signer_c_p3').innerHTML;
+                    jsZipAddFile("tflxtls_cust_cert_def_signer.c", signerCertC);
                 }
             }
             else if(certOptValue == "custCert"){
@@ -281,19 +288,26 @@ function processXML(xmlObj) {
                 }
             }
         }
-    }
 
-    if("custCert" == getFormRadioValue(formNameMain, "slot12certopt")){
-        xmlDoc.getElementsByTagName("CompressedCerts")[0].getElementsByTagName("CompressedCert")[1].getElementsByTagName("CAPublicKey")[0].textContent = "\n\t\t" + prettyPrintHex(unprettifyHexData(getFormDataSlot(formNameMain, 16), 32)).replaceAll("\n", "\n\t\t");
-
-        var returns;
-        returns = validateManIdText();
-        isManIdValid = returns.status;
-
-        if(isManIdValid == true){
-            xmlDoc.getElementsByTagName("SN8")[0].textContent = returns.manId;
+        //Remove <Data> tag from all Random slots
+        if(xmlDoc.getElementsByTagName("DataZone")[0].getElementsByTagName("Slot")[i].getAttribute("Mode") == "Random")
+        {
+            xmlDoc.getElementsByTagName("DataZone")[0].getElementsByTagName("Slot")[i].getElementsByTagName("Data")[0].remove();
         }
     }
+
+    var returns;
+    returns = validateManIdText();
+    isManIdValid = returns.status;
+
+    if(isManIdValid == true){
+        xmlDoc.getElementsByTagName("SN8")[0].textContent = returns.manId;
+    }
+
+    partNumberString = document.getElementById("partNumberId").value;
+    if(partNumberString == "")
+        partNumberString = "ATECC608A-MAHxx-p"
+    xmlObj.getElementsByTagName("PartNumber")[0].textContent = partNumberString;
 
     // Process secureboot/persistant latch on slot 0
     var latchStatus;
@@ -301,21 +315,15 @@ function processXML(xmlObj) {
     if (latchStatus == "enabled"){
         xmlDoc.getElementsByTagName("SecureBoot")[0].textContent = "07 F7"
         xmlDoc.getElementsByTagName("ConfigurationZone")[0].getElementsByTagName("KeyConfiguration")[0].textContent = "53 10"
-        //console.log("enabled");
     }
     else {
         //do Nothing
-        //console.log("disabled");
     }
 
     xmlDoc = x08UpdateWriteLock(xmlDoc);
 
     var useCaseValid = validateUseCaseSlots();
     var slotDataValidity = validateSlotOpt();
-    
-    console.log(useCaseValid);
-    console.log(slotDataValidity);
-    console.log(slotValidateDict);
 
     if (useCaseValid == false && slotDataValidity == true && isManIdValid == true) {
         serializeXmlAndSave(xmlDoc);
@@ -361,6 +369,7 @@ function padString(string, len){
         console.error("string padding error, invalid length");
         return null;
     }
+
     return string;
 }
 
@@ -387,9 +396,7 @@ function processCertData(xmlObj, slotNumber, compressedCert, orgName, validyears
     }
 
 
-    //console.log(template);
     var templateData = template.getElementsByTagName("TemplateData")[0];
-    //console.log(templateData.childNodes[0].textContent);
     templateDataHex = unprettifyHexData(templateData.childNodes[0].textContent);
     var updatedCert;
 
@@ -400,17 +407,15 @@ function processCertData(xmlObj, slotNumber, compressedCert, orgName, validyears
         var userOrgName = document.getElementById("10certname").value;
         var userCommonName = document.getElementById("10certcommonname").value;
 
-        //console.log(templateDataHex.slice(0, 112));
-
         updatedCert = templateDataHex.slice(0, 56*2)
-                        + unprettifyHexData(ascii_to_hexa(padString(issuerOrgName, 24)))
-                        + templateDataHex.slice(80*2, 91*2)
-                        + unprettifyHexData(ascii_to_hexa(padString(issuerCommonName, 33)))
-                        + templateDataHex.slice(124*2, 171*2)
-                        + unprettifyHexData(ascii_to_hexa(padString(userOrgName, 24)))
-                        + templateDataHex.slice(195*2, 206*2)
-                        + unprettifyHexData(ascii_to_hexa(padString(userCommonName, 24)))
-                        + templateDataHex.slice(230*2);
+            + unprettifyHexData(ascii_to_hexa(padString(issuerOrgName, signer_org_name_len)))
+            + templateDataHex.slice(80*2, 91*2)
+            + unprettifyHexData(ascii_to_hexa(padString(issuerCommonName, signer_common_name_len)))
+            + templateDataHex.slice(124*2, 171*2)
+            + unprettifyHexData(ascii_to_hexa(padString(userOrgName, device_org_name_len)))
+            + templateDataHex.slice(195*2, 206*2)
+            + unprettifyHexData(ascii_to_hexa(padString(userCommonName, device_common_name_len)))
+            + templateDataHex.slice(226*2);
     }
     else if(slotNumber == 12){
         var issuerOrgName = document.getElementById("16certname").value;
@@ -420,14 +425,14 @@ function processCertData(xmlObj, slotNumber, compressedCert, orgName, validyears
         var userCommonName = document.getElementById("12certcommonname").value;
 
         updatedCert = templateDataHex.slice(0, 56*2)
-                        + unprettifyHexData(ascii_to_hexa(padString(issuerOrgName, 24)))
-                        + templateDataHex.slice(80*2, 91*2)
-                        + unprettifyHexData(ascii_to_hexa(padString(issuerCommonName, 33)))
-                        + templateDataHex.slice(124*2, 171*2)
-                        + unprettifyHexData(ascii_to_hexa(padString(userOrgName, 24)))
-                        + templateDataHex.slice(195*2, 206*2)
-                        + unprettifyHexData(ascii_to_hexa(padString(userCommonName, 33)))
-                        + templateDataHex.slice(239*2);
+            + unprettifyHexData(ascii_to_hexa(padString(issuerOrgName, root_org_name_len)))
+            + templateDataHex.slice(80*2, 91*2)
+            + unprettifyHexData(ascii_to_hexa(padString(issuerCommonName, root_common_name_len)))
+            + templateDataHex.slice(124*2, 171*2)
+            + unprettifyHexData(ascii_to_hexa(padString(userOrgName, signer_org_name_len)))
+            + templateDataHex.slice(195*2, 206*2)
+            + unprettifyHexData(ascii_to_hexa(padString(userCommonName, signer_common_name_len)))
+            + templateDataHex.slice(239*2);
     }
 
     //var name = padString(orgName, 24);
@@ -447,30 +452,46 @@ function processCertData(xmlObj, slotNumber, compressedCert, orgName, validyears
         // Do nothing
     }
 
-    xmlDoc.getElementsByTagName("CompressedCerts")[0].getElementsByTagName("CompressedCert")[compressedCert].getElementsByTagName("TemplateData")[0].textContent = "\n\t\t" + prettyPrintHex(updatedCert, 32).replaceAll("\n", "\n\t\t");
+    xmlDoc.getElementsByTagName("CompressedCerts")[0].getElementsByTagName("CompressedCert")[compressedCert].getElementsByTagName("TemplateData")[0].textContent = "\n\t\t" + prettyPrintHex(updatedCert, 32).replaceAll("\n", "\n\t\t")+"\n\t\t";
     xmlDoc.getElementsByTagName("CompressedCerts")[0].getElementsByTagName("CompressedCert")[compressedCert].setAttribute("ValidYears", validyears);
 
-    //var foo = "09 12 0A 0C AA FF 83 45 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23";
-    //foo = convertHextoChex(foo, 16);
-
+    var sn_selection = is_sn_selected_as_CN();
     // Form the .c and .h files to download
     if(slotNumber == 10){
-        var deviceCertH = document.getElementById('cert_def_2_device_h').innerHTML;
-        jsZipAddFile("cert_def_2_device.h", deviceCertH);
-        //saveAsFileWithType("cert_def_2_device.h", deviceCertH, 'application/h');
+        var deviceCertH = document.getElementById('tflxtls_cust_cert_def_device_h').innerHTML;
+        jsZipAddFile("tflxtls_cust_cert_def_device.h", deviceCertH);
 
-        var deviceCertC = document.getElementById('cert_def_2_device_c_p1').innerHTML + convertHextoChex(updatedCert, 32) + document.getElementById('cert_def_2_device_c_p2').innerHTML;
-        jsZipAddFile("cert_def_2_device.c", deviceCertC);
-        //saveAsFileWithType("cert_def_2_device.c", deviceCertC, 'application/c');
+        var deviceCertC = document.getElementById('tflxtls_cust_cert_def_device_c_p1').innerHTML
+            + convertHextoChex(updatedCert, 32)
+        if(sn_selection)
+            deviceCertC += document.getElementById('tflxtls_cust_cert_def_device_c_p2').innerHTML;
+        deviceCertC += document.getElementById('tflxtls_cust_cert_def_device_c_p3').innerHTML;
+        if(sn_selection)
+            deviceCertC += document.getElementById('tflxtls_cust_cert_def_device_c_p5').innerHTML;
+        else
+            deviceCertC += document.getElementById('tflxtls_cust_cert_def_device_c_p4').innerHTML;
+        jsZipAddFile("tflxtls_cust_cert_def_device.c", deviceCertC);
     }
     else if(slotNumber == 12){
-        var signerCertH = document.getElementById('cert_def_1_signer_h').innerHTML;
-        jsZipAddFile("cert_def_1_signer.h", signerCertH);
-        //saveAsFileWithType("cert_def_1_signer.h", signerCertH, 'application/h');
+        var signerCertH = document.getElementById('tflxtls_cust_cert_def_signer_h').innerHTML;
+        jsZipAddFile("tflxtls_cust_cert_def_signer.h", signerCertH);
 
-        var signerCertC = document.getElementById('cert_def_1_signer_c_p1').innerHTML + convertHextoChex(updatedCert, 32) + document.getElementById('cert_def_1_signer_c_p2').innerHTML;
-        jsZipAddFile("cert_def_2_signer.c", signerCertC);
-        //saveAsFileWithType("cert_def_2_signer.c", signerCertC, 'application/c');
+        var ca_pub_key = xmlDoc.getElementsByTagName("CompressedCerts")[0].getElementsByTagName("CompressedCert")[1].getElementsByTagName("CAPublicKey")[0].textContent;
+        var signerCertC = document.getElementById('tflxtls_cust_cert_def_signer_c_p1').innerHTML + convertHextoChex(updatedCert, 32) + document.getElementById('tflxtls_cust_cert_def_signer_c_p2').innerHTML + convertHextoChex(ca_pub_key, 32) + document.getElementById('tflxtls_cust_cert_def_signer_c_p3').innerHTML;
+        jsZipAddFile("tflxtls_cust_cert_def_signer.c", signerCertC);
+    }
+
+    // add .crt files to zip
+    cert_templates = get_certs();
+
+    if (cert_templates[0] != undefined){
+        jsZipAddFile("tflxtls_cust_cert_root.crt", cert_templates[0]);
+    }
+    if (cert_templates[1] != undefined){
+        jsZipAddFile("tflxtls_cust_cert_signer.crt", cert_templates[1]);
+    }
+    if (cert_templates[2] != undefined){
+        jsZipAddFile("tflxtls_cust_cert_device.crt", cert_templates[2]);
     }
 
     return xmlDoc;
@@ -529,7 +550,7 @@ function serializeXmlAndSave(xmlObject) {
     let xmlString = "<?xml version='1.0' encoding='utf-8'?> \n" + new XMLSerializer().serializeToString(xmlObject);
     // Sending XML string data to be saved as .xml file.
     //saveAsFile("ECC608_TFLXTLS", xmlString);
-    jsZipAddFile("ECC608A_TFLXTLS.xml", xmlString);
+    jsZipAddFile(xmlObject.getElementsByTagName("PartNumber")[0].textContent+".xml", xmlString.replace(/^\s*[\r\n]/gm, ""));
 }
 
 function convertHextoChex(hexString, sepDist){
