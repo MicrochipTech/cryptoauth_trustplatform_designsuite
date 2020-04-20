@@ -461,8 +461,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAMD21_DFP" vendor="Microchip" version="3.0.23"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAMD21_DFP" vendor="Microchip" version="3.0.23"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -561,7 +561,7 @@
       <ARM-Global>
         <property key="bin" value="false"/>
         <property key="common-include-directories"
-                  value=".\.;hpl/gclk;hpl/sercom;hpl/port;hpl/sysctrl;hpl/systick;hpl/core;hpl/dmac;winc1500;examples;hal/utils/include;hal/include;hpl/rtc;hpl/eic;hpl/pm;config;hri;stdio_redirect"/>
+                  value=".\.;hpl/gclk;hpl/sercom;hpl/port;hpl/sysctrl;hpl/systick;hpl/core;hpl/dmac;winc1500;examples;hal/utils/include;hal/include;hpl/rtc;hpl/eic;hpl/pm;config;hri;stdio_redirect;..\..\..\..\..\assets\dependencies\common"/>
         <property key="eep" value="false"/>
         <property key="hex" value="true"/>
         <property key="lss" value="false"/>
@@ -612,6 +612,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="E:/Desktop/Trust Platform/usecasetool_dev/TrustFLEX/06_custom_pki_aws/c/mplab/custom_pki_aws.X/debug/CONFIG_STANDALONE/custom_pki_aws_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -737,7 +739,7 @@
       <ARM-Global>
         <property key="bin" value="false"/>
         <property key="common-include-directories"
-                  value=".\.;hpl/gclk;hpl/sercom;hpl/port;hpl/sysctrl;hpl/systick;hpl/core;hpl/dmac;winc1500;examples;hal/utils/include;hal/include;hpl/rtc;hpl/eic;hpl/pm;config;hri;stdio_redirect"/>
+                  value=".\.;hpl/gclk;hpl/sercom;hpl/port;hpl/sysctrl;hpl/systick;hpl/core;hpl/dmac;winc1500;examples;hal/utils/include;hal/include;hpl/rtc;hpl/eic;hpl/pm;config;hri;stdio_redirect;..\..\..\..\..\assets\dependencies\common"/>
         <property key="eep" value="false"/>
         <property key="hex" value="true"/>
         <property key="lss" value="false"/>
@@ -788,6 +790,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="E:/Desktop/Trust Platform/usecasetool_dev/TrustFLEX/06_custom_pki_aws/c/mplab/custom_pki_aws.X/debug/CONFIG_FIRMWARE_VALIDATION/custom_pki_aws_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

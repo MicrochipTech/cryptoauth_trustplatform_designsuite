@@ -176,7 +176,7 @@ class ManifestItem:
 
     def run(self):
         self.identifier = self.signed_se['header']['uniqueId']
-        print('\tUnique ID: {}'.format(self.identifier.upper()))
+        print('\tUnique ID: {}'.format(self.identifier.lower()))
 
         # Decode the protected header
         protected = json.loads(

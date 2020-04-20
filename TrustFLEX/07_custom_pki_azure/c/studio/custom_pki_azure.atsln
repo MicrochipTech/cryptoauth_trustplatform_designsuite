@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Atmel Studio Solution File, Format Version 11.00
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "custom_pki_azure", "custom_pki_azure\custom_pki_azure.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "custom_pki_azure", "custom_pki_azure\custom_pki_azure.cproj", "{60C1FA52-083C-4083-87B4-C612B1C37BDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,12 +12,12 @@ Global
 		Release|ARM = Release|ARM
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.1_CONFIG_STANDALONE|ARM.ActiveCfg = Debug|ARM
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.1_CONFIG_STANDALONE|ARM.Build.0 = Debug|ARM
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.CONFIG_FIRMWARE_VALIDATION|ARM.ActiveCfg = CONFIG_FIRMWARE_VALIDATION|ARM
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.CONFIG_FIRMWARE_VALIDATION|ARM.Build.0 = CONFIG_FIRMWARE_VALIDATION|ARM
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|ARM.ActiveCfg = Release|ARM
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|ARM.Build.0 = Release|ARM
+		{60C1FA52-083C-4083-87B4-C612B1C37BDC}.1_CONFIG_STANDALONE|ARM.ActiveCfg = Debug|ARM
+		{60C1FA52-083C-4083-87B4-C612B1C37BDC}.1_CONFIG_STANDALONE|ARM.Build.0 = Debug|ARM
+		{60C1FA52-083C-4083-87B4-C612B1C37BDC}.CONFIG_FIRMWARE_VALIDATION|ARM.ActiveCfg = CONFIG_FIRMWARE_VALIDATION|ARM
+		{60C1FA52-083C-4083-87B4-C612B1C37BDC}.CONFIG_FIRMWARE_VALIDATION|ARM.Build.0 = CONFIG_FIRMWARE_VALIDATION|ARM
+		{60C1FA52-083C-4083-87B4-C612B1C37BDC}.Release|ARM.ActiveCfg = Release|ARM
+		{60C1FA52-083C-4083-87B4-C612B1C37BDC}.Release|ARM.Build.0 = Release|ARM
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.Atmel.ARMGCC.C</ToolchainName>
-    <ProjectGuid>dce6c7e3-ee26-4d79-826b-08594b9ad897</ProjectGuid>
+    <ProjectGuid>{f6eaefd2-d098-48ed-a1bd-1587688d942c}</ProjectGuid>
     <avrdevice>ATSAMD21E18A</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
@@ -252,102 +252,19 @@
   <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
   <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
   <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
-  <armgcc.compiler.symbols.DefSymbols>
-    <ListValues>
-      <Value>NDEBUG</Value>
-    </ListValues>
-  </armgcc.compiler.symbols.DefSymbols>
-  <armgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
-      <Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.3.331\samd21a\include</Value>
-      <Value>../Config</Value>
-      <Value>../</Value>
-      <Value>../examples</Value>
-      <Value>../hal/include</Value>
-      <Value>../hal/utils/include</Value>
-      <Value>../hpl/core</Value>
-      <Value>../hpl/dmac</Value>
-      <Value>../hpl/eic</Value>
-      <Value>../hpl/gclk</Value>
-      <Value>../hpl/pm</Value>
-      <Value>../hpl/port</Value>
-      <Value>../hpl/rtc</Value>
-      <Value>../hpl/sercom</Value>
-      <Value>../hpl/sysctrl</Value>
-      <Value>../hpl/systick</Value>
-      <Value>../hpl/tcc</Value>
-      <Value>../hri</Value>
-      <Value>../winc1500</Value>
-      <Value>../stdio_redirect</Value>
-    </ListValues>
-  </armgcc.compiler.directories.IncludePaths>
-  <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
+  <armgcc.compiler.directories.IncludePaths><ListValues><Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value><Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.3.331\samd21a\include</Value><Value>../Config</Value><Value>../</Value><Value>../examples</Value><Value>../hal/include</Value><Value>../hal/utils/include</Value><Value>../hpl/core</Value><Value>../hpl/dmac</Value><Value>../hpl/eic</Value><Value>../hpl/gclk</Value><Value>../hpl/pm</Value><Value>../hpl/port</Value><Value>../hpl/rtc</Value><Value>../hpl/sercom</Value><Value>../hpl/sysctrl</Value><Value>../hpl/systick</Value><Value>../hpl/tcc</Value><Value>../hri</Value><Value>../winc1500</Value><Value>../stdio_redirect</Value><Value>../../../../../../assets/dependencies/common</Value></ListValues></armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
   <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
   <armgcc.linker.general.UseNewlibNano>True</armgcc.linker.general.UseNewlibNano>
-  <armgcc.linker.libraries.Libraries>
-    <ListValues>
-      <Value>libm</Value>
-    </ListValues>
-  </armgcc.linker.libraries.Libraries>
-  <armgcc.linker.libraries.LibrarySearchPaths>
-    <ListValues>
-      <Value>%24(ProjectDir)\Device_Startup</Value>
-    </ListValues>
-  </armgcc.linker.libraries.LibrarySearchPaths>
+  <armgcc.linker.libraries.Libraries><ListValues><Value>libm</Value></ListValues></armgcc.linker.libraries.Libraries>
+  <armgcc.linker.libraries.LibrarySearchPaths><ListValues><Value>%24(ProjectDir)\Device_Startup</Value></ListValues></armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
+  <armgcc.linker.memorysettings.ExternalRAM>False</armgcc.linker.memorysettings.ExternalRAM>
   <armgcc.linker.miscellaneous.LinkerFlags>-Tsamd21e18a_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
-  <armgcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
-      <Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.3.331\samd21a\include</Value>
-      <Value>../Config</Value>
-      <Value>../</Value>
-      <Value>../examples</Value>
-      <Value>../hal/include</Value>
-      <Value>../hal/utils/include</Value>
-      <Value>../hpl/core</Value>
-      <Value>../hpl/dmac</Value>
-      <Value>../hpl/eic</Value>
-      <Value>../hpl/gclk</Value>
-      <Value>../hpl/pm</Value>
-      <Value>../hpl/port</Value>
-      <Value>../hpl/rtc</Value>
-      <Value>../hpl/sercom</Value>
-      <Value>../hpl/sysctrl</Value>
-      <Value>../hpl/systick</Value>
-      <Value>../hpl/tcc</Value>
-      <Value>../hri</Value>
-      <Value>../winc1500</Value>
-      <Value>../stdio_redirect</Value>
-    </ListValues>
-  </armgcc.assembler.general.IncludePaths>
-  <armgcc.preprocessingassembler.general.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
-      <Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.3.331\samd21a\include</Value>
-      <Value>../Config</Value>
-      <Value>../</Value>
-      <Value>../examples</Value>
-      <Value>../hal/include</Value>
-      <Value>../hal/utils/include</Value>
-      <Value>../hpl/core</Value>
-      <Value>../hpl/dmac</Value>
-      <Value>../hpl/eic</Value>
-      <Value>../hpl/gclk</Value>
-      <Value>../hpl/pm</Value>
-      <Value>../hpl/port</Value>
-      <Value>../hpl/rtc</Value>
-      <Value>../hpl/sercom</Value>
-      <Value>../hpl/sysctrl</Value>
-      <Value>../hpl/systick</Value>
-      <Value>../hpl/tcc</Value>
-      <Value>../hri</Value>
-      <Value>../winc1500</Value>
-      <Value>../stdio_redirect</Value>
-    </ListValues>
-  </armgcc.preprocessingassembler.general.IncludePaths>
+  <armgcc.assembler.general.IncludePaths><ListValues><Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value><Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.3.331\samd21a\include</Value><Value>../Config</Value><Value>../</Value><Value>../examples</Value><Value>../hal/include</Value><Value>../hal/utils/include</Value><Value>../hpl/core</Value><Value>../hpl/dmac</Value><Value>../hpl/eic</Value><Value>../hpl/gclk</Value><Value>../hpl/pm</Value><Value>../hpl/port</Value><Value>../hpl/rtc</Value><Value>../hpl/sercom</Value><Value>../hpl/sysctrl</Value><Value>../hpl/systick</Value><Value>../hpl/tcc</Value><Value>../hri</Value><Value>../winc1500</Value><Value>../stdio_redirect</Value></ListValues></armgcc.assembler.general.IncludePaths>
+  <armgcc.preprocessingassembler.general.IncludePaths><ListValues><Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value><Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.3.331\samd21a\include</Value><Value>../Config</Value><Value>../</Value><Value>../examples</Value><Value>../hal/include</Value><Value>../hal/utils/include</Value><Value>../hpl/core</Value><Value>../hpl/dmac</Value><Value>../hpl/eic</Value><Value>../hpl/gclk</Value><Value>../hpl/pm</Value><Value>../hpl/port</Value><Value>../hpl/rtc</Value><Value>../hpl/sercom</Value><Value>../hpl/sysctrl</Value><Value>../hpl/systick</Value><Value>../hpl/tcc</Value><Value>../hri</Value><Value>../winc1500</Value><Value>../stdio_redirect</Value></ListValues></armgcc.preprocessingassembler.general.IncludePaths>
+  <armgcc.compiler.symbols.DefSymbols><ListValues><Value>NDEBUG</Value></ListValues></armgcc.compiler.symbols.DefSymbols>
+  <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
 </ArmGcc>
     </ToolchainSettings>
   </PropertyGroup>
@@ -359,115 +276,52 @@
   <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
   <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
   <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
-  <armgcc.compiler.symbols.DefSymbols>
-    <ListValues>
-      <Value>DEBUG</Value>
-      <Value>ATCA_HAL_I2C</Value>
-      <Value>I2C_SERCOM_CORE_FREQ=CONF_GCLK_SERCOM2_CORE_FREQUENCY</Value>
-    </ListValues>
-  </armgcc.compiler.symbols.DefSymbols>
-  <armgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
-      <Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.3.331\samd21a\include</Value>
-      <Value>../../../../dependencies/cryptoauthlib/lib</Value>
-      <Value>../../../../../../TFLXTLS_resource_generation</Value>
-      <Value>../../../common/paho_mqtt_embedded_c/MQTTClient-C</Value>
-      <Value>../../../common/paho_mqtt_embedded_c/MQTTPacket</Value>
-      <Value>../../../common/paho_mqtt_embedded_c/platform</Value>
-      <Value>../../../common/parson_json</Value>
-      <Value>../../../common/utilities</Value>
-      <Value>../../../common</Value>
-      <Value>../Config</Value>
-      <Value>../</Value>
-      <Value>../examples</Value>
-      <Value>../hal/include</Value>
-      <Value>../hal/utils/include</Value>
-      <Value>../hpl/core</Value>
-      <Value>../hpl/dmac</Value>
-      <Value>../hpl/eic</Value>
-      <Value>../hpl/gclk</Value>
-      <Value>../hpl/pm</Value>
-      <Value>../hpl/port</Value>
-      <Value>../hpl/rtc</Value>
-      <Value>../hpl/sercom</Value>
-      <Value>../hpl/sysctrl</Value>
-      <Value>../hpl/systick</Value>
-      <Value>../hpl/tcc</Value>
-      <Value>../hri</Value>
-      <Value>../winc1500</Value>
-      <Value>../stdio_redirect</Value>
-    </ListValues>
-  </armgcc.compiler.directories.IncludePaths>
-  <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
+  <armgcc.compiler.directories.IncludePaths><ListValues>
+  <Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
+  <Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.3.331\samd21a\include</Value>
+  <Value>../Config</Value>
+  <Value>../</Value>
+  <Value>../examples</Value>
+  <Value>../hal/include</Value>
+  <Value>../hal/utils/include</Value>
+  <Value>../hpl/core</Value>
+  <Value>../hpl/dmac</Value>
+  <Value>../hpl/eic</Value>
+  <Value>../hpl/gclk</Value>
+  <Value>../hpl/pm</Value>
+  <Value>../hpl/port</Value>
+  <Value>../hpl/rtc</Value>
+  <Value>../hpl/sercom</Value>
+  <Value>../hpl/sysctrl</Value>
+  <Value>../hpl/systick</Value>
+  <Value>../hpl/tcc</Value>
+  <Value>../hri</Value>
+  <Value>../winc1500</Value>
+  <Value>../stdio_redirect</Value>
+  <Value>../../../../../../assets/dependencies/common</Value>
+  <Value>../../../../dependencies/cryptoauthlib/lib</Value>
+  <Value>../../../../../../TFLXTLS_resource_generation</Value>
+  <Value>../../../common/paho_mqtt_embedded_c/MQTTClient-C</Value>
+  <Value>../../../common/paho_mqtt_embedded_c/MQTTPacket</Value>
+  <Value>../../../common/paho_mqtt_embedded_c/platform</Value>
+  <Value>../../../common/parson_json</Value>
+  <Value>../../../common/utilities</Value>
+  <Value>../../../common</Value>
+</ListValues></armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
-  <armgcc.compiler.optimization.DebugLevel>Maximum (-g3)</armgcc.compiler.optimization.DebugLevel>
   <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
   <armgcc.linker.general.UseNewlibNano>True</armgcc.linker.general.UseNewlibNano>
-  <armgcc.linker.libraries.Libraries>
-    <ListValues>
-      <Value>libm</Value>
-    </ListValues>
-  </armgcc.linker.libraries.Libraries>
-  <armgcc.linker.libraries.LibrarySearchPaths>
-    <ListValues>
-      <Value>%24(ProjectDir)\Device_Startup</Value>
-    </ListValues>
-  </armgcc.linker.libraries.LibrarySearchPaths>
+  <armgcc.linker.libraries.Libraries><ListValues><Value>libm</Value></ListValues></armgcc.linker.libraries.Libraries>
+  <armgcc.linker.libraries.LibrarySearchPaths><ListValues><Value>%24(ProjectDir)\Device_Startup</Value></ListValues></armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
-  <armgcc.linker.memorysettings.ExternalRAM />
+  <armgcc.linker.memorysettings.ExternalRAM></armgcc.linker.memorysettings.ExternalRAM>
   <armgcc.linker.miscellaneous.LinkerFlags>-Tsamd21e18a_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
-  <armgcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
-      <Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.3.331\samd21a\include</Value>
-      <Value>../Config</Value>
-      <Value>../</Value>
-      <Value>../examples</Value>
-      <Value>../hal/include</Value>
-      <Value>../hal/utils/include</Value>
-      <Value>../hpl/core</Value>
-      <Value>../hpl/dmac</Value>
-      <Value>../hpl/eic</Value>
-      <Value>../hpl/gclk</Value>
-      <Value>../hpl/pm</Value>
-      <Value>../hpl/port</Value>
-      <Value>../hpl/rtc</Value>
-      <Value>../hpl/sercom</Value>
-      <Value>../hpl/sysctrl</Value>
-      <Value>../hpl/systick</Value>
-      <Value>../hpl/tcc</Value>
-      <Value>../hri</Value>
-      <Value>../winc1500</Value>
-      <Value>../stdio_redirect</Value>
-    </ListValues>
-  </armgcc.assembler.general.IncludePaths>
+  <armgcc.assembler.general.IncludePaths><ListValues><Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value><Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.3.331\samd21a\include</Value><Value>../Config</Value><Value>../</Value><Value>../examples</Value><Value>../hal/include</Value><Value>../hal/utils/include</Value><Value>../hpl/core</Value><Value>../hpl/dmac</Value><Value>../hpl/eic</Value><Value>../hpl/gclk</Value><Value>../hpl/pm</Value><Value>../hpl/port</Value><Value>../hpl/rtc</Value><Value>../hpl/sercom</Value><Value>../hpl/sysctrl</Value><Value>../hpl/systick</Value><Value>../hpl/tcc</Value><Value>../hri</Value><Value>../winc1500</Value><Value>../stdio_redirect</Value></ListValues></armgcc.assembler.general.IncludePaths>
+  <armgcc.preprocessingassembler.general.IncludePaths><ListValues><Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value><Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.3.331\samd21a\include</Value><Value>../Config</Value><Value>../</Value><Value>../examples</Value><Value>../hal/include</Value><Value>../hal/utils/include</Value><Value>../hpl/core</Value><Value>../hpl/dmac</Value><Value>../hpl/eic</Value><Value>../hpl/gclk</Value><Value>../hpl/pm</Value><Value>../hpl/port</Value><Value>../hpl/rtc</Value><Value>../hpl/sercom</Value><Value>../hpl/sysctrl</Value><Value>../hpl/systick</Value><Value>../hpl/tcc</Value><Value>../hri</Value><Value>../winc1500</Value><Value>../stdio_redirect</Value></ListValues></armgcc.preprocessingassembler.general.IncludePaths>
+  <armgcc.compiler.symbols.DefSymbols><ListValues><Value>DEBUG</Value><Value>ATCA_HAL_I2C</Value><Value>I2C_SERCOM_CORE_FREQ=CONF_GCLK_SERCOM2_CORE_FREQUENCY</Value></ListValues></armgcc.compiler.symbols.DefSymbols>
+  <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
+  <armgcc.compiler.optimization.DebugLevel>Maximum (-g3)</armgcc.compiler.optimization.DebugLevel>
   <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
-  <armgcc.preprocessingassembler.general.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
-      <Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.3.331\samd21a\include</Value>
-      <Value>../Config</Value>
-      <Value>../</Value>
-      <Value>../examples</Value>
-      <Value>../hal/include</Value>
-      <Value>../hal/utils/include</Value>
-      <Value>../hpl/core</Value>
-      <Value>../hpl/dmac</Value>
-      <Value>../hpl/eic</Value>
-      <Value>../hpl/gclk</Value>
-      <Value>../hpl/pm</Value>
-      <Value>../hpl/port</Value>
-      <Value>../hpl/rtc</Value>
-      <Value>../hpl/sercom</Value>
-      <Value>../hpl/sysctrl</Value>
-      <Value>../hpl/systick</Value>
-      <Value>../hpl/tcc</Value>
-      <Value>../hri</Value>
-      <Value>../winc1500</Value>
-      <Value>../stdio_redirect</Value>
-    </ListValues>
-  </armgcc.preprocessingassembler.general.IncludePaths>
   <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
 </ArmGcc>
     </ToolchainSettings>

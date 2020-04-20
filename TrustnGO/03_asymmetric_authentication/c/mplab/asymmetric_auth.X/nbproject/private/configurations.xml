@@ -4,7 +4,7 @@
   <defaultConf>0</defaultConf>
   <confs>
     <conf name="default" type="2">
-      <platformToolSN>:=MPLABComm-USB-Microchip:=&lt;vid>03EB:=&lt;pid>2175:=&lt;rev>0100:=&lt;man>Microchip Technology Incorporated:=&lt;prod>nEDBG CMSIS-DAP:=&lt;sn>MCHP3311041800000060:=&lt;drv>x:=&lt;xpt>h:=end</platformToolSN>
+      <platformToolSN>:=MPLABComm-USB-Microchip:=&lt;vid>03EB:=&lt;pid>2175:=&lt;rev>0100:=&lt;man>Microchip Technology Incorporated:=&lt;prod>nEDBG CMSIS-DAP:=&lt;sn>MCHP3311051800000464:=&lt;drv>x:=&lt;xpt>h:=end</platformToolSN>
       <languageToolchainDir>C:\Program Files (x86)\Microchip\xc32\v2.20\bin</languageToolchainDir>
       <mdbdebugger version="1">
         <placeholder1>place holder 1</placeholder1>

@@ -388,6 +388,7 @@
       <Value>../../../../../../TrustFLEX/00_resource_generation</Value>
       <Value>../../../../../../assets/dependencies/cryptoauthlib/lib</Value>
       <Value>../../../../../../assets/dependencies/cryptoauthlib/app/tng</Value>
+      <Value>../../../../../../assets/dependencies/common</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>

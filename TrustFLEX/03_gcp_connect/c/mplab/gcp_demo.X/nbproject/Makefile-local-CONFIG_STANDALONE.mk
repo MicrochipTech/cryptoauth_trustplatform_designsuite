@@ -15,11 +15,11 @@
 # $ makeMP_CC="/opt/microchip/mplabc30/v3.30c/bin/pic30-gcc" ...  
 #
 SHELL=cmd.exe
-PATH_TO_IDE_BIN=C:/Program Files (x86)/Microchip/MPLABX/v5.25/mplab_platform/platform/../mplab_ide/modules/../../bin/
+PATH_TO_IDE_BIN=C:/Program Files (x86)/Microchip/MPLABX/v5.30/mplab_platform/platform/../mplab_ide/modules/../../bin/
 # Adding MPLAB X bin directory to path.
-PATH:=C:/Program Files (x86)/Microchip/MPLABX/v5.25/mplab_platform/platform/../mplab_ide/modules/../../bin/:$(PATH)
+PATH:=C:/Program Files (x86)/Microchip/MPLABX/v5.30/mplab_platform/platform/../mplab_ide/modules/../../bin/:$(PATH)
 # Path to java used to run MPLAB X when this makefile was created
-MP_JAVA_PATH="C:\Program Files (x86)\Microchip\MPLABX\v5.25\sys\java\jre1.8.0_181/bin/"
+MP_JAVA_PATH="C:\Program Files (x86)\Microchip\MPLABX\v5.30\sys\java\jre1.8.0_181/bin/"
 OS_CURRENT="$(shell uname -s)"
 MP_CC="c:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe"
 MP_CPPC="c:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-g++.exe"
@@ -27,7 +27,7 @@ MP_CPPC="c:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain
 MP_AS="c:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-as.exe"
 MP_LD="c:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-ld.exe"
 MP_AR="c:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-ar.exe"
-DEP_GEN=${MP_JAVA_PATH}java -jar "C:/Program Files (x86)/Microchip/MPLABX/v5.25/mplab_platform/platform/../mplab_ide/modules/../../bin/extractobjectdependencies.jar"
+DEP_GEN=${MP_JAVA_PATH}java -jar "C:/Program Files (x86)/Microchip/MPLABX/v5.30/mplab_platform/platform/../mplab_ide/modules/../../bin/extractobjectdependencies.jar"
 MP_CC_DIR="c:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin"
 MP_CPPC_DIR="c:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin"
 # MP_BC_DIR is not defined
@@ -35,5 +35,5 @@ MP_AS_DIR="c:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolcha
 MP_LD_DIR="c:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin"
 MP_AR_DIR="c:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin"
 # MP_BC_DIR is not defined
-CMSIS_DIR="C:/Program Files (x86)/Microchip/MPLABX/v5.25/packs/arm/CMSIS/5.4.0"
-DFP_DIR="C:/Program Files (x86)/Microchip/MPLABX/v5.25/packs/Microchip/SAMD21_DFP/3.0.23"
+CMSIS_DIR="C:/Program Files (x86)/Microchip/MPLABX/v5.30/packs/arm/CMSIS/5.4.0"
+DFP_DIR="C:/Users/i41682/.mchp_packs/Microchip/SAMD21_DFP/3.0.23"

@@ -1231,7 +1231,7 @@ ATCA_STATUS init_cal_for_device(void)
 			
 		if(ATCA_SUCCESS != (status = atcab_bin2hex_(ser_num, sizeof(ser_num), displayStr, &displen, false, false, true)))
 			break;
-		printf("\r\n\r\n\r\nDevice ID : %s_ATECC\r\n\r\n", displayStr);
+		printf("\r\n\r\n\r\nDevice ID : sn%s\r\n\r\n", displayStr);
 
 		if(ATCA_SUCCESS != (status = atcab_is_locked(LOCK_ZONE_CONFIG, &is_config_locked)))
 			break;
@@ -1277,7 +1277,7 @@ int config_get_client_id(char* buf, size_t buflen)
 	{
 		int rv;
 
-		rv = snprintf(buf, buflen, "%s_ATECC",config_cloud_thing_id);
+		rv = snprintf(buf, buflen, "sn%s",config_cloud_thing_id);
 
 		if(0 < rv && rv < buflen)
 		{
@@ -1294,7 +1294,7 @@ int config_get_client_username(char* buf, size_t buflen)
 {
 	if(buf && buflen)
 	{
-		int rv = snprintf(buf, buflen, "%s/%s_ATECC",CLOUD_ENDPOINT,config_cloud_thing_id);
+		int rv = snprintf(buf, buflen, "%s/sn%s",CLOUD_ENDPOINT,config_cloud_thing_id);
 
 		if(0 < rv && rv < buflen)
 		{

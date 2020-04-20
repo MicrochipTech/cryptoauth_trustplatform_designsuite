@@ -131,14 +131,29 @@ class GitModule(git.RemoteProgress):
                 return 1
 
     def fetch_origin(self):
-        fetch_log = []
-        for fetch_info in self.repo.remotes.origin.fetch(progress=self):
-            fetch_log.append(fetch_info.ref, fetch_info.commit, fetch_info.flags)
-        return fetch_log
+        pathstr = '"{}"'.format(str((pathlib.Path(self.repo_path))))
+        cmd = "git " + "-C " +  pathstr + " fetch " + "--progress"
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+        while True:
+            stdoutput = process.stdout.readline().strip()
+            if stdoutput:
+                self.progress_callback.emit(stdoutput)
+            if process.poll() is not None:
+                process.stdout.close()
+                return_code = process.wait()
+                if return_code != 0:
+                    return 1
+                else:
+                    return 0
+            if self.event_stop.is_set():
+                for child in psutil.Process(process.pid).children(recursive=True):
+                    child.kill()
+                process.kill()
+                return 1
 
     def pull_origin(self):
-        pathstr = '''"'''+str(pathlib.PurePosixPath(pathlib.Path(self.repo_path)))+'''"'''
-        cmd = ["git", "-C", pathstr, "pull", "--progress", "--recurse-submodules"]
+        pathstr = '"{}"'.format(str((pathlib.Path(self.repo_path))))
+        cmd = "git " + "-C " +  pathstr + " pull " + "--progress"
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
         while True:
             stdoutput = process.stdout.readline().strip()
@@ -164,4 +179,3 @@ class GitModule(git.RemoteProgress):
 
     def update_submodule(self, to_latest_rev):
         self.repo.submodule_update(recursive=True, progress=self, init=True, to_latest_revision=to_latest_rev)
-

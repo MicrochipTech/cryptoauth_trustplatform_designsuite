@@ -41,11 +41,18 @@ QT_UI_FILE_PATH = os.path.join(cwd, "assets", "qtui", QT_UI_FILE)
 QT_WINDOW_ICON = "shield.ico"
 QT_WINDOW_ICON_PATH = os.path.join(cwd, "assets", "qtui", QT_WINDOW_ICON)
 
+
 class WebPage():
     def __init__(self):
         # Check if chrome is installed
         self.chrome_path = find_chrome_path()
-        if self.chrome_path:
+        if(self.chrome_path is None):
+            QtWidgets.QMessageBox.critical(
+                self,
+                "Error",
+                "Unable to find Chrome\n\
+Please install Chrome and restart the application")
+        if get_os_name().lower() != 'darwin' and self.chrome_path:
             webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(self.chrome_path))
 
     def open_WebPage(self, page_addr):
@@ -56,12 +63,18 @@ class WebPage():
         repo_path = json_file.get_repo_path()
 
         full_path = os.path.join(repo_path, page_addr)
-
         if os.path.exists(full_path):
-                if self.chrome_path:
-                    webbrowser.get('chrome').open_new('file://' + full_path)
-                else:
-                    webbrowser.open_new('file://' + full_path)
+            if self.chrome_path:
+                try:
+                    chrome = webbrowser.get('chrome')
+                    chrome.open_new('file://' + full_path)
+                except webbrowser.Error:
+                    QtWidgets.QMessageBox.critical(
+                        self,
+                        "Error",
+                        "Unable to find Chrome\nPlease install Chrome and restart the application")
+            else:
+                webbrowser.open_new('file://' + full_path)
         else:
             self.invalid_page()
 
@@ -91,6 +104,7 @@ class WebPage():
     @pyqtSlot()
     def web_help(self):
         self.open_WebPage("https://www.microchip.com/design-centers/security-ics/trust-platform")
+
 
 class Ui(QtWidgets.QMainWindow, WebPage):
     """Main PYQT UI"""
@@ -277,7 +291,7 @@ class Ui(QtWidgets.QMainWindow, WebPage):
 
     def qaction_about(self):
         QtWidgets.QMessageBox.about(self, "Trust Platform",
-            "Version : 1.3.0 Beta11\nDate: 2th April 2020"
+            "Version : 1.3.1 \nDate: 20th April 2020"
             )
 
     def minimize_to_tray_callback(self):
@@ -320,6 +334,7 @@ class Ui(QtWidgets.QMainWindow, WebPage):
                     return None
             except:
                 QtWidgets.QMessageBox.about(self, "Invalid repository", "Directory does not contain a valid repository !")
+                return 1
 
             try:
                 if gitObj.is_dirty():
@@ -478,24 +493,15 @@ class Ui(QtWidgets.QMainWindow, WebPage):
             gitObj = GitModule()
             gitObj.set_repo_path(repo_path)
             gitObj.init_repo()
-            commits_behind = gitObj.get_commits_behind()
-
-            if(len(commits_behind)):
-                self.git_update_dialog()
-
-                if self.git_instance is not None:
-                    self.git_instance.stop_gitprocess()
-            else:
-                buttonReply = QtWidgets.QMessageBox.question(self, "Update repository", "Repository already up-to-date, do you want to update python packages", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
-
-                if buttonReply == QtWidgets.QMessageBox.Yes:
-                    self.python_package_updater()
-                elif buttonReply == QtWidgets.QMessageBox.No:
-                    pass
-
-                return None
+            self.git_update_dialog()
         except:
             QtWidgets.QMessageBox.about(self, "Invalid repository", "Path '{}' does not have a valid repository".format(repo_path))
+
+        buttonReply = QtWidgets.QMessageBox.question(self, "Python package updates", "Do you want to update python packages", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
+        if buttonReply == QtWidgets.QMessageBox.Yes:
+            self.python_package_updater()
+        elif buttonReply == QtWidgets.QMessageBox.No:
+            pass
 
     def git_update_dialog(self):
         grid = QtWidgets.QGridLayout()
@@ -527,32 +533,47 @@ class Ui(QtWidgets.QMainWindow, WebPage):
         json_inst = SettingsJson()
         repo_path = json_inst.get_repo_path()
 
-        try:
-            self.git_instance = GitModule()
-            self.git_instance.set_repo_path(repo_path)
-            self.git_instance.init_repo()
-            progress_callback.emit("Started pulling repo")
-            self.git_instance.set_progress_callback(progress_callback)
-            return self.git_instance.pull_origin()
-        except:
+        # Repo init
+        self.git_instance = GitModule()
+        self.git_instance.set_repo_path(repo_path)
+        self.git_instance.init_repo()
+        self.git_instance.set_progress_callback(progress_callback)
+
+        # Repo fetch
+        progress_callback.emit("Fetching GitHub repository information")
+        fetch_return_code = self.git_instance.fetch_origin()
+        if fetch_return_code == 0:
+            pass
+        else:
+            progress_callback.emit("Fetch failed")
+            return 1
+
+        # Check if repo is upto date
+        commits_behind = self.git_instance.get_commits_behind()
+        if(len(commits_behind)):
+            progress_callback.emit("\n")
+            progress_callback.emit("New version is available")
+        else:
+            progress_callback.emit("Repository already upto date")
             return 0
 
-        return 1
+        # Git pull section
+        progress_callback.emit("Pulling latest version from GitHub")
+        if self.git_instance.pull_origin() == 0:
+            progress_callback.emit("")
+            progress_callback.emit("Update - Done")
+        else:
+            progress_callback.emit("")
+            progress_callback.emit("Update - Failed")
+
+        # Time before it closes
+        time.sleep(1)
 
     def git_update_finished(self):
         pass
 
     def git_update_result(self, val):
-        if isinstance(val, int):
-            if val>0:
-                self.git_update_TE.append("")
-                self.git_update_TE.append("Update repository - Failed")
-            elif val==0:
-                self.git_update_TE.append("")
-                self.git_update_TE.append("Update repository - Done")
-
-                self.gitupdate_dialog.close()
-                self.python_package_updater()
+        pass
 
     def git_update_progress(self, s):
         self.git_update_TE.setText(s)
@@ -629,10 +650,14 @@ class Ui(QtWidgets.QMainWindow, WebPage):
                         process.stdout.close()
                         break
                     if self.pip_requirements.is_set():
-                        for child in psutil.Process(process.pid).children(recursive=True):
-                            child.kill()
-                        process.kill()
-                        return 1
+                        try:
+                            for child in psutil.Process(process.pid).children(recursive=True):
+                                child.kill()
+                            process.kill()
+                        except:
+                            pass
+                        finally:
+                            return 1
                 progress_callback.emit("-----------------")
                 package = f.readline().strip()
             return 0
@@ -681,7 +706,7 @@ class Ui(QtWidgets.QMainWindow, WebPage):
         if os.path.exists(full_path_ipecmd):
             config_data = None
             try:
-                json_inst.set_mplab_path(full_path_ipecmd)
+                json_inst.set_mplab_path(Path(mplab_path))
 
                 self.update_mplab_statustip()
                 QtWidgets.QMessageBox.about(self, "Success", "MPLAB programmer path is set to {}".format(str(full_path_ipecmd)))
@@ -711,7 +736,8 @@ class LockedError(QtWidgets.QWidget):
         event.accept()
 
 if __name__ == "__main__":
-    lock_file = os.path.join(Path.home(), 'trustplatform', 'trustplatform.lock')
+    json_inst = SettingsJson()
+    lock_file = os.path.join(Path.home(), '.trustplatform', 'trustplatform.lock')
 
     APP = QtWidgets.QApplication(sys.argv)
     try:
@@ -721,7 +747,6 @@ if __name__ == "__main__":
         WINDOW = LockedError()
     else:
         print("This prompt runs Trust Platform GUI, Do NOT close this window.")
-        json_inst = SettingsJson()
         WINDOW = Ui()
         WINDOW.show()
     sys.exit(APP.exec_())

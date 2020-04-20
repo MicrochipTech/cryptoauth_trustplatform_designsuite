@@ -82,6 +82,17 @@ class common_helper():
         )
         return public_key_pem
 
+    @staticmethod
+    def delete_mplablog_files(path):
+        if os.path.exists(path):
+            files = os.listdir(path)
+            for f in files:
+                if "mplabxlog" in f.lower():
+                    try:
+                        os.remove(f)
+                    except:
+                        pass
+
     def connect_to_secure_element(device_type, dev_interface, dev_identity):
         cfg = cfg_ateccx08a_kithid_default()
         cfg.devtype = common_helper.get_device_type_id(device_type)
@@ -91,6 +102,8 @@ class common_helper():
         if atcab_init(cfg) != Status.ATCA_SUCCESS:
             # Check for CryptoAuth Trust Platform connection and default factory reset image
             status = programmer.check_for_factory_program()
+            working_dir = os.getcwd()
+            common_helper.delete_mplablog_files(working_dir)
             assert status == 'success', status
             assert atcab_init(cfg) == Status.ATCA_SUCCESS, assert_msg
 

@@ -375,8 +375,6 @@
           <itemPath>hpl/tcc/hpl_tcc.c</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <logicalFolder name="f2" displayName="New Folder 2" projectFiles="true">
-      </logicalFolder>
       <logicalFolder name="samd21a" displayName="samd21a" projectFiles="true">
         <logicalFolder name="gcc" displayName="gcc" projectFiles="true">
           <logicalFolder name="gcc" displayName="gcc" projectFiles="true">
@@ -571,7 +569,7 @@
       <ARM-Global>
         <property key="bin" value="false"/>
         <property key="common-include-directories"
-                  value=".\.;hpl/port;hpl/tcc;hpl/systick;hal/utils/include;hal/include;hpl/rtc;hpl/pm;hri;hpl/gclk;hpl/sercom;hpl/sysctrl;hpl/core;hpl/dmac;winc1500;examples;hpl/eic;config;stdio_redirect"/>
+                  value=".\.;hpl/port;hpl/tcc;hpl/systick;hal/utils/include;hal/include;hpl/rtc;hpl/pm;hri;hpl/gclk;hpl/sercom;hpl/sysctrl;hpl/core;hpl/dmac;winc1500;examples;hpl/eic;config;stdio_redirect;..\..\..\..\..\assets\dependencies\common"/>
         <property key="eep" value="false"/>
         <property key="hex" value="true"/>
         <property key="lss" value="false"/>
@@ -624,7 +622,7 @@
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmerToGoFilePath"
-                  value="E:/usecase_tool_reorg/TrustnGO/02_gcp_connect/c/mplab/gcp_connect.X/debug/Default/gcp_connect_ptg"/>
+                  value="E:/Desktop/Trust Platform/usecasetool_dev/TrustnGO/02_gcp_connect/c/mplab/gcp_connect.X/debug/Default/gcp_connect_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

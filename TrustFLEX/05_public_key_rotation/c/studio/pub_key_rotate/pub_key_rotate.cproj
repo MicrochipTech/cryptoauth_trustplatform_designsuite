@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.Atmel.ARMGCC.C</ToolchainName>
-    <ProjectGuid>dce6c7e3-ee26-4d79-826b-08594b9ad897</ProjectGuid>
+    <ProjectGuid>{c32d40f7-1c12-4b90-8be6-27bd3836752f}</ProjectGuid>
     <avrdevice>ATSAMD21E18A</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
@@ -1200,6 +1200,9 @@
     <Compile Include="stdio_start.h">
       <SubType>compile</SubType>
     </Compile>
+    <None Include="custom_pki_aws.cproj">
+      <SubType>compile</SubType>
+    </None>
     <None Include="Device_Startup\samd21e18a_flash.ld">
       <SubType>compile</SubType>
     </None>

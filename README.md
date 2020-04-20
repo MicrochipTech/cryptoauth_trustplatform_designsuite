@@ -18,6 +18,13 @@ For ease of understanding follow the below sequence
 
 ## Release Notes
 
+ - 1.3.1
+   - Updated Azure code to use Common name as serial number
+   - Updated resource generation code, now cleans up programming logs
+   - Updated GUI to open links in Chrome if available
+   - GUI lockfile bug fixed
+   - Other minor changes and bug fixes
+
  - 1.3.0
    - Added TrustPlatform GUI, the repo can be pulled directly from GUI
    - Added asymmetric authentication usecase

@@ -397,6 +397,7 @@
       <Value>../stdio_redirect</Value>
       <Value>../../../../../../assets/dependencies/cryptoauthlib/lib</Value>
       <Value>../../../../../00_resource_generation</Value>
+      <Value>../../../../../../assets/dependencies/common</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
@@ -518,6 +519,7 @@
       <Value>../stdio_redirect</Value>
       <Value>../../../../../../assets/dependencies/cryptoauthlib/lib</Value>
       <Value>../../../../../00_resource_generation</Value>
+      <Value>../../../../../../assets/dependencies/common</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>

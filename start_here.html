@@ -163,20 +163,31 @@
             <div class="side">
                 <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                 <div class="widget">
-                                       <h6 class="title">Quick links</h6>
+                    <h6 class="title">Quick links</h6>
                     <ul class="link">
                         <li><a href="#hello">Home</a></li>
                         <!-- <li><a href="#method">Methodology</a></li> -->
-                        <li><a href="#trustplatform">Trust Plarform</a></li>
+                        <li><a href="#trustplatform">Trust Platform</a></li>
                         <li><a href="#hardware">Prototyping</a></li>
                         <li><a href="#trustngo">Trust&amp;GO</a></li>
                         <li><a href="#trustflex">TrustFLEX</a></li>
                         <li><a href="#trustcustom">TrustCUSTOM</a></li>
-                        <li><a href="assets/html/usecase_configurator/TrustFlex_configurator.html#standard_config" target="_blank">TrustFLEX Use Cases Library</a></li>
-                        <li><a href="assets/html/usecase_configurator/TrustFlex_configurator.html#trustflex_config" target="_blank">TrustFLEX Configurator</a></li>
-                        <!-- <li><a href="assets/html/usecase_configurator/TrustCustom_configurator.html#usecases" target="_blank">TrustCUSTOM Use Cases Library</a></li>-->
-                        <li><a href="assets/html/usecase_configurator/TrustCustom_configurator.html#trustcustom_config" target="_blank">TrustCUSTOM Configurator</a></li>
                         <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="widget">
+                    <h6 class="title">TrustFLEX tool</h6>
+                    <ul class="link">
+                        <li><a href="assets/html/usecase_configurator/TrustFlex_configurator.html#methos" target="_blank">Methodology</a></li>
+                        <li><a href="assets/html/usecase_configurator/TrustFlex_configurator.html#standard_config" target="_blank">Use Cases Library</a></li>
+                        <li><a href="assets/html/usecase_configurator/TrustFlex_configurator.html#trustflex_config" target="_blank">Configurator</a></li>
+                    </ul>
+                </div>
+                <div class="widget">
+                    <h6 class="title">TrustCUSTOM tool</h6>
+                    <ul class="link">
+                        <li><a href="assets/html/usecase_configurator/TrustCustom_configurator.html#trustcustom_config" target="_blank">Use Cases Library</a></li>
+                        <li><a href="assets/html/usecase_configurator/TrustCustom_configurator.html#trustcustom_config" target="_blank">Configurator</a></li>
                     </ul>
                 </div>
                 <div class="widget">
@@ -225,11 +236,11 @@
                     <div class="col-md-4 col-sm-12">
                     <div class="use_case_head p-top-30 p-bottom-30 text-center">
                         <a href="#trustngo"><img width="40%" height="40%" src="assets/html/images/ServicePlan-Logo-TrustandGo-ColorBG.png"></a>
-                        <div class="trust_item_head text-left">
+                        <div class="trust_item_head">
                         <h4>Pre-Configured and Pre-provisioned Secure Elements for fix-function Use Cases</h4><br>
                         <p>The Microchip <a href="https://www.microchip.com/TrustGO" target="_blank">Trust&amp;GO</a> product family allows to secure a connection to any cloud infrastructure whether IP based or LoRaWAN based</p>
                         <ul class="list-group">
-                            <li class="list-group-item">
+                            <li class="list-group-item text-left">
                                 <a href="https://www.microchip.com/trustgotls" target="_blank"><u><h5>Trust&GO for TLS (ATECC608A)</h5></u></a>
                                 <p>This configuration should be used to connect to any public cloud infrastucture using a TLS based authentication. It is compatible with</p>
                                 <ul class="list-group">
@@ -246,19 +257,23 @@
                                         <a href="https://www.microchip.com/TrustGOAzure/" title="Microsoft Azure IoT Hub product page" target="_blank" target="_blank">Microsoft Azure IoT Hub services</a>
                                     </li>
                                 </ul>
+                                <p>This configuration can also be used for Accessory / Disposable asymmetric authentication</p>
                             </li>
-                            <li class="list-group-item">
+                            <li class="list-group-item text-left">
                                 <a href="https://www.microchip.com/trustgolora" target="_blank"><u><h5>Trust&GO for LoRaWAN (ATECC608A)</h5></u></a>
                                 <p>These configurations should be used to connect to a LoRaWAN <a href="https://www.thethingsindustries.com" title="The Things Industries" target="_blank">TTI</a> or <a href="https://www.actility.com" title="Actility" target="_blank">Actility</a> join server</p>
                                 <ul class="list-group">
                                     <li class="list-group-item">
-                                        <a href="https://github.com/MicrochipTech/cryptoauthlib/wiki/Secure-Element-for-LoRaWAN-TTN-Join-Server" title="Microchip LoRaWAN stack for TTI (SAMR34)" target="_blank">Microchip LoRaWAN stack for TTI (SAMR34)</a>
-                            </li>
-                            <li class="list-group-item">
+                                        <a href="https://github.com/MicrochipTech/cryptoauthlib/wiki/TTI-Getting-Started" title="Microchip LoRaWAN stack for TTI (SAMR34)" target="_blank">Microchip LoRaWAN stack for TTI (SAMR34)</a>
+                                    </li>
+                                    <li class="list-group-item">
                                         <a href="https://github.com/MicrochipTech/atsamr34_ecc608a_actility" title="Microchip LoRaWAN stack for Actility (SAMR34)" target="_blank">Microchip LoRaWAN stack for Actility (SAMR34)</a>
                                     </li>
                                     <li class="list-group-item">
                                         <a href="https://github.com/armmbed/mbed-os-example-lorawan-atecc608a" title="ARM mbed LoRaWAN stack product page" target="_blank">ARM mbed LoRaWAN stack for TTI (SAML21)</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="https://github.com/TheThingsNetwork/lorawan-example-atecc608a-tnglora/tree/master/LoRaMac-node" title="LoRaMac-node stack" target="_blank">LoRaMac-node stack for TTI (SAMR34)</a>
                                     </li>
                                 </ul>
                             </li>
@@ -276,11 +291,11 @@
                     <div class="col-md-4 col-sm-12">
                     <div class="use_case_head p-top-30 p-bottom-30 text-center">
                         <a href="#trustflex"><img width="40%" height="40%" src="assets/html/images/ServicePlan-Logo-TrustFlex-ColorBG.png"></a>
-                        <div class="trust_item_head text-left">
+                        <div class="trust_item_head">
                             <h4>Pre-configured and partially Pre-Provisioned Secure Element for Cloud Authentication</h4><br>
                             <p>The Microchip <a href="https://www.microchip.com/TrustFLEX" target="_blank">TrustFLEX</a> product family allows to extend the supported use cases from Trust&amp;GO with additional Security Use Cases</p>
                             <ul class="list_group">
-                                <li class="list-group-item">
+                                <li class="list-group-item text-left">
                                     <a href="http://microchip.com/trustflextls" target="_blank"><u><h5>TrustFLEX for TLS (ATECC608A)</h5></u></a>
                                     <p>In addition to the Trust&amp;GO TLS capabilities, this device supports the following use case extension:</p>
                                     <ul class="list-group">
@@ -291,11 +306,10 @@
                                         <li class="list-group-item">Accessory or Disposable authentication</li>
                                     </ul>
                                 </li>
-                                <li class="list-group-item">
+                                <li class="list-group-item text-left">
                                     <h5>TrustFLEX for LORAWAN (ATECC608A)</h5>
                                     <p>This device extends the ATECC608A LoRaWAN features (TTI or Actility) with the following use cases:</p>
-                                    <ul class="list-group">
-                                        <li class="list-group-item">TLS Thumbprint Certificate Based Cloud Authentication</li>
+                                    <ul class="list-group text-left">
                                         <li class="list-group-item">Customer specific DevEUI range</li>
                                         <li class="list-group-item">Firmware validation (aka Secure boot)</li>
                                     </ul>
@@ -315,13 +329,13 @@
                     <div class="col-md-4 col-sm-12">
                         <div class="use_case_head p-top-30 p-bottom-30 text-center">
                             <a href="#trustcustom"><img width="40%" height="40%" src="assets/html/images/ServicePlan-Logo-TrustCustom-ColorBG.png"></a>
-                            <div class="trust_item_head text-left">
+                            <div class="trust_item_head">
                                 <h4>Secure Element to be custom configured and provisioned for Custom Usecases</h4><br>
                                 <p>The Microchip <a href="https://www.microchip.com/TrustCUSTOM" target="_blank">TrustCUSTOM</a> product family allows to address the most demanding use cases. The user has full freedom in defining the device configuration and the provisioned cryptographic assets.</p>
-                                <ul class="list-group">
+                                <ul class="list-group text-left">
                                     <li class="list-group-item">
                                         <h5>ATECC608A-TCSM</h5>
-                                        <p>For security schemes requiring asymmetric cryptography</p>
+                                        <p>For security schemes requiring asymmetric and symmetric cryptography</p>
                                     </li>
                                     <li class="list-group-item">
                                         <h5>ATSHA204A-TCTM</h5>
@@ -417,7 +431,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td rowspan=7 align=left style="font-size:90%">TLS configuration for Cloud Authentication<br><li>Google Cloud Platform IoT Core</li><li>Amazon AWS IoT device</li><li>Amazon AWS GreenGrass</li><li>Microsoft Azure IoT Hub</li><br><a href="docs/ATECC608A_TNGTLS_datasheet.pdf" target="_blank">Datasheet</a></td>
+                                            <td rowspan=7 align=left style="font-size:90%">TLS configuration for Cloud Authentication<br><li>Google Cloud Platform IoT Core</li><li>Amazon AWS IoT device</li><li>Amazon AWS GreenGrass</li><li>Microsoft Azure IoT Hub</li>or<br><li>Accessory / Disposable asymmetric authentication</li><br><a href="docs/ATECC608A_TNGTLS_datasheet.pdf" target="_blank">Datasheet</a>></td>
                                             <td>ATECC608A-TNGTLSU-B</td>
                                             <td>8-uDFN</td>
                                             <td>Bag</td>
@@ -455,7 +469,7 @@
                                             <td>2000</td>
                                         </tr>
                                         <tr>
-                                            <td colspan=4 align=center><a href="assets/html/usecase_configurator/TrustnGO_usecase_library.html" target="_blank">Click here to start with Trust&GO Use Cases for Cloud TLS</a><p> and start claiming process on selected Cloud provider</td>
+                                            <td colspan=4 align=center><a href="assets/html/usecase_configurator/TrustnGO_usecase_library.html" target="_blank">Click here to start with Trust&GO Use Cases for Cloud TLS or asymmetric Accessory / Disposable</a><p> and start claiming process on selected Cloud provider</td>
                                     </tbody>
                                 </table>
                                <table class="table table-responsive partnumberrow table-bordered">
@@ -507,7 +521,7 @@
                                             <td>2000</td>
                                         </tr>
                                         <tr>
-                                            <td colspan=4 align=center><a href="https://github.com/MicrochipTech/cryptoauthlib/wiki/TTN-Getting-Started" target="_blank">ATECC608A-TNGLORA getting started software and step by step guide</td>
+                                            <td colspan=4 align=center><a href="https://github.com/MicrochipTech/cryptoauthlib/wiki/TTI-Getting-Started" target="_blank">ATECC608A-TNGLORA getting started software and step by step guide</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -523,7 +537,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td rowspan=7 align=left style="font-size:90%">LoRaWAN configuration for Actility Join Server<br><li>includes 1 year of join server service</li><br><a href="docs/ATECC608A_TNGLORA_datasheet.pdf" target="_blank">Datasheet</a></td>
+                                            <td rowspan=7 align=left style="font-size:90%">LoRaWAN configuration for Actility Join Server<br><br><a href="docs/ATECC608A_TNGLORA_datasheet.pdf" target="_blank">Datasheet</a></td>
                                             <td>ATECC608A-TNGACTS-B</td>
                                             <td>SO8</td>
                                             <td>Bag</td>
@@ -638,7 +652,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td rowspan=5 align=left style="font-size:90%">TrustFLEX LoRaWAN configuration for TTI Join Server<p><li>TLS Thumbprint Certificate Based Cloud Authentication</li><li>Customer specific DevEUI range</li><li>Firmware validation (aka Secure boot)</li></td>
+                                            <td rowspan=5 align=left style="font-size:90%">TrustFLEX LoRaWAN configuration for TTI Join Server<p><li>Customer specific DevEUI range</li><li>Firmware validation (aka Secure boot)</li></td>
                                             <td>ATECC608A-TFLXLORAU-Proto</td>
                                             <td>8-uDFN</td>
                                             <td>Bag</td>
@@ -678,7 +692,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                            <td rowspan=5 align=left style="font-size:90%">TrustFLEX LoRaWAN configuration for Actility Join Server<p><li>TLS Thumbprint Certificate Based Cloud Authentication</li><li>Customer specific DevEUI range</li><li>Firmware validation (aka Secure boot)</li></td>
+                                            <td rowspan=5 align=left style="font-size:90%">TrustFLEX LoRaWAN configuration for Actility Join Server<p><li>Customer specific DevEUI range</li><li>Firmware validation (aka Secure boot)</li></td>
                                             <td>ATECC608A-TFLXACTU-Proto (Actility)</td>
                                             <td>8-uDFN</td>
                                             <td>Bag</td>
@@ -726,46 +740,39 @@
                             <table class="table table-responsive partnumberrow table-bordered">
                                     <thead class="partnumberrow">
                                         <tr>
-                                            <th>Part Number</th>
-                                            <th>Description</th>
-                                            <th>Package</th>
-                                            <th>Packing</th>
-                                            <th>Minimum Order Quantity (units)</th>
+                                            <th width=20%>Part Number</th>
+                                            <th width=40%>Description</th>
+                                            <th width=10%>Package</th>
+                                            <th width=10%>Packing</th>
+                                            <th width=20%>Minimum Order Quantity (units)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>ATECC608A-TCSMS</td>
-                                            <td>ATECC608A custom configured and provisioned SO8 device</td>
+                                            <td>ATECC608A custom configuration and provisioning</td>
                                             <td>SO8</td>
                                             <td>Reel</td>
                                             <td>4000</td>
                                         </tr>
                                         <tr>
                                             <td>ATECC608A-TCMSMU</td>
-                                            <td>ATECC608A custom configured and provisioned 8-uDFN device</td>
+                                            <td>ATECC608A custom configuration and provisioning</td>
                                             <td>8-uDFN</td>
                                             <td>Reel</td>
                                             <td>4000</td>
                                         </tr>
                                         <tr>
                                             <td>ATSHA204A-TCSMS</td>
-                                            <td>ATSHA204A custom configured and provisioned SO8 device</td>
+                                            <td>ATSHA204A custom configuration and provisioning</td>
                                             <td>SO8</td>
                                             <td>Reel</td>
                                             <td>4000</td>
                                         </tr>
                                         <tr>
                                             <td>ATSHA204A-TCMSU</td>
-                                            <td>ATSHA204A custom configured and provisioned 8-uDFN device</td>
+                                            <td>ATSHA204A custom configuration and provisioning</td>
                                             <td>8-uDFN</td>
-                                            <td>Reel</td>
-                                            <td>4000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>ATSHA204A-TCSMS</td>
-                                            <td>ATSHA204A custom configured and provisioned SO8 device</td>
-                                            <td>SO8</td>
                                             <td>Reel</td>
                                             <td>4000</td>
                                         </tr>

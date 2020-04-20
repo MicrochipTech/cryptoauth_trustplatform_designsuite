@@ -41,15 +41,6 @@ class SettingsJson():
             dir_full_path = os.path.join(Path.home(), self.trustplatform_directory)
             if not os.path.exists(dir_full_path):
                 Path(dir_full_path).mkdir(parents=True, exist_ok=True)
-                os_type = get_os_name().lower()
-                if 'windows' in os_type:
-                    subprocess.call(["attrib", "+H", dir_full_path])
-                elif 'linux' in os_type:
-                    subprocess.call(["chflags", "hidden", dir_full_path])
-                elif 'darwin' in os_type:
-                    subprocess.call(["chflags", "hidden", dir_full_path])
-                else:
-                    raise UnrecogonizedOperatingSystem("OS not compatible")
 
             with open(file_name, 'w') as f:
                 json.dump(json_dict, f, indent=4)

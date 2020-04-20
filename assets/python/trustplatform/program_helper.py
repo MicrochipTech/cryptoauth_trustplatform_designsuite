@@ -5,6 +5,7 @@ import hid
 import sys, os
 import json
 import time
+import platform
 
 nEDBG_DEBBUGER_PID        = 8565   #0x2175
 CRYPTO_TRUST_PLATFORM_PID = 8978   #0x2312
@@ -20,6 +21,7 @@ class program_flash():
     """
     def __init__(self):
         self.jar_loc = None
+        self.java_loc = None
 
         trustplatform_directory = ".trustplatform"
         self.filename = os.path.join(Path.home(), trustplatform_directory, json_name)
@@ -28,9 +30,42 @@ class program_flash():
         """
         Function which fetch the jar location and store it in self.jar_loc
         """
+        os_type = platform.system().lower()
+        if 'darwin' in os_type:
+            ipefile = os.path.join("mplab_platform", "mplab_ipe", "bin", "ipecmd.sh")
+        else:
+            ipefile = os.path.join("mplab_platform", "mplab_ipe", "ipecmd.jar")
+
         with open(self.filename, 'r') as file:
             data = json.load(file)
-        self.jar_loc = data["MPLABX"]["ipe_path"]
+        mplab_path = data["MPLABX"]["ipe_path"]
+
+        self.jar_loc = Path(os.path.join(mplab_path, ipefile))
+
+    def get_java_loc(self):
+        """
+        Function which fetch the java location associated with mplabx
+        """
+        jre = None
+
+        with open(self.filename, 'r') as file:
+            data = json.load(file)
+        mplab_path = data["MPLABX"]["ipe_path"]
+
+        dirfiles = os.listdir(os.path.join(mplab_path, "sys", "java"))
+
+        for folder in dirfiles:
+            if ("jre" in folder) and os.path.isdir(os.path.join((os.path.join(mplab_path, "sys", "java")), folder)):
+                jre = folder
+
+        if jre is None:
+            raise FileNotFoundError("JRE installation not found")
+
+        os_type = platform.system().lower()
+        if 'darwin' in os_type:
+            self.java_loc = Path(os.path.join(mplab_path, "sys", "java", jre, "home", "bin", "java"))
+        else:
+            self.java_loc = Path(os.path.join(mplab_path, "sys", "java", jre, "bin", "java.exe"))
 
     def check_mplab_path(self):
         """
@@ -104,11 +139,11 @@ class program_flash():
                srderr                  All error and warning outputs
         """
         self.get_jar_loc()
-
+        self.get_java_loc()
         if sys.platform == 'darwin':
-            subprocessout = sys_helper.run_subprocess_cmd(cmd=[self.jar_loc, "-PATSAMD21E18A", "-TPPKOB", "-OL", "-M", ("-F"+str(Path(hexfile_path)))])
+            subprocessout = sys_helper.run_subprocess_cmd(cmd=[str(self.jar_loc), "-PATSAMD21E18A", "-TPPKOB", "-OL", "-M", ("-F"+str(Path(hexfile_path)))])
         else:
-            subprocessout = sys_helper.run_subprocess_cmd(cmd=["java", "-jar", self.jar_loc, "-PATSAMD21E18A", "-TPPKOB", "-OL", "-M", ("-F"+str(Path(hexfile_path)))])
+            subprocessout = sys_helper.run_subprocess_cmd(cmd=[str(Path(self.java_loc)), "-jar", str(self.jar_loc), "-PATSAMD21E18A", "-TPPKOB", "-OL", "-M", ("-F"+str(Path(hexfile_path)))])
 
         return subprocessout
 
