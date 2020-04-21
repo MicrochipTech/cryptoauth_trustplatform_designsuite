@@ -13,5 +13,5 @@ hexrec
 hidapi
 google-cloud-pubsub
 google-cloud-iot
-azure-cli==2.0.80
+azure-cli
 azure-cli-extension
