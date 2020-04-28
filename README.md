@@ -18,6 +18,12 @@ For ease of understanding follow the below sequence
 
 ## Release Notes
 
+ - 1.3.2
+   - Fixed AWS subprocess bug
+   - Updated Azure code to work with latest Azure python module
+   - Fixed GUI webbrowser bug
+   - Other minor changes and bug fixes
+
  - 1.3.1
    - Updated Azure code to use Common name as serial number
    - Updated resource generation code, now cleans up programming logs

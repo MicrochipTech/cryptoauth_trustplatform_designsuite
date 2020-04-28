@@ -32,7 +32,7 @@ class AWSZTKitError(RuntimeError):
 
 #Shows the current configuration of the AWS for Access key, secret key and the region.
 def list_current_configuration():
-    subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "list"])
+    subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "list"], sys_shell=True)
     if subProcessOut.returncode == 0:
         print(subProcessOut.stdout)
     else:
@@ -49,19 +49,19 @@ def configure_aws_cli(selected_region):
 
             #Setting the aws cli for the access key
             print("Setting aws access key...")
-            subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "set", "aws_access_key_id", access_key_id])
+            subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "set", "aws_access_key_id", access_key_id], sys_shell=True)
             if subProcessOut.returncode != 0:
                 print("Setting AWS access key failed\r\n")
                 return 'danger'
 
             print("Setting aws secret access key...")
-            subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "set", "aws_secret_access_key", secret_key_access])
+            subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "set", "aws_secret_access_key", secret_key_access], sys_shell=True)
             if subProcessOut.returncode != 0:
                 print("Setting AWS secret key failed\r\n")
                 return 'danger'
 
             print("Setting aws region...\r\n")
-            subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "set", "region", selected_region])
+            subProcessOut = sys_helper.run_subprocess_cmd(cmd=["aws", "configure", "set", "region", selected_region], sys_shell=True)
             if subProcessOut.returncode != 0:
                 print("Setting AWS region failed\r\n")
                 return 'danger'

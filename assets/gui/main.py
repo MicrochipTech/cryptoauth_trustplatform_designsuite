@@ -52,34 +52,48 @@ class WebPage():
                 "Error",
                 "Unable to find Chrome\n\
 Please install Chrome and restart the application")
-        if get_os_name().lower() != 'darwin' and self.chrome_path:
-            webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(self.chrome_path))
+        if self.chrome_path:
+            webbrowser.register(
+                'chrome_exe',
+                None,
+                webbrowser.BackgroundBrowser(self.chrome_path))
 
     def open_WebPage(self, page_addr):
         webbrowser.open_new(page_addr)
 
-    def open_local_page(self, page_addr):
-        json_file = SettingsJson()
-        repo_path = json_file.get_repo_path()
-
-        full_path = os.path.join(repo_path, page_addr)
+    def open_local_link(self, full_path):
         if os.path.exists(full_path):
             if self.chrome_path:
                 try:
-                    chrome = webbrowser.get('chrome')
-                    chrome.open_new('file://' + full_path)
+                    webbrowser.get('chrome_exe').open_new('file://' + full_path)
                 except webbrowser.Error:
                     QtWidgets.QMessageBox.critical(
                         self,
                         "Error",
-                        "Unable to find Chrome\nPlease install Chrome and restart the application")
+                        "Unable to find Chrome\nPlease install Chrome and\
+ restart the application")
             else:
+                QtWidgets.QMessageBox.warning(
+                    self,
+                    "Chrome not found",
+                    "Trust platform works best with Chrome browser\n\
+Consider installing it"
+                )
                 webbrowser.open_new('file://' + full_path)
         else:
             self.invalid_page()
 
+    def open_local_page(self, page_addr):
+        json_file = SettingsJson()
+        repo_path = json_file.get_repo_path()
+        full_path = os.path.join(repo_path, page_addr)
+        open_local_link(full_path)
+
     def invalid_page(self):
-        QtWidgets.QMessageBox.about(self, "Repository not found", "To setup repository go to Design Suite -> Setup -> Repository")
+        QtWidgets.QMessageBox.about(
+            self,
+            "Repository not found",
+            "To setup repository go to Design Suite -> Setup -> Repository")
 
     @pyqtSlot()
     def open_github_designsuite(self):
@@ -105,6 +119,9 @@ Please install Chrome and restart the application")
     def web_help(self):
         self.open_WebPage("https://www.microchip.com/design-centers/security-ics/trust-platform")
 
+    @pyqtSlot()
+    def gui_help(self):
+        self.open_local_link(os.path.join(cwd, "README.html"))
 
 class Ui(QtWidgets.QMainWindow, WebPage):
     """Main PYQT UI"""
@@ -243,6 +260,39 @@ class Ui(QtWidgets.QMainWindow, WebPage):
         self.jupyter_server_running = False
         self.openJupyter.setText("Start Jupyter")
 
+    def update_mplab_statustip(self):
+        json_inst = SettingsJson()
+        mplab_path = json_inst.get_mplab_path()
+
+        if json_inst.is_mplab_path_set() and mplab_path != "":
+            self.actionMPLAB_path.setStatusTip('Current MPLAB X IDE: {}'.format(mplab_path))
+        else:
+            self.actionMPLAB_path.setStatusTip("Select MPLAB X IDE path to program through Notebook")
+
+    def update_repository_statustip(self):
+        json_inst = SettingsJson()
+        repo_path = json_inst.get_repo_path()
+        if repo_path != "":
+            self.actionRepository.setStatusTip('Current working directory: {}'.format(repo_path))
+        else:
+            self.actionRepository.setStatusTip("Select working directory to download and install Trust Platform repository")
+
+    def update_gitupdate_statustip(self):
+        json_inst = SettingsJson()
+        repo_path = json_inst.get_repo_path()
+        if repo_path != "":
+            self.actionGet_latest_version.setStatusTip('Update {} directory to latest version'.format(repo_path))
+        else:
+            self.actionGet_latest_version.setStatusTip("Select working dir - go to Design Suite -> Setup -> Repository")
+
+    def update_gitclean_statustip(self):
+        json_inst = SettingsJson()
+        repo_path = json_inst.get_repo_path()
+        if repo_path != "":
+            self.actionClean.setStatusTip('Revert changes in: {}'.format(repo_path))
+        else:
+            self.actionClean.setStatusTip("Select working dir - go to Design Suite -> Setup -> Repository")
+
     def setup_menu_qaction(self):
         json_inst = SettingsJson()
         repo_path = json_inst.get_repo_path()
@@ -250,6 +300,10 @@ class Ui(QtWidgets.QMainWindow, WebPage):
         self.actionExit.setShortcut("Ctrl+Q")
         self.actionExit.setStatusTip("Exit Application")
         self.actionExit.triggered.connect(self.close)
+
+        # Action Help - Open developer help
+        self.actionGUIHelp.setStatusTip("Opens GUI help page")
+        self.actionGUIHelp.triggered.connect(self.gui_help)
 
         # Action Help - Open developer help
         self.actionWeb_documentation.setStatusTip("Opens TrustPlatform product page")
@@ -264,7 +318,7 @@ class Ui(QtWidgets.QMainWindow, WebPage):
         self.actionOpen_GitHub_page.triggered.connect(self.open_github_designsuite)
 
         # Action DesignSuite - Git clone
-        self.actionRepository.setStatusTip("Download and install 'TrustPlatform Design Suite'")
+        self.update_repository_statustip()
         self.actionRepository.triggered.connect(self.clone_dialog)
 
         # Action File - Minimize to tray
@@ -272,26 +326,21 @@ class Ui(QtWidgets.QMainWindow, WebPage):
         self.actionMinimize_to_tray.triggered.connect(self.minimize_to_tray_callback)
 
         # Action Repository - Clean repository
-        self.actionClean.setStatusTip("Revert changes in working directory")
+        self.update_gitclean_statustip()
         self.actionClean.triggered.connect(self.git_clean_trustplatform)
 
         # Action Repository - git pull repository (Update)
-        self.actionGet_latest_version.setStatusTip("Update working directory to latest version")
+        self.update_gitupdate_statustip()
         self.actionGet_latest_version.triggered.connect(self.git_update_trustplatform)
 
         # Action Repository - Setup - MPLAB Path
+        self.update_mplab_statustip()
         self.actionMPLAB_path.triggered.connect(self.set_mplab_path)
-        self.actionMPLAB_path.setStatusTip("Select MPLAB path to program through Notebook")
 
-    def update_mplab_statustip(self):
-        json_inst = SettingsJson()
-
-        if json_inst.is_mplab_path_set():
-            self.actionMPLAB_path.setStatusTip("Path: {}".format(json_inst.get_mplab_path()))
 
     def qaction_about(self):
         QtWidgets.QMessageBox.about(self, "Trust Platform",
-            "Version : 1.3.1 \nDate: 20th April 2020"
+            "Version : 1.3.2 \nDate: 28th April 2020\n"
             )
 
     def minimize_to_tray_callback(self):
@@ -329,7 +378,7 @@ class Ui(QtWidgets.QMainWindow, WebPage):
                     # Valid TrustPlatform repository
                     pass
                 else:
-                    QtWidgets.QMessageBox.about(self, "Invalid repository", "Directory does not contain trustplatform repository !")
+                    QtWidgets.QMessageBox.about(self, "Invalid repository", "Directory does not contain Trust Platform repository !")
                     json_inst.reset_repo_path()
                     return None
             except:
@@ -377,6 +426,9 @@ class Ui(QtWidgets.QMainWindow, WebPage):
 
             if self.git_instance is not None:
                 self.git_instance.stop_gitprocess()
+        self.update_repository_statustip()
+        self.update_gitupdate_statustip()
+        self.update_gitclean_statustip()
 
     def git_clone_trustplatform(self):
         workergit = Worker(self.git_clone_thread)
@@ -420,6 +472,12 @@ class Ui(QtWidgets.QMainWindow, WebPage):
 
 
     def git_clean_trustplatform(self):
+        json_inst = SettingsJson()
+        repo_path = json_inst.get_repo_path()
+
+        if repo_path == "":
+            return 0
+
         buttonReply = QtWidgets.QMessageBox.question(self, 'GIT Clean options', "Do you want to keep temporary files. eg,keys, certificates etc... ", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
 
         grid = QtWidgets.QGridLayout()
@@ -488,6 +546,9 @@ class Ui(QtWidgets.QMainWindow, WebPage):
     def git_update_trustplatform(self):
         json_inst = SettingsJson()
         repo_path = json_inst.get_repo_path()
+
+        if repo_path == "":
+            return 0
 
         try:
             gitObj = GitModule()
@@ -725,7 +786,7 @@ class LockedError(QtWidgets.QWidget):
         self.setWindowTitle("Trustplatform")
         self.setWindowIcon(QtGui.QIcon(QT_WINDOW_ICON_PATH))
         self.show()
-        QtWidgets.QMessageBox.critical(self, "Error", "Another instance of trustplatform is already open")
+        QtWidgets.QMessageBox.critical(self, "Error", "Another instance of Trust Platform is already open")
         self.close()
         sys.exit()
 

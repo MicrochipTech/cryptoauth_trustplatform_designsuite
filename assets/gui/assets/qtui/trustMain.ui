@@ -224,6 +224,7 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionGUIHelp"/>
     <addaction name="actionWeb_documentation"/>
     <addaction name="actionAbout"/>
    </widget>
@@ -260,6 +261,11 @@
   <action name="actionWeb_documentation">
    <property name="text">
     <string>Web documentation</string>
+   </property>
+  </action>
+  <action name="actionGUIHelp">
+   <property name="text">
+    <string>GUI help</string>
    </property>
   </action>
   <action name="actionSettings">
@@ -315,7 +321,7 @@
   </action>
   <action name="actionMPLAB_path">
    <property name="text">
-    <string>MPLAB path</string>
+    <string>MPLAB X IDE path</string>
    </property>
   </action>
  </widget>
