@@ -87,7 +87,7 @@ Consider installing it"
         json_file = SettingsJson()
         repo_path = json_file.get_repo_path()
         full_path = os.path.join(repo_path, page_addr)
-        open_local_link(full_path)
+        self.open_local_link(full_path)
 
     def invalid_page(self):
         QtWidgets.QMessageBox.about(
