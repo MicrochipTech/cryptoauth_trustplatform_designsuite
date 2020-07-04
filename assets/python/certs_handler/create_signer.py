@@ -22,6 +22,7 @@ import argparse
 import getpass
 
 from cryptography import x509
+from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 
 from .create_certs_common import *
 from .ext_builder import ExtBuilder, TimeFormat
@@ -33,6 +34,7 @@ def load_or_create_signer_ca(csr_filename, cert_filename, ca_key_filename, ca_ke
     cert_filename = Path(cert_filename)
     ca_key_filename = Path(ca_key_filename)
     ca_cert_filename = Path(ca_cert_filename)
+    rebuild_cert = True
 
     with open(str(csr_filename), 'rb') as f:
         csr = x509.load_pem_x509_csr(f.read(), get_backend())
@@ -51,37 +53,53 @@ def load_or_create_signer_ca(csr_filename, cert_filename, ca_key_filename, ca_ke
     # Look for certificate
     certificate = None
     if cert_filename.is_file():
+        rebuild_cert = False
         # Found cached certificate file, read it in
         with open(str(cert_filename), 'rb') as f:
             certificate = x509.load_pem_x509_certificate(f.read(), get_backend())
 
-    # Create signer certificate
-    builder = ExtBuilder()
-    builder = builder.issuer_name(ca_certificate.subject)
     if certificate:
-        builder = builder.not_valid_before(certificate.not_valid_before)
-    else:
+        if get_org_name(certificate.subject) != get_org_name(ca_certificate.subject):
+            rebuild_cert = True
+
+        cert_pub_bytes = certificate.public_key().public_bytes(format=PublicFormat.SubjectPublicKeyInfo, encoding=Encoding.DER)
+        csr_pub_bytes = csr.public_key().public_bytes(format=PublicFormat.SubjectPublicKeyInfo, encoding=Encoding.DER)
+        if cert_pub_bytes != csr_pub_bytes:
+            rebuild_cert = True
+
+        cert_authkey_id = certificate.extensions.get_extension_for_oid(x509.oid.ExtensionOID.AUTHORITY_KEY_IDENTIFIER).value
+        ca_subkey_id = ca_certificate.extensions.get_extension_for_oid(x509.oid.ExtensionOID.SUBJECT_KEY_IDENTIFIER).value
+        if cert_authkey_id != ca_subkey_id:
+            rebuild_cert = True
+
+    if rebuild_cert:
+        # Create signer certificate
+        print("Building new signer certificate")
+        builder = ExtBuilder()
+        builder = builder.issuer_name(ca_certificate.subject)
         builder = builder.not_valid_before(
             datetime.utcnow().replace(minute=0, second=0, microsecond=0, tzinfo=timezone.utc)
         )
-    builder = builder.not_valid_after(
-        builder._not_valid_before.replace(year=builder._not_valid_before.year + validity),
-        format=TimeFormat.GENERALIZED_TIME
-    )
-    builder = builder.subject_name(csr.subject)
-    builder = builder.public_key(csr.public_key())
-    builder = builder.serial_number(pubkey_cert_sn(16, builder))
-    builder = add_signer_extensions(
-        builder=builder,
-        authority_cert=ca_certificate)
+        builder = builder.not_valid_after(
+            builder._not_valid_before.replace(year=builder._not_valid_before.year + validity),
+            format=TimeFormat.GENERALIZED_TIME
+        )
+        builder = builder.subject_name(csr.subject)
+        builder = builder.public_key(csr.public_key())
+        builder = builder.serial_number(pubkey_cert_sn(16, builder))
+        builder = add_signer_extensions(
+            builder=builder,
+            authority_cert=ca_certificate)
 
-    # Sign signer certificate with CA
-    certificate_new = builder.sign(
-        private_key=ca_private_key,
-        algorithm=hashes.SHA256(),
-        backend=get_backend())
+        # Sign signer certificate with CA
+        certificate_new = builder.sign(
+            private_key=ca_private_key,
+            algorithm=hashes.SHA256(),
+            backend=get_backend())
 
-    certificate = update_x509_certificate(certificate, certificate_new, cert_filename, encoding='PEM')
+        certificate = update_x509_certificate(certificate, certificate_new, cert_filename, encoding='PEM')
+    else:
+        print("Using cached signer certificate")
 
     # return {'private_key': private_key, 'certificate': certificate}
     return {'certificate': certificate}

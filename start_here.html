@@ -68,7 +68,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
-<body onload="load_version()" data-spy="scroll" data-target=".navbar-collapse">
+<body onload="load_version(); href_test();" data-spy="scroll" data-target=".navbar-collapse">
     <div id="templates" style="display:none">
         <div id="note-msg-template" class="config-note">
             <svg viewBox="0 0 75 75" width="0.2in" height="0.2in">
@@ -475,7 +475,7 @@
                                             <td>2000</td>
                                         </tr>
                                         <tr>
-                                            <td colspan=4 align=center><a href="assets/html/usecase_configurator/TrustnGO_usecase_library.html" target="_blank">Click here to start with Trust&GO Use Cases for Cloud TLS or asymmetric Accessory / Disposable</a><p> and start claiming process on selected Cloud provider</td>
+                                            <td colspan=4 align=center><a href="assets/html/usecase_configurator/TrustnGO_usecase_library.html" target="_blank">Click here to start with Trust&GO Use Cases </a><p></td>
                                     </tbody>
                                 </table>
                                <table class="table table-responsive partnumberrow table-bordered">
@@ -787,7 +787,7 @@
                                 <div class="text-left"> The Microchip TrustCUSTOM product family allows user to address any Use Cases not covered from the TrustFLEX product family, as well as custom device configuration. If Trust&amp;GO or TrustFLEX devices cannot meet your application requirements, Microchip will provide under NDA the TrustCUSTOM Configurator tools.
                                     <br />
                                     <br />
-                                    <a href="assets/html/usecase_configurator/TrustCustom_configurator.html" target="_blank">Click here for TrustCUSTOM Pre-defined Use Case(s) and Configurator</a>
+                                    <a id='trust_custom_link'> Click here for TrustCUSTOM Pre-defined Use Case(s) and Configurator</a>
                                 </div>
 
 
@@ -855,7 +855,7 @@
         <script src="assets/html/js/bootsnav.js"></script>
         <script src="assets/html/js/script_strings.js"></script>
         <script src="assets/html/usecase_configurator/assets/js/VERSION"></script>
-
+		<script src="TrustCUSTOM/assets/js/configurator.js"></script>
         <script>
             function load_version()
             {
@@ -872,6 +872,15 @@
                 var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
                 $('.mapheight').css('height', '350');
                 $('.maps_text h3').hide();
+            }
+            function href_test()
+            {
+                document.getElementById("trust_custom_link").setAttribute("target", "_blank");
+                document.getElementById("trust_custom_link").setAttribute("href", "assets/html/usecase_configurator//TrustCustom_configurator.html");
+                if (TrustCUSTOM)
+                {
+                    document.getElementById("trust_custom_link").setAttribute("href", "TrustCUSTOM/assets/TrustCustom_configurator.html");
+                }
             }
         </script>
         <script src="assets/html/js/plugins.js"></script>

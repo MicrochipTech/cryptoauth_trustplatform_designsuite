@@ -23,6 +23,9 @@ from pathlib import Path
 import cryptography
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography import x509
+from cryptography.x509.oid import NameOID
+from cryptography import x509
 import asn1crypto.x509
 import asn1crypto.csr
 
@@ -36,6 +39,14 @@ def get_backend():
         _backend = backend
     return _backend
 
+def get_org_name(name):
+    """
+    Get the org name string from a distinguished name (RDNSequence)
+    """
+    for attr in name:
+        if attr.oid == x509.oid.NameOID.ORGANIZATION_NAME:
+            return attr.value
+    return None
 
 def load_or_create_key_pair(filename):
     """
@@ -172,3 +183,15 @@ def update_csr(csr, csr_new, csr_filename):
             f.write(csr_new.public_bytes(encoding=serialization.Encoding.PEM))
         csr = csr_new
     return csr
+
+def get_device_sn(cert_subj):
+    """
+    Check the device common name and return the device serial number  """
+    for attr in cert_subj:
+        if attr.oid == x509.oid.NameOID.COMMON_NAME:
+            x = attr.value.find("0123")
+            if (x != -1):
+                return attr.value[x:x+18]
+            else:
+                return None
+    return None

@@ -22,12 +22,13 @@ from datetime import datetime, timezone, timedelta
 import argparse
 
 from cryptography import x509
+from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 
 from .create_certs_common import *
 from .ext_builder import ExtBuilder
 
 
-def load_or_create_root_ca(key_filename, cert_filename, org_name='Microchip Technology Inc', 
+def load_or_create_root_ca(key_filename, cert_filename, org_name='Microchip Technology Inc',
     common_name='Crypto Authentication Root CA 002'):
     """
     Load a root CA private key and certificate from files. If it doesn't
@@ -35,6 +36,7 @@ def load_or_create_root_ca(key_filename, cert_filename, org_name='Microchip Tech
     """
     key_filename = Path(key_filename)
     cert_filename = Path(cert_filename)
+    rebuild_cert = True
 
     # Load or create key pair
     private_key = load_or_create_key_pair(filename=key_filename)
@@ -42,45 +44,52 @@ def load_or_create_root_ca(key_filename, cert_filename, org_name='Microchip Tech
     # Look for root certificate
     certificate = None
     if cert_filename.is_file():
+        rebuild_cert = False
         # Found cached certificate file, read it in
         with open(str(cert_filename), 'rb') as f:
             certificate = x509.load_pem_x509_certificate(f.read(), get_backend())
 
-    # Build new certificate
-    builder = ExtBuilder()
-    builder = builder.subject_name(x509.Name([
-        x509.NameAttribute(x509.oid.NameOID.ORGANIZATION_NAME, org_name),
-        x509.NameAttribute(x509.oid.NameOID.COMMON_NAME, common_name)]))
-    builder = builder.issuer_name(builder._subject_name)  # Names are the same for a self-signed certificate
     if certificate:
-        builder = builder.not_valid_before(certificate.not_valid_before)
-    else:
+        if get_org_name(certificate.subject) != org_name:
+            rebuild_cert = True
+
+        cert_pub_bytes = certificate.public_key().public_bytes(format=PublicFormat.SubjectPublicKeyInfo, encoding=Encoding.DER)
+        key_pub_bytes = private_key.public_key().public_bytes(format=PublicFormat.SubjectPublicKeyInfo, encoding=Encoding.DER)
+        if cert_pub_bytes != key_pub_bytes:
+            rebuild_cert = True
+
+    if rebuild_cert:
+        print("Building new root certificate")
+        # Build new certificate
+        builder = ExtBuilder()
+        builder = builder.subject_name(x509.Name([
+            x509.NameAttribute(x509.oid.NameOID.ORGANIZATION_NAME, org_name),
+            x509.NameAttribute(x509.oid.NameOID.COMMON_NAME, common_name)]))
+        builder = builder.issuer_name(builder._subject_name)  # Names are the same for a self-signed certificate
         builder = builder.not_valid_before(datetime.utcnow().replace(tzinfo=timezone.utc))
-    builder = builder.not_valid_after(builder._not_valid_before + timedelta(days=365*40))
-    #builder = builder.not_valid_after(datetime(9999, 12, 31, 23, 59, 59, tzinfo=timezone.utc))
-    if certificate:
-        builder = builder.public_key(certificate.public_key())
-        builder = builder.serial_number(certificate.serial_number)
-    else:
+        builder = builder.not_valid_after(builder._not_valid_before + timedelta(days=365*40))
+        #builder = builder.not_valid_after(datetime(9999, 12, 31, 23, 59, 59, tzinfo=timezone.utc))
         builder = builder.public_key(private_key.public_key())
         builder = builder.serial_number(random_cert_sn(16))
-    builder = builder.add_extension(
-        x509.SubjectKeyIdentifier.from_public_key(builder._public_key),
-        critical=False)
-    builder = builder.add_extension(
-        x509.AuthorityKeyIdentifier.from_issuer_public_key(builder._public_key),
-        critical=False)
-    builder = builder.add_extension(
-        x509.BasicConstraints(ca=True, path_length=None),
-        critical=True)
+        builder = builder.add_extension(
+            x509.SubjectKeyIdentifier.from_public_key(builder._public_key),
+            critical=False)
+        builder = builder.add_extension(
+            x509.AuthorityKeyIdentifier.from_issuer_public_key(builder._public_key),
+            critical=False)
+        builder = builder.add_extension(
+            x509.BasicConstraints(ca=True, path_length=None),
+            critical=True)
 
-    # Sign certificate with its own key
-    certificate_new = builder.sign(
-        private_key=private_key,
-        algorithm=hashes.SHA256(),
-        backend=get_backend())
+        # Sign certificate with its own key
+        certificate_new = builder.sign(
+            private_key=private_key,
+            algorithm=hashes.SHA256(),
+            backend=get_backend())
 
-    certificate = update_x509_certificate(certificate, certificate_new, cert_filename)
+        certificate = update_x509_certificate(certificate, certificate_new, cert_filename)
+    else:
+        print("Using cached root certificate")
 
     return {'private_key': private_key, 'certificate': certificate}
 

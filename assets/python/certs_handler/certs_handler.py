@@ -3,15 +3,15 @@ import os
 import sys
 from base64 import b16encode
 from OpenSSL import crypto
-from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 
 from datetime import datetime, timezone, timedelta
 from base64 import urlsafe_b64encode
 from cryptography import x509
-from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives.asymmetric import utils as crypto_utils
+from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 from cryptography.utils import int_to_bytes, int_from_bytes
 
 from .create_root import *
@@ -69,7 +69,7 @@ class certs_handler():
                 signer_cert_def_var_name = match.group(1)
 
         device_cert_def = create_device_cert_def(cert=read_cert(device_cert_path),template_id=2,chain_id=0,signer_id=signer_id,
-            serial_num='012301020304050601',signer_cert_def=signer_cert_def)
+            serial_num=get_device_sn(read_cert(device_cert_path).subject),signer_cert_def=signer_cert_def)
         device_files = create_cert_def_c_files(cert_def=device_cert_def,chain_level=0,ca_include_filename=signer_include_filename,
             ca_cert_def_var_name=signer_cert_def_var_name)
         for file_name, file_data in device_files.items():
@@ -153,88 +153,43 @@ class certs_handler():
             key = serialization.load_pem_private_key(f.read(), None, backend=default_backend())
         return key.public_key().public_numbers().encode_point()[1:]
 
-    def create_manifest_log_signer(log_key_path='log_signer.key', log_cert_path='log_signer.crt'):
-        """
-        Create a signing certificate (and key if not already created) that is used to sign manifest
-        entries. This is an example as a production manifest will always be signed by a Microchip
-        signing certificate.
-        """
-        print('------------- Creating Manifest Log Signer ----------- ')
-        # Create or load a root CA key pair
-        print('Loading Manifest logger key')
-        log_private_key = load_or_create_key_pair(log_key_path)
-
-        # Create root CA certificate
-        print('Generating self-signed logging certificate')
-        builder = x509.CertificateBuilder()
-        builder = builder.serial_number(random_cert_sn(16))
-
-        name = x509.Name(
-            [x509.NameAttribute(x509.oid.NameOID.ORGANIZATION_NAME, u'Example Organization'),
-            x509.NameAttribute(x509.oid.NameOID.COMMON_NAME, u'Manifest Log Signer 000')])
-        valid_date = datetime.utcnow().replace(tzinfo=timezone.utc)
-
-        builder = builder.issuer_name(name)
-        builder = builder.not_valid_before(valid_date)
-        builder = builder.not_valid_after(valid_date + timedelta(days=365 * 25))
-        builder = builder.subject_name(name)
-        builder = builder.public_key(log_private_key.public_key())
-        builder = builder.add_extension(
-            x509.SubjectKeyIdentifier.from_public_key(log_private_key.public_key()),
-            critical=False)
-        builder = builder.add_extension(
-            x509.BasicConstraints(ca=True, path_length=None),
-            critical=True)
-
-        # Self-sign certificate
-        logger_cert = builder.sign(
-            private_key=log_private_key,
-            algorithm=hashes.SHA256(),
-            backend=default_backend())
-
-        log_cert_data = logger_cert.public_bytes(encoding=serialization.Encoding.PEM)
-
-        # Write root CA certificate to file
-        with open(log_cert_path, 'wb') as f:
-            print('    Saving to ' + f.name)
-            f.write(log_cert_data)
-
-        print('------------------------------------------------------')
-        return log_cert_data
-
-    def create_signed_entry(entry, log_key, jws_header):
-        """
-        Converts the unsigned manifest entry into the signed manifest format (divided jws)
-        """
-        jws_data = {'header': {'uniqueId': entry['uniqueId']}, 'protected': jws_header,
-                    'payload': certs_handler.jws_b64encode(json.dumps(entry).encode('ascii'))}
-
-        tbs = jws_data['protected'] + '.' + jws_data['payload']
-
-        signature = log_key.sign(tbs.encode('ascii'), ec.ECDSA(hashes.SHA256()))
-        r_int, s_int = crypto_utils.decode_dss_signature(signature)
-        signature = int_to_bytes(r_int, 32) + int_to_bytes(s_int, 32)
-
-        jws_data['signature'] = certs_handler.jws_b64encode(signature)
-
-        return jws_data
-
-    def verify_cert(pub_key_raw, cert):
+    def verify_cert(public_key, cert):
        """
+       Function validate the given certificate using given public key
        """
-       public_key = ec.EllipticCurvePublicNumbers(
-           curve=ec.SECP256R1(),
-           x=int_from_bytes(pub_key_raw[0:32], byteorder='big'),
-           y=int_from_bytes(pub_key_raw[32:64], byteorder='big'),
-       ).public_key(default_backend())
-
        try:
           public_key.verify(
               signature=cert.signature,
               data=cert.tbs_certificate_bytes,
               signature_algorithm=ec.ECDSA(cert.signature_hash_algorithm)
          )
-       except ValueError:
+       except:
           return 'failure'
 
        return 'success'
+
+    def validate_and_print_certificate_chain(root_cert, signer_cert, device_cert):
+        try:
+            print('Validate root certificate...', end='')
+            if certs_handler.verify_cert(root_cert.public_key(), root_cert) == 'failure':
+                print("Failed")
+                return 1
+            print('OK')
+            print(certs_handler.get_cert_print_bytes(root_cert.public_bytes(encoding=Encoding.PEM)))
+
+            print('Validate signer certificate...', end='')
+            if certs_handler.verify_cert(root_cert.public_key(), signer_cert) == 'failure':
+                print("Failed")
+                return 1
+            print('OK')
+            print(certs_handler.get_cert_print_bytes(signer_cert.public_bytes(encoding=Encoding.PEM)))
+
+            print('Validate device certificate...', end='')
+            if certs_handler.verify_cert(signer_cert.public_key(), device_cert) == 'failure':
+                print("Failed")
+                return 1
+            print('OK')
+            print(certs_handler.get_cert_print_bytes(device_cert.public_bytes(encoding=Encoding.PEM)))
+            return 0
+        except:
+            return 1

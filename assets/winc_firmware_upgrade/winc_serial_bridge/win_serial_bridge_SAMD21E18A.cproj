@@ -765,6 +765,9 @@
     <Compile Include="src\ASF\sam0\utils\stdio\write.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\serial_bridge_ultra.c">
+      <SubType>compile</SubType>
+    </Compile>
     <None Include="src\ASF\sam0\drivers\sercom\usart\quick_start_dma\qs_usart_dma_use.h">
       <SubType>compile</SubType>
     </None>
@@ -1563,7 +1566,10 @@
     <Compile Include="src\ASF\sam0\utils\syscalls\gcc\syscalls.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\main.c">
+    <Compile Include="src\buffered_uart_ultra.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\buffered_uart_ultra.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

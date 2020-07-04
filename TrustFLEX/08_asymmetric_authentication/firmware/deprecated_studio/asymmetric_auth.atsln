@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "asymmetric_auth", "asymmetric_auth\asymmetric_auth.cproj", "{56CC1D01-65D4-4D86-9C4B-4DD4916B9961}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		1_CONFIG_STANDALONE|ARM = 1_CONFIG_STANDALONE|ARM
+		CONFIG_FIRMWARE_VALIDATION|ARM = CONFIG_FIRMWARE_VALIDATION|ARM
+		Release|ARM = Release|ARM
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56CC1D01-65D4-4D86-9C4B-4DD4916B9961}.1_CONFIG_STANDALONE|ARM.ActiveCfg = Debug|ARM
+		{56CC1D01-65D4-4D86-9C4B-4DD4916B9961}.1_CONFIG_STANDALONE|ARM.Build.0 = Debug|ARM
+		{56CC1D01-65D4-4D86-9C4B-4DD4916B9961}.CONFIG_FIRMWARE_VALIDATION|ARM.ActiveCfg = CONFIG_FIRMWARE_VALIDATION|ARM
+		{56CC1D01-65D4-4D86-9C4B-4DD4916B9961}.CONFIG_FIRMWARE_VALIDATION|ARM.Build.0 = CONFIG_FIRMWARE_VALIDATION|ARM
+		{56CC1D01-65D4-4D86-9C4B-4DD4916B9961}.Release|ARM.ActiveCfg = Release|ARM
+		{56CC1D01-65D4-4D86-9C4B-4DD4916B9961}.Release|ARM.Build.0 = Release|ARM
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

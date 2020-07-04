@@ -63,6 +63,7 @@ def load_or_create_device(serial_num, public_key_hex, cert_filename, ca_key_file
 
     with open(str(ca_cert_filename), 'rb') as f:
         ca_certificate = x509.load_pem_x509_certificate(f.read(), get_backend())
+    ca_org_name = get_org_name(ca_certificate.subject)
 
     # Look for certificate
     certificate = None
@@ -85,7 +86,7 @@ def load_or_create_device(serial_num, public_key_hex, cert_filename, ca_key_file
         format=TimeFormat.GENERALIZED_TIME
     )
     builder = builder.subject_name(x509.Name([
-        x509.NameAttribute(x509.oid.NameOID.ORGANIZATION_NAME, org_name),
+        x509.NameAttribute(x509.oid.NameOID.ORGANIZATION_NAME, ca_org_name),
         x509.NameAttribute(x509.oid.NameOID.COMMON_NAME, 'sn'+serial_num)]))
     builder = builder.public_key(public_key)
     # Device certificate is generated from certificate dates and public key

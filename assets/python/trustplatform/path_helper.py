@@ -19,7 +19,7 @@ class path_helper():
         """
         current_path = os.path.realpath(os.getcwd())
         isdir = False
-        retries = 4
+        retries = 5
         while isdir == False:
             if os.path.isdir(os.path.join(current_path, "assets")):
                 if os.path.isfile(os.path.join(current_path, "license.txt")):
@@ -29,5 +29,5 @@ class path_helper():
                 retries = retries-1
                 if retries == 0:
                     return None
-        
+
         return current_path

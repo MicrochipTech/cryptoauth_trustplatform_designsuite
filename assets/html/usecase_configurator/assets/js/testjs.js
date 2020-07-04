@@ -14,6 +14,7 @@ function cert10RadioHandler(){
         $('#10verify').show();
         $('#device_custcert_notes').show();
         $('#custCertPubkey').show();
+        $('#manIdHexId').show();
         $('#cbid_devcertcn').show();
         $('label[for="cbid_devcertcn"]').show();
         document.getElementById("cbid_devcertcn").checked = true;
@@ -26,6 +27,7 @@ function cert10RadioHandler(){
         $('#10verify').hide();
         $('#device_custcert_notes').hide();
         $('#custCertPubkey').hide();
+        $('#manIdHexId').hide();
         $('#cbid_devcertcn').hide();
         $('label[for="cbid_devcertcn"]').hide();
         document.getElementById("cbid_devcertcn").checked = false;
@@ -42,6 +44,7 @@ function cert10RadioHandler(){
         $('#12verify').show();
         $('#signer_custcert_notes').show();
         $('#custCertPubkey').show();
+        $('#manIdHexId').show();
         setRadioValue(formNameMain, "slot10certopt", "custCert");
     } else {
         $('#12certname').hide();
@@ -50,6 +53,7 @@ function cert10RadioHandler(){
         $('#12verify').hide();
         $('#signer_custcert_notes').hide();
         $('#custCertPubkey').hide();
+        $('#manIdHexId').hide();
         setRadioValue(formNameMain, "slot10certopt", "MCHPCert");
     }
 }
@@ -59,6 +63,7 @@ $('#10certcommonname').hide();
 $('#10certyear').hide();
 $('#10verify').hide();
 $('#custCertPubkey').hide();
+$('#manIdHexId').hide();
 $('#device_custcert_notes').hide();
 $('#cbid_devcertcn').hide();
 $('label[for="cbid_devcertcn"]').hide();
@@ -74,6 +79,7 @@ function cert12RadioHandler(){
         $('#12verify').show();
         $('#signer_custcert_notes').show();
         $('#custCertPubkey').show();
+        $('#manIdHexId').show();
         setRadioValue(formNameMain, "slot10certopt", "custCert");
     } else {
         $('#12certname').hide();
@@ -82,6 +88,7 @@ function cert12RadioHandler(){
         $('#12verify').hide();
         $('#signer_custcert_notes').hide();
         $('#custCertPubkey').hide();
+        $('#manIdHexId').hide();
         setRadioValue(formNameMain, "slot10certopt", "MCHPCert");
     }
 
@@ -94,6 +101,7 @@ function cert12RadioHandler(){
         $('#10verify').show();
         $('#device_custcert_notes').show();
         $('#custCertPubkey').show();
+        $('#manIdHexId').show();
         $('#cbid_devcertcn').show();
         $('#cbid_devcertcn').show();
         $('label[for="cbid_devcertcn"]').show();
@@ -107,6 +115,7 @@ function cert12RadioHandler(){
         $('#10verify').hide();
         $('#device_custcert_notes').hide();
         $('#custCertPubkey').hide();
+        $('#manIdHexId').hide();
         $('#cbid_devcertcn').hide();
         $('label[for="cbid_devcertcn"]').hide();
         document.getElementById("cbid_devcertcn").checked = false;
@@ -120,6 +129,7 @@ $('#12certcommonname').hide();
 $('#12certyear').hide();
 $('#12verify').hide();
 $('#custCertPubkey').hide();
+$('#manIdHexId').hide();
 $('#signer_custcert_notes').hide();
 
 // Function to handle custom certificate data

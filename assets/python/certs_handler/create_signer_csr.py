@@ -23,11 +23,12 @@ import re
 from pathlib import Path
 
 from cryptography import x509
+from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 
 from .create_certs_common import *
 
 
-def load_or_create_signer_csr(signer_id, key_filename, csr_filename, 
+def load_or_create_signer_csr(signer_id, key_filename, csr_filename,
     org_name='Microchip Technology Inc', common_name='Crypto Authentication Signer'):
     # Validate signer ID
     if re.search('^[0-9A-F]{4}$', signer_id) is None:
@@ -35,33 +36,48 @@ def load_or_create_signer_csr(signer_id, key_filename, csr_filename,
 
     key_filename = Path(key_filename)
     csr_filename = Path(csr_filename)
+    rebuild_cert = True
 
     # Load or create key pair
     private_key = load_or_create_key_pair(filename=key_filename)
 
     csr = None
     if csr_filename.is_file():
+        rebuild_cert = False
         # Found cached CSR file, read it in
         with open(str(csr_filename), 'rb') as f:
             csr = x509.load_pem_x509_csr(f.read(), get_backend())
 
-    # Build new certificate
-    builder = x509.CertificateSigningRequestBuilder()
-    builder = builder.subject_name(x509.Name([
-        x509.NameAttribute(x509.oid.NameOID.ORGANIZATION_NAME, org_name),
-        x509.NameAttribute(x509.oid.NameOID.COMMON_NAME, common_name + signer_id)]))
+    if csr:
+        if get_org_name(csr.subject) != org_name:
+            rebuild_cert = True
 
-    # Add extensions
-    builder = add_signer_extensions(
-        builder=builder,
-        public_key=private_key.public_key())
+        csr_pub_bytes = csr.public_key().public_bytes(format=PublicFormat.SubjectPublicKeyInfo, encoding=Encoding.DER)
+        key_pub_bytes = private_key.public_key().public_bytes(format=PublicFormat.SubjectPublicKeyInfo, encoding=Encoding.DER)
+        if csr_pub_bytes != key_pub_bytes:
+            rebuild_cert = True
 
-    csr_new = builder.sign(
-        private_key=private_key,
-        algorithm=hashes.SHA256(),
-        backend=get_backend())
+    if rebuild_cert:
+        # Build new certificate
+        print("Building new signer csr certificate")
+        builder = x509.CertificateSigningRequestBuilder()
+        builder = builder.subject_name(x509.Name([
+            x509.NameAttribute(x509.oid.NameOID.ORGANIZATION_NAME, org_name),
+            x509.NameAttribute(x509.oid.NameOID.COMMON_NAME, common_name + signer_id)]))
 
-    csr = update_csr(csr, csr_new, csr_filename)
+        # Add extensions
+        builder = add_signer_extensions(
+            builder=builder,
+            public_key=private_key.public_key())
+
+        csr_new = builder.sign(
+            private_key=private_key,
+            algorithm=hashes.SHA256(),
+            backend=get_backend())
+
+        csr = update_csr(csr, csr_new, csr_filename)
+    else:
+        print("Using cached signer csr certificate")
 
     return {'private_key': private_key, 'csr': csr}
 

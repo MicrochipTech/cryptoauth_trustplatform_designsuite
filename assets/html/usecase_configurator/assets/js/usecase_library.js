@@ -43,22 +43,17 @@ var selectedUseCases = {
     },
 
     200: {
-        name: "cloud_connect_aws",
+        name: "cloud_aws_tng",
         selected: false,
         ids: []
     },
     201: {
-        name: "cloud_connect_gcp",
+        name: "cloud_gcp_tng",
         selected: false,
         ids: []
     },
     202: {
-        name: "cloud_connect_azure",
-        selected: false,
-        ids: []
-    },
-    203: {
-        name: "disposable_asym_tng",
+        name: "cloud_azure_tng",
         selected: false,
         ids: []
     },

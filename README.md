@@ -17,6 +17,13 @@ For ease of understanding follow the below sequence
 3. Run the usecase examples provided both in Notebook and Embedded projects
 
 ## Release Notes
+ - 20200704
+   - Single cloud connect project for Multiple platforms
+   - Azure cloud connect using TNGTLS
+   - All projects updated to MPLAB H3 CAL component
+   - Ability to use cached root and signer certificates
+   - H3 based WINC1500 drivers for cloud connect projects
+   - Other minor enhancements and bug fixes
 
  - 1.3.2
    - Fixed AWS subprocess bug

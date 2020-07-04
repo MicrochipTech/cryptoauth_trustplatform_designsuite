@@ -214,8 +214,8 @@
         <p>Cloud Connect</p>        <p>Amazon - AWS</p>
         </div>
         <div class="use_case_border text-center">
-            <div class="use_case_text" id="cloud_connect_awsItem">
-            <a href="javascript:toggleUseCase(200)" id="cloud_connect_awsBtn" class="use_case_btn use_case_btn-primary text-white">SELECT</a></div>
+            <div class="use_case_text" id="cloud_aws_tngItem">
+            <a href="javascript:toggleUseCase(200)" id="cloud_aws_tngBtn" class="use_case_btn use_case_btn-primary text-white">SELECT</a></div>
         </div>
         <div class="use_case_body bg-white p-top-110 p-bottom-60">
         <div class="use_case_btn text-center m-top-40"></div>
@@ -229,8 +229,8 @@
         <p>Cloud Connect</p>        <p>Google - GCP</p>
         </div>
         <div class="use_case_border text-center">
-            <div class="use_case_text" id="cloud_connect_gcpItem">
-            <a href="javascript:toggleUseCase(201)" id="cloud_connect_gcpBtn" class="use_case_btn use_case_btn-primary text-white">SELECT</a></div>
+            <div class="use_case_text" id="cloud_gcp_tngItem">
+            <a href="javascript:toggleUseCase(201)" id="cloud_gcp_tngBtn" class="use_case_btn use_case_btn-primary text-white">SELECT</a></div>
         </div>
         <div class="use_case_body bg-white p-top-110 p-bottom-60">
         <div class="use_case_btn text-center m-top-40"></div>
@@ -244,8 +244,8 @@
         <p>Cloud Connect</p>        <p>Microsoft Azure</p>
         </div>
         <div class="use_case_border text-center">
-            <div class="use_case_text" id="cloud_connect_azureItem">
-            <a href="javascript:toggleUseCase(202)" id="cloud_connect_azureBtn" class="use_case_btn use_case_btn-primary text-white">SELECT</a>
+            <div class="use_case_text" id="cloud_azure_tngItem">
+            <a href="javascript:toggleUseCase(202)" id="cloud_azure_tngBtn" class="use_case_btn use_case_btn-primary text-white">SELECT</a>
         </div>
         </div>
         <div class="use_case_body bg-white p-top-110 p-bottom-60">
@@ -257,40 +257,18 @@
         </div>
         </div><!-- End of the row -->
         </div><!-- End of the container -->
-        <div class="container">
-            <div class="row">
-            <div class="roomy-50">
-            <!-- First use case of the first row -->
-            <div class="col-md-4 col-sm-12">
-            <div class="use_case_item">
-            <div class="use_case_head p-top-30 p-bottom-30 text-center">
-            <p>Accessory / Disposable </p>    <p>Asymmetric-Authentication</p></div>
-            <div class="use_case_border text-center">
-                <div class="use_case_text" id="disposable_asym_tngItem">
-                <a href="javascript:toggleUseCase(203)" id="disposable_asym_tngBtn" class="use_case_btn use_case_btn-primary text-white">SELECT</a></div>
-            </div>
-            <div class="use_case_body bg-white p-top-110 p-bottom-60">
-            <div class="use_case_btn text-center m-top-40"></div>
-            </div>
-            </div>
-            </div><!-- End off col-md-4 -->
-            </div>
-            </div><!-- End of the row -->
-            </div><!-- End of the container -->
-            <br><br>
+        <br><br>
         </section>
 
-        <section id="cloud_connect_aws" class="cloud_connect_aws roomy-100" style="display: none">
+        <section id="cloud_aws_tng" class="cloud_aws_tng roomy-100" style="display: none">
             <div class="container">
                 <div class="row">
-                    <div class="customPKI_use_case">
-                    <div class="col-md-10">
-                        <h2>Cloud Connect - AWS</h2>
-                        <div class="separator_left"></div>
-                        <p>Transport Layer Security 1.2 (TLS 1.2) has become the de facto standard for connecting embedded systems to a network.  While TLS 1.2 is undeniably robust, an embedded system still requires a unique, secure and trusted identity to prevent large-scale remote attacks. For example, a malicious attack can cause a hospital power grid to go down and potentially risk human lives, interrupt online services and advertising activities resulting in a loss of revenue, or suspend the production capabilities of industrial plants and their supply chains to almost instantaneously affect their profitability.</p>
-                        <p>Securing communication with a Cloud service and manipulating keys comes with many challenges: storing and using keys in the microcontroller exposes them, operating systems and software have bugs, the Heartbleed bug for OpenSSL was notable by easily exposing keys. When combined with the TLS 1.2 protocol, Microchip’s ATECC608A Crypto Authentication device offers a unique, trusted, and verifiable identity that can help protect billions of connected devices by physically isolating keys and secrets from the application.</p>
-                        <p> This use case demonstrates secure connection AWS cloud service using CA less.</p></div>
-                </div>
+                <div class="col-md-10">
+                    <h2>Cloud Connect - AWS</h2>
+                    <div class="separator_left"></div>
+                    <p>Transport Layer Security 1.2 (TLS 1.2) has become the de facto standard for connecting embedded systems to a network.  While TLS 1.2 is undeniably robust, an embedded system still requires a unique, secure and trusted identity to prevent large-scale remote attacks. For example, a malicious attack can cause a hospital power grid to go down and potentially risk human lives, interrupt online services and advertising activities resulting in a loss of revenue, or suspend the production capabilities of industrial plants and their supply chains to almost instantaneously affect their profitability.</p>
+                    <p>Securing communication with a Cloud service and manipulating keys comes with many challenges: storing and using keys in the microcontroller exposes them, operating systems and software have bugs, the Heartbleed bug for OpenSSL was notable by easily exposing keys. When combined with the TLS 1.2 protocol, Microchip’s ATECC608A Crypto Authentication device offers a unique, trusted, and verifiable identity that can help protect billions of connected devices by physically isolating keys and secrets from the application.</p>
+                    <p> This use case demonstrates secure connection AWS cloud service using CA less.</p></div>
                 </div> <!-- end of row -->
                 <br>
                 <br>
@@ -345,8 +323,8 @@
 
 
         CryptoAuthLib->ATECC608A:[[https://github.com/MicrochipTech/cryptoauthlib/blob/af8187776cd3f3faf8bed412eaf6ff7221862e19/lib/basic/atca_basic_read.c#L57{Reads certificate bytes from Secure Element slot; Ctrl+Click to open in new Tab}atcab_read_zone(...)]]
-        ATECC608A-->CryptoAuthLib:signer_cert, dev_cert
-        CryptoAuthLib-->HostMCU:signer_cert, dev_cert
+        ATECC608A-->CryptoAuthLib:signer_cert, device_cert
+        CryptoAuthLib-->HostMCU:signer_cert, device_cert
 
 
         HostMCU->WINC1500: [[https://github.com/MicrochipTech/cryptoauth_trustplatform_designsuite/blob/1f20c97c832d843692d6e4b35996e25e42ff2245/TrustFLEX/06_custom_pki_aws/c/common/aws_wifi_task.c#L484{Copies the Device and Signer certicates to WINC module for connecting to AWS Cloud; Ctrl+Click to open in new Tab}ecc_transfer_certificates(...)]]
@@ -381,11 +359,11 @@
                                 <br/><br/><h4><i class="fa fa-angle-right"></i> 2. Infer Cryptographic Assets </h4>
                                 <div class="separator_left"></div>
                                 <div class="content">
-                                Considering the above transaction diagram, the following assets are needed on ATECC608A device.
+                                <p>Considering the above transaction diagram, the following assets are needed on ATECC608A device.
                                 <ol><li>Device private key</li>
                                     <li>Device certificate</li>
                                     <li>Signer certificate</li>
-                                    <li>Signer public key</li></ol>
+                                    <li>Signer public key</li></ol></p>
                                 <p>While setting up a secure communication with cloud service, both the device and signer certificate details are required. When a device tries to establish connection with AWS IoT, Device Certificate will be used to fetch the device details and Signer Certificate will be used to verify the authenticity of the device certificate.</p>
                                 <p>Device certificate will be generated based on the Public Key generated from Device Private Key. Device private key is unique one for each device. ATECC608A generates and stores its private key. This key can never leave ATECC608A. Associated Public key would be read from device and be used to generate the device CSR. Once the device CSR is generated, it needs to be certified through Signer to become the certificate.</p>
                                 <p>The Device certificate generated above needs to be written to secure element (as compressed certificate) for further use.</p>
@@ -399,18 +377,18 @@
                                 <br /><br /><h4><i class="fa fa-angle-right"></i> 4. Prototyping</h4>
                                 <div class="separator_left"></div>
                                 <div class="content">
-                                <p>Naturally, you need to have an AWS IoT test account setup for the device to authenticate to. This account should be enabled for MAR (Multi-Account Registration). Follow <a href="https://pages.awscloud.com/iot-core-early-registration.html" target="_blank"> AWS IoT Core Multi-Account Registration (Beta)</a> for details.</p>
+                                <p>Naturally, you need to have an AWS IoT test account setup for the device to authenticate to. Follow <a href="../../../docs/TrustFLEX_guide_AWS_demo_account_setup.pdf" target="_blank"> AWS IoT Setup </a> for details. This account setup would help for both TNG and TrustFLEX devices (with JITR). In case if account is already available, save the credentials to CSV file in docs/AWS_test_account_credentials.csv.</p>
                                 <p>Refer to <a href="../../../docs/TrustnGO_guide_AWS_connect.pdf" target="_blank"> Usecase step by step guide </a> for hands-on instructions on how to prototype this use case with Trust&amp;GO. Below are the sequence of steps for prototyping an usecase,</p>
                                 <p><img src="assets/images/Protype Sequence.png"></p>
                                 <p>The required code to perform this use case is available as Jupyter Notebook and C example. Jupyter Notebooks are written in Python and are accompanied with extensive documentation. </p>
-                                <p>The <strong>TrustnGO\00_resource_generation\TNGTLS_manifest_file_generation.ipynb</strong> notebook helps to generate the required Manifest file. Then run <strong>TrustnGO\01_aws_connect\notebook\TNGTLS_aws_connect.ipynb</strong> Notebook to register the device to user AWS account. Once AWS account is set-up and device is registered, cloud verifies the authenticity and allows to communicate with it.</p>
-                                <p><strong>TrustnGO\01_aws_connect\c\</strong> contains the embedded project that helps connecting Crypto Trust Platform with WIFI7 click board to AWS-IoT. This embedded project comes with required modules, like CryptoAuthLib, WINC stack, MQTT stack etc.., that are needed to establish communication with AWS. It is required to provide details like Wifi SSID, Password and AWS endpoint i.e. url to connect user account.</p>
+                                <p>The <strong>TrustnGO\00_resource_generation\TNGTLS_manifest_file_generation.ipynb</strong> notebook helps to generate the required Manifest file. Then run <strong>TrustnGO\05_cloud_connect\notebook\aws\TNGTLS_aws_connect.ipynb</strong> Notebook to register the device to user AWS account. Once AWS account is set-up and device is registered, cloud verifies the authenticity and allows to communicate with it.</p>
+                                <p><strong>TrustnGO\05_cloud_connect\firmware</strong> contains the embedded project that helps connecting Crypto Trust Platform with WIFI7 click board to AWS-IoT. This embedded project comes with required modules, like CryptoAuthLib, WINC stack, MQTT stack etc.., that are needed to establish communication with AWS. It is required to choose build configuration as AWS_Connect, provide details like Wifi SSID, Password and AWS endpoint i.e. url to connect user account. </p>
                                 <p>Once all the steps are performed as in step by step guide, return back here to continue with other use cases.</p>
                                 </div><!-- End of accordion item 5 -->
                         </div>
         </section>
 
-        <section id="cloud_connect_gcp" class="cloud_connect_gcp roomy-100" style="display: none">
+        <section id="cloud_gcp_tng" class="cloud_gcp_tng roomy-100" style="display: none">
         <div class="container">
         <div class="row">
         <div class="main_secure_boot" id="secure_boot_section">
@@ -515,146 +493,138 @@
         <p>Refer to <a href="../../../docs/TrustnGO_guide_GCP_connect.pdf" target="_blank"> Usecase step by step guide </a> for hands-on instructions on how to prototype this use case with Trust&amp;GO. Below are the sequence of steps for prototyping an usecase,</p>
         <p><img src="assets/images/Protype Sequence.png"></p>
         <p>The required code to perform this use case is available as Jupyter Notebook and C example. Jupyter Notebooks are written in Python and are accompanied with extensive documentation. </p>
-        <p>The <strong>TrustnGO\00_resource_generation\TNGTLS_manifest_file_generation.ipynb</strong> notebook helps to generate the required Manifest file. Then, it’s required to register the device to Google IoT account. <strong>TrustnGO\02_gcp_connect\notebook\TNGTLS_GCP_connect.ipynb</strong> Notebook helps to register device to user GCP account using Manifest file. Once GCP account is set-up and device is registered, cloud verifies the authenticity and allows to communicate with GCP IoT.</p>
-        <p><strong>TrustnGO\02_gcp_connect\c</strong> contains the embedded project that helps connecting Crypto Trust Platform with WIFI7 click board to GCP IoT. This embedded project comes with required modules, like CryptoAuthLib, WINC stack, MQTT stack etc.., that are needed to establish communication with GCP IoT. It is required to provide details like Wifi SSID, Password and registry details.</p>
+        <p>The <strong>TrustnGO\00_resource_generation\TNGTLS_manifest_file_generation.ipynb</strong> notebook helps to generate the required Manifest file. Then, it’s required to register the device to Google IoT account. <strong>TrustnGO\05_cloud_connect\notebook\gcp\TNGTLS_GCP_connect.ipynb</strong> Notebook helps to register device to user GCP account using Manifest file. Once GCP account is set-up and device is registered, cloud verifies the authenticity and allows to communicate with GCP IoT.</p>
+        <p><strong>TrustnGO\05_cloud_connect\firmware</strong> contains the embedded project that helps connecting Crypto Trust Platform with WIFI7 click board to GCP IoT. This embedded project comes with required modules, like CryptoAuthLib, WINC stack, MQTT stack etc.., that are needed to establish communication with GCP IoT. It is required to choose build configuration as Google_Connect, provide details like Wifi SSID, Password and registry details.</p>
         <p>Once all the steps are performed as in step by step guide, return back here to continue with other use cases.</p>
         </div><!-- End of accordion item 5 -->
         </div>
         </section>
 
-        <section id="cloud_connect_azure" class="cloud_connect_azure roomy-100" style="display: none">
+        <section id="cloud_azure_tng" class="cloud_azure_tng roomy-100" style="display: none">
             <div class="container">
                 <div class="row">
-                    <div class="main_secure_boot" id="secure_boot_section">
-                        <div class="col-md-6">
-                            <div class="secure_boot_use_case">
-                                <h2>Cloud Connect - Azure</h2>
-                                <div class="separator_left"></div>
-                                <p>Not available at this time, sorry for inconvenience.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- end of row -->
-            </div>
-        </section>
-
-        <section id="disposable_asym_tng" class="disposable_asym_tng roomy-100" style="display: none">
-            <div class="container">
-                <div class="row">
-                    <div class="main_secure_boot" id="secure_boot_section">
                     <div class="col-md-10">
-                    <div class="secure_boot_use_case">
-                    <h2>Accessory / Disposable - Asymmetric Authentication</h2>
-                    <div class="separator_left"></div>
-                    <p>In terms of computer security, Asymmetric Authentication is a process in which two entities exchange information to authenticate the identity of the other. The purpose of authentication is to prevent cloning and counterfeiting and to ensure that an object is genuine and authorized to connect to a product.</p>
-                    <p>In this use case example, we will authenticate an object. It can be an accessory, peripheral, battery, or cartridge. Generally, an object that is removable and replaceable by the consumer. The purpose of authenticating an object is to ensure that it is genuine and it is authorized to connect to a product. Another purpose is to prevent cloning and counterfeiting.</p>
-                    <p>Asymmetric authentication uses asymmetric key algorithms (also known as public key cryptography) where each entity has a public and private key.</p>
-                    </div>
-                    </div>
-                    </div> <!-- end of row -->
-                </div>
-                <div class="cloud_gcp_tflex_steps">
-                    <br /><br /><h4><i class="fa fa-angle-right"></i> 1. Transaction Diagram </h4>
-                    <div class="separator_left"></div>
-                    <div class="content">
-                    <p> The first step is to define the transaction diagram for a given use case. Here is the set of transactions required to implement Asymmetric Authentication use case.</p>
-                    </div><!-- End off accordion item-1 -->
-                    <object id="svg_canvas_asymm_auth_tng" style="color: chocolate"></object>
-                    <img uml="
-                    title Asymmetric Authentication (TNG)
-                    participant OEM
-                    participant HostMCU
-                    participant CryptoAuthLib
-                    participant Accessory
-                    skinparam participantpadding 75
-
-                    note over OEM, Accessory #FFAAAA : Setup
-
-                    note right of Accessory
-                    **TNGTLS** is part of Accessory
-                    end note
-
-                    note left of OEM
-                    **Certificates**
-                    TNGTLS comes with
-                    preprogrammed
-                    MCHP certificates
-                    end note
-
-                    note over HostMCU, Accessory #FFAAAA : Client: Rebuild Certs
-                    HostMCU->CryptoAuthLib:[[https://github.com/MicrochipTech/cryptoauthlib/blob/102d7fcfa2cc1671fddb814bf8079756f70f7109/app/tng/tng_atcacert_client.c#L224{Host reads Root certificate from CryptoAuthlib; Ctrl+Click to open in new Tab}tng_atcacert_root_cert(...)]]
-                    CryptoAuthLib-->HostMCU:
-
-
-                    HostMCU->CryptoAuthLib:[[https://github.com/MicrochipTech/cryptoauthlib/blob/102d7fcfa2cc1671fddb814bf8079756f70f7109/app/tng/tng_atcacert_client.c#L127{Host reads Signer certificate from device; Ctrl+Click to open in new Tab}tng_atcacert_read_signer_cert(...)]]
-                    CryptoAuthLib->Accessory:[[https://github.com/MicrochipTech/cryptoauthlib/blob/102d7fcfa2cc1671fddb814bf8079756f70f7109/lib/atcacert/atcacert_client.c#L111{Read certificate; Ctrl+Click to open in new Tab}atcacert_read_cert(...)]]
-                    Accessory-->CryptoAuthLib:
-                    CryptoAuthLib-->HostMCU:
-
-                    HostMCU->CryptoAuthLib:[[https://github.com/MicrochipTech/cryptoauthlib/blob/102d7fcfa2cc1671fddb814bf8079756f70f7109/app/tng/tng_atcacert_client.c#L44{Host reads Signer certificate from device; Ctrl+Click to open in new Tab}tng_atcacert_read_device_cert(...)]]
-                    CryptoAuthLib->Accessory:[[https://github.com/MicrochipTech/cryptoauthlib/blob/102d7fcfa2cc1671fddb814bf8079756f70f7109/lib/atcacert/atcacert_client.c#L111{Read certificate; Ctrl+Click to open in new Tab}atcacert_read_cert(...)]]
-                    Accessory-->CryptoAuthLib:
-                    CryptoAuthLib-->HostMCU:
-
-
-                    note over HostMCU, Accessory #FFAAAA : Host: Verify Cert Chain
-                    HostMCU-->HostMCU: Verify Root cert
-                    HostMCU-->HostMCU: Verify Signer cert with CA
-                    HostMCU-->HostMCU: Verify Device cert with CA
-
-                    note over HostMCU, Accessory #FFAAAA : Challenge-Response-Verify
-                    HostMCU->CryptoAuthLib:[[https://github.com/MicrochipTech/cryptoauthlib/blob/102d7fcfa2cc1671fddb814bf8079756f70f7109/lib/atcacert/atcacert_client.c#L46{Get challenge response from device; Ctrl+Click to open in new Tab}atcacert_get_response(...)]]
-                    CryptoAuthLib->Accessory:[[https://github.com/MicrochipTech/cryptoauthlib/blob/102d7fcfa2cc1671fddb814bf8079756f70f7109/lib/basic/atca_basic_sign.c#L109{Get challenge signed by device; Ctrl+Click to open in new Tab}atcab_sign(...)]]
-                    Accessory-->CryptoAuthLib: Accessory response (Signature for Challenge)
-                    CryptoAuthLib-->HostMCU: Accessory response
-
-                    HostMCU-->HostMCU: Verify response with Public Key
-
-                    note over HostMCU
-                    HostMCU authenticates Accessory
-                    based on result
-                    end note
-                    ">
-
-                    <br/><br/><h4><i class="fa fa-angle-right"></i> 2. Infer Cryptographic Assets </h4>
-                    <div class="separator_left"></div>
-                    <div class="content">
-                    Considering the above transaction diagram, the following assets are needed on Trust&amp;GO device.
-                    <ol><li>Device private key</li>
-                        <li>Device certificate</li>
-                        <li>Signer certificate</li>
-                        <li>Signer public key</li></ol>
-                    <p>Client (Device) authentication will be done in two stages. First stage is verifying the certificate chain validity and the second stage is verifying the client’s public key. Host asks for Signer and Device certificates to verify thier signatures using Root's public key.</p>
-                    <p>Device certificate will be generated based on the Device's public key. Trust&amp;GO device can generate and store its private key. This key can never leave Trust&amp;GO, associated Public key would be read from the device and be used to generate the device CSR. Once the device CSR is generated, it needs to be certified through Signer to become the certificate. This Device certificate would be written to secure element along with Signer ceritificate (as compressed certificate) and Signer Public Key for further use. Signer Public key helps in validating the device certificate before it being used for secure connections. </p>
-                    <p>In this example, Root's Public key is available with the host. Using this key, first the Signer certificate would be validated. Once the Signer certificate is validated, Public key of this certificate will be extracted. Using this key, the client’s (Device) certificate would be validated. Once the client’s (Device) certificate is validated, Public key will be extracted. In this example, the validation is limited only to signature verification.</p>
-                    <p>Its time now to verify the client contains the associated private key or not. This would be achieved by asking the client to sign a random number, often called a challenge or nonce, with its private key. If the host is then able to verify the signature with the client’s public key, it can be confident that the certificates indeed belong to the device they came from.</p>
-                    </div>
-                    <br /><br /><h4> <i class="fa fa-angle-right"></i> 3. Secure Element Configuration </h4>
-                    <div class="separator_left"></div>
-                    <div class="content">
-                    <p>Trust&amp;GO devices are already configured for a collection of use cases. This use case is one among them and the secure element come with preprogrammed device and signer certificates.</p>
-                    </div><!-- End off accordion item-3 -->
-
-                    <br /><br /><h4><i class="fa fa-angle-right"></i> 4. Prototyping</h4>
-                    <div class="separator_left"></div>
-                    <div class="content">
-                    <p>On completing the secure element configuration, its possible to test the configuration and assets through host and secure element transactions on the prototyping platform. The required code to perform this use case is available as Jupyter Notebook and C example, Jupyter Notebooks are written in Python and are accompanied with extensive documentation.</p>
-
-                    <p>Refer to <a href="../../../docs/TrustnGO_guide_accessory_asym_authentication.pdf" target="_blank"> Usecase step by step guide </a> for hands-on instructions. Below is the sequence of steps for prototyping an usecase,</p>
-                    <p><img src="assets/images/Protype Sequence.png"></p>
-
-                    <p>The <b>TrustnGO\03_asymmetric_authentication\notebook\TNGTLS_asymmetric_authentication.ipynb</b> notebook helps in running prototype using Crypto Auth Trust Platform. The major steps involved in this notebook are,
-                        <ol><li>Rebuilding Signer and Device certificates</li>
-                        <li>Verifying chain of trust</li>
-                        <li>verifying Device Private key</li></ol></p>
-
-                    <p><b>TrustnGO\03_asymmetric_authentication\c\</b> contains the embedded project that does Asymmetric authentication by emulating Trust&amp;GO device on Crypto Trust Platform as accessory/disposable. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
-
-                    <p>Once all the steps are performed as in step by step guide, return back here to continue with other use cases.</p>
-                    </div><!-- End of accordion item 5 -->
-                </div>
+                        <h2>Cloud Connect - MS Azure</h2>
+                        <div class="separator_left"></div>
+                        <p>Transport Layer Security 1.2 (TLS 1.2) has become the de facto standard for connecting embedded systems to a network.  While TLS 1.2 is undeniably robust, an embedded system still requires a unique, secure and trusted identity to prevent large-scale remote attacks. For example, a malicious attack can cause a hospital power grid to go down and potentially risk human lives, interrupt online services and advertising activities resulting in a loss of revenue, or suspend the production capabilities of industrial plants and their supply chains to almost instantaneously affect their profitability.</p>
+                        <p>Securing communication with a Cloud service and manipulating keys comes with many challenges: storing and using keys in the microcontroller exposes them, operating systems and software have bugs, the Heartbleed bug for OpenSSL was notable by easily exposing keys. When combined with the TLS 1.2 protocol, Microchip’s ATECC608A Crypto Authentication device offers a unique, trusted, and verifiable identity that can help protect billions of connected devices by physically isolating keys and secrets from the application.</p>
+                        <p> This use case demonstrates secure connection with Microsoft Azure cloud service using CA less.</p></div>
+                </div> <!-- end of row -->
+                <br>
+                <br>
             </div>
+            <div class="container">
+                <div class="row">
+                    <div class="custom_pki">
+                        <div class="col-md-10">
+                            <div class="custom_pki_steps">
+                                <h4><i class="fa fa-angle-right"></i> 1. Transaction Diagram </h4>
+                                <div class="separator_left"></div>
+                                <div class="content">
+                                    <p> The first step is to define the transaction diagram for a given use case. Here is the set of transactions required to implement a public key infrastructure authentication with a Cloud service.</p>
+                                </div><!-- End off accordion item-1 -->
+                                <object id="svg_canvas_cloud_azure_tng" style="color: chocolate"></object>
+                                <img uml="
+        title  Azure Connect with Trust&GO
+        skinparam boxpadding 50
+        skinparam participantpadding 50
+        participant OEM
+        box HOST
+        participant ATECC608A
+        participant CryptoAuthLib
+        participant HostMCU
+        participant WINC1500
+        end box
+        participant Azure
+
+        note over OEM
+        1. Order Trust&GO devices
+        2. Download Manifest files
+        from Microchip Direct
+        end note
+
+        /note over Azure
+        Setup Azure Account
+        1. Upload Manifest files and
+        Register devices
+        end note
+
+        note over WINC1500, Azure #aquablue
+        <&wifi> connected via ...WIFI... <&wifi>
+        end note
+
+
+        note over WINC1500, ATECC608A #FFAAAA
+        LOADING CERTIFICATE TO WINC1500
+        end note
+
+
+        HostMCU->CryptoAuthLib:[[https://github.com/MicrochipTech/cryptoauthlib/blob/af8187776cd3f3faf8bed412eaf6ff7221862e19/lib/atcacert/atcacert_client.c#L111{Reads certificates from Secure Element; Ctrl+Click to open in new Tab}atcacert_read_cert(...)]]
+
+
+        CryptoAuthLib->ATECC608A:[[https://github.com/MicrochipTech/cryptoauthlib/blob/af8187776cd3f3faf8bed412eaf6ff7221862e19/lib/basic/atca_basic_read.c#L57{Reads certificate bytes from Secure Element slot; Ctrl+Click to open in new Tab}atcab_read_zone(...)]]
+        ATECC608A-->CryptoAuthLib:device_cert
+        CryptoAuthLib-->HostMCU:device_cert
+
+
+        HostMCU->WINC1500: [[https://github.com/MicrochipTech/cryptoauth_trustplatform_designsuite/blob/1f20c97c832d843692d6e4b35996e25e42ff2245/TrustFLEX/06_custom_pki_aws/c/common/aws_wifi_task.c#L484{Copies the Device certicate to WINC module for connecting to Azure Cloud; Ctrl+Click to open in new Tab}ecc_transfer_certificates(...)]]
+
+        note over WINC1500, Azure #aquablue
+        Establish TLS connection
+        end note
+
+        note over WINC1500, ATECC608A #FFAAAA
+        ECC MATH OPERATIONS
+        end note
+
+        WINC1500->HostMCU: ECC_MATH_OPERATIONS
+        HostMCU-->CryptoAuthLib: [[https://github.com/MicrochipTech/cryptoauth_trustplatform_designsuite/blob/1f20c97c832d843692d6e4b35996e25e42ff2245/TrustFLEX/06_custom_pki_aws/c/common/aws_wifi_task.c#L343{Directs WINC ECC math operation request to Secure element; Ctrl+Click to open in new Tab}ecc_process_request(...)]]
+        CryptoAuthLib-->ATECC608A: ECC command to device
+        ATECC608A-->CryptoAuthLib: response
+        CryptoAuthLib-->HostMCU:
+        HostMCU-->WINC1500: ECC_MATH_RESULT
+
+        note over WINC1500, Azure #aquablue
+        TLS connection established
+        end note
+
+        note over WINC1500, HostMCU #FFAAAA
+        COMMUNICATION WITH Azure
+        end note
+
+
+        HostMCU->WINC1500: Communicate using MQTT
+        WINC1500-->HostMCU: response">
+
+                                <br/><br/><h4><i class="fa fa-angle-right"></i> 2. Infer Cryptographic Assets </h4>
+                                <div class="separator_left"></div>
+                                <div class="content">
+                                <p>Considering the above transaction diagram, the following assets are needed on ATECC608A device.
+                                <ol><li>Device private key</li>
+                                    <li>Device certificate</li></ol></p>
+                                <p>While setting up a secure communication with MS Azure cloud service, the device certificate details are required. When a device tries to establish connection with Azure IoT, Device Certificate will be used to fetch the device details and verify against details provided during registering the device to cloud.</p>
+                                <p>Device certificate will be generated based on the Public Key generated from Device Private Key. Device private key is unique one for each device. ATECC608A generates and stores its private key. This key can never leave ATECC608A. Associated Public key would be read from device and be used to generate the device CSR. Once the device CSR is generated, it needs to be certified through Signer to become the certificate.</p>
+                                <p>The Device certificate generated above needs to be written to secure element (as compressed certificate) for further use.</p></div><!-- End off accordion item-2 -->
+                                <br /><br /><h4> <i class="fa fa-angle-right"></i> 3. Secure Element Configuration </h4>
+                                <div class="separator_left"></div>
+                                <div class="content">
+                                <p>Trust&amp;GO devices are already configured for a collection of use cases. This use case is one among them and the secure element come with preprogrammed device and signer certificates. In this usecase, only device certificate will be used for secure connection with Azure.</p>
+                                </div><!-- End off accordion item-3 -->
+
+                                <br /><br /><h4><i class="fa fa-angle-right"></i> 4. Prototyping</h4>
+                                <div class="separator_left"></div>
+                                <div class="content">
+                                <p>Naturally, you need to have an MS Azure IoT test account setup for the device to authenticate to. Follow <a href="../../../docs/TrustFLEX_guide_Azure_demo_account_setup.pdf" target="_blank">Azure IoT account setup</a> for details.</p>
+                                <p>Refer to <a href="../../../docs/TrustnGO_guide_Azure_connect.pdf" target="_blank"> Usecase step by step guide </a> for hands-on instructions on how to prototype this use case with Trust&amp;GO. Below are the sequence of steps for prototyping an usecase,</p>
+                                <p><img src="assets/images/Protype Sequence.png"></p>
+                                <p>The required code to perform this use case is available as Jupyter Notebook and C example. Jupyter Notebooks are written in Python and are accompanied with extensive documentation. </p>
+                                <p>The <strong>TrustnGO\00_resource_generation\TNGTLS_manifest_file_generation.ipynb</strong> notebook helps to generate the required Manifest file. Then run <strong>05_cloud_connect\notebook\azure\TNGTLS_azure_connect.ipynb</strong> Notebook to register the device to user MS Azure account. Once Azure account is set-up and device is registered, cloud verifies the authenticity and allows to communicate with it.</p>
+                                <p><strong>TrustnGO\05_cloud_connect\firmware</strong> contains the embedded project that helps connecting Crypto Trust Platform with WIFI7 click board to Azure-IoT. This embedded project comes with required modules, like CryptoAuthLib, WINC stack, MQTT stack etc.., that are needed to establish communication with Azure. It is required to choose build configuration as Azure_Connect, provide details like Wifi SSID, Password and Azure Host name/endpoint i.e. url to connect user account.</p>
+                                <p>Once all the steps are performed as in step by step guide, return back here to continue with other use cases.</p>
+                                </div><!-- End of accordion item 5 -->
+                        </div>
         </section>
+
 
         <!--Contact Us Section-->
         <section id="contact" class="contact bg-white fix">

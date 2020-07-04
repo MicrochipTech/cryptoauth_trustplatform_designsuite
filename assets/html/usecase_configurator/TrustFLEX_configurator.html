@@ -605,7 +605,7 @@
     <li>Sign the firmware</li>
     <li>Verify the firmware</li></ol></p>
 
-    <p><b>TrustFLEX\02_firmware_validation\c\</b> contains the embedded project that does firmware validation by using TurstFLEX device on Crypto Trust Platform. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
+    <p><b>TrustFLEX\02_firmware_validation\firmware\</b> contains the embedded project that does firmware validation by using TurstFLEX device on Crypto Trust Platform. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
 
     <p>Once all the steps are performed as in step by step guide, return back here to continue with Secret Exchange Process for loading actual secrets to TrustFLEX securely.</p>
     </div><!-- End off accordion item-4 -->
@@ -736,7 +736,7 @@
     <p>The <b>TrustFLEX\04_ip_protection\notebook\TFLXTLS_IP_protection.ipynb</b> notebook helps in running prototype using Crypto Auth Trust Platform. The major steps involved in this notebook are</p>
     <ol><li>Generate MAC from TFLXTLS part</li>
     <li>Verify Expected MAC on Host</li></ol>
-    <p><b>TrustFLEX\04_ip_protection\c\</b> contains the embedded project that does IP Protection by using TurstFLEX device on Crypto Trust Platform. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
+    <p><b>TrustFLEX\04_ip_protection\firmware\</b> contains the embedded project that does IP Protection by using TurstFLEX device on Crypto Trust Platform. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
     <p>Once all the steps are performed as in step by step guide, return back here to continue with Secret Exchange Process for loading actual secrets to TrustFLEX securely.</p>
     </div><!-- End off accordion item-4 -->
 
@@ -918,7 +918,7 @@
     <ol><li>Generating a Validation Authority Key pair</li>
     <li>Rotate new public key</li>
     <li>Validate and verify rotated public key is usability</li></ol></p>
-    <p><strong>TrustFLEX\05_public_key_rotation\c\</strong> contains the embedded project that does secure public key rotation by using TurstFLEX device on Crypto Trust Platform. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
+    <p><strong>TrustFLEX\05_public_key_rotation\firmware\</strong> contains the embedded project that does secure public key rotation by using TurstFLEX device on Crypto Trust Platform. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
     <p>Once all the steps are performed as in step by step guide, return back here to continue with Secret Exchange Process for loading actual secrets to TrustFLEX securely.</p>
     </div><!-- End off accordion item-4 -->
     <br />
@@ -1055,7 +1055,7 @@
     <ol><li>Generate nonce on both device</li>
     <li>Calculate MAC on Accessory device (Trust&GO)</li>
     <li>Verify accessory device MAC by Host (TrustFLEX)</li></ol>
-    <p><strong>TrustFLEX\01_accessory_authentication\c\</strong> contains the embedded project that does accessory authentication by using TurstFLEX and Trust&GO devices on Crypto Trust Platform. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
+    <p><strong>TrustFLEX\01_accessory_authentication\firmware\</strong> contains the embedded project that does accessory authentication by using TurstFLEX and Trust&GO devices on Crypto Trust Platform. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
     <p>Once all the steps are performed as in step by step guide, return back here to continue with Secret Exchange Process for loading actual secrets to TrustFLEX securely.</p>
     </div><!-- End off accordion item-4 -->
 
@@ -1218,11 +1218,11 @@
     <p>On executing this resource generator, secure element data zone is written with required secrets, keys, and certificates. The secrets or certificates loaded in this stage can be found in the same folder.</p>
     <p>Once the assets are created, for this use case it’s required to register the signer certificate to users account.</p>
     <h4>AWS</h4>
-    <p><strong>TrustFLEX\06_custom_pki_aws\notebook\TFLXTLS_aws_connect.ipynb</strong> Notebook helps to register the signer certificate to user AWS account. Once AWS account is set-up for JITR(Just In Time Registration) connection, on the first attempt of device connect it verifies the authenticity and allows to communicate with AWS-IoT.</p>
-    <p><strong>TrustFLEX\06_custom_pki_aws\c</strong> contains the embedded project that helps connecting Crypto Trust Platform with WIFI7 click board to AWS-IoT. This embedded project comes with required modules, like CryptoAuthLib, WINC stack, MQTT stack etc.., that are needed to establish communication with AWS. It is required to provide details like Wifi SSID, Password and AWS endpoint i.e. url to connect user account.</p>
+    <p><strong>TrustFLEX\10_cloud_connect\notebook\aws\TFLXTLS_aws_connect.ipynb</strong> Notebook helps to register the signer certificate to user AWS account. Once AWS account is set-up for JITR(Just In Time Registration) connection, on the first attempt of device connect it verifies the authenticity and allows to communicate with AWS-IoT.</p>
+    <p><strong>TrustFLEX\10_cloud_connect\firmware</strong> contains the embedded project that helps connecting Crypto Trust Platform with WIFI7 click board to AWS-IoT. This embedded project comes with required modules, like CryptoAuthLib, WINC stack, MQTT stack etc.., that are needed to establish communication with AWS. It is required to choose build configuration as AWS_PKI_Cloud, provide details like Wifi SSID, Password and AWS endpoint i.e. url to connect user account.</p>
     <h4>Azure</h4>
-    <p><strong>TrustFLEX\07_custom_pki_azure\notebook\TFLXTLS_azure_connect.ipynb</strong> Notebook helps to register the signer and device to user account. Once account is set-up and both signer and device is registered, on device connect attempt, Azure IoT Hub verifies the authenticity and allows to communicate with it.</p>
-    <p><strong>TrustFLEX\07_custom_pki_azure\c</strong> contains the embedded project that helps connecting Crypto Trust Platform with WIFI7 click board to Azure IoT Hub. This embedded project comes with required modules, like CryptoAuthLib, WINC stack, MQTT stack etc.., that are needed to establish communication with Azure IoT Hub. It is required to provide details like Wifi SSID, Password and Azure IoT Hub Hostname.</p>
+    <p><strong>TrustFLEX\10_cloud_connect\notebook\azure\TFLXTLS_azure_connect.ipynb</strong> Notebook helps to register the signer and device to user account. Once account is set-up and both signer and device is registered, on device connect attempt, Azure IoT Hub verifies the authenticity and allows to communicate with it.</p>
+    <p><strong>TrustFLEX\10_cloud_connect\firmware</strong> contains the embedded project that helps connecting Crypto Trust Platform with WIFI7 click board to Azure IoT Hub. This embedded project comes with required modules, like CryptoAuthLib, WINC stack, MQTT stack etc.., that are needed to establish communication with Azure IoT Hub. It is required to choose build configuration as Azure_PKI_Cloud, provide details like Wifi SSID, Password and Azure IoT Hub Hostname.</p>
     <p>Once all the steps are performed as in step by step guide, return back here to continue with Secret Exchange Process for loading actual secrets to TrustFLEX securely.</p>
     </div><!-- End of accordion item 5 -->
 
@@ -1351,8 +1351,8 @@
     <p><img src="assets/images/Protype Sequence.png"></p>
     <p>The required code to perform this use case is available as Jupyter Notebook and C example. Jupyter Notebooks are written in Python and are accompanied with extensive documentation. </p>
     <p>The <strong>TrustFLEX\00_resource_generation\TFLXTLS_resource_generator.ipynb</strong> notebook helps to generate the required Manifest file and associated validation certificates. </p>
-    <p>Once the assets are created, for this use case it’s required to register the device to Google IoT account. <strong>TrustFLEX\03_gcp_connect\notebook\TFLXTLS_GCP_connect.ipynb</strong> Notebook helps to register device to user GCP account using Manifest file. Once GCP account is set-up and device is registered, cloud verifies the authenticity and allows to communicate with GCP IoT.</p>
-    <p><strong>TrustFLEX\03_gcp_connect\c</strong> contains the embedded project that helps connecting Crypto Trust Platform with WIFI7 click board to GCP IoT. This embedded project comes with required modules, like CryptoAuthLib, WINC stack, MQTT stack etc.., that are needed to establish communication with GCP IoT. It is required to provide details like Wifi SSID, Password and registry details.</p>
+    <p>Once the assets are created, for this use case it’s required to register the device to Google IoT account. <strong>TrustFLEX\10_cloud_connect\notebook\gcp\TFLXTLS_GCP_connect.ipynb</strong> Notebook helps to register device to user GCP account using Manifest file. Once GCP account is set-up and device is registered, cloud verifies the authenticity and allows to communicate with GCP IoT.</p>
+    <p><strong>TrustFLEX\10_cloud_connect\firmware</strong> contains the embedded project that helps connecting Crypto Trust Platform with WIFI7 click board to GCP IoT. This embedded project comes with required modules, like CryptoAuthLib, WINC stack, MQTT stack etc.., that are needed to establish communication with GCP IoT. It is required to choose build configuration as Google_Cloud, provide details like Wifi SSID, Password and registry details.</p>
     <p>Once all the steps are performed as in step by step guide, return back here to continue with Secret Exchange Process for loading actual secrets to TrustFLEX securely.</p>
     </div><!-- End of accordion item 5 -->
 
@@ -1495,7 +1495,7 @@
             <ol><li>Rebuilding Signer and Device certificates</li>
             <li>Verifying chain of trust</li>
             <li>verifying Device Private key</li></ol></p>
-        <p><strong>TrustFLEX\08_asymmetric_authentication\c\</strong> contains the embedded project that does accessory authentication by using TurstFLEX devices on Crypto Trust Platform. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
+        <p><strong>TrustFLEX\08_asymmetric_authentication\firmware\</strong> contains the embedded project that does accessory authentication by using TurstFLEX devices on Crypto Trust Platform. This embedded project comes with required modules like CryptoAuthLib and application files.</p>
         <p>Once all the steps are performed as in step by step guide, return back here to continue with Secret Exchange Process for loading actual secrets to TrustFLEX securely.</p>
         </div><!-- End off accordion item-4 -->
 
@@ -2099,12 +2099,6 @@
                                                                     name and
                                                                     data.</i></li>
                                                         </ol>
-                                                        <p class="text-finence"> Due to the way the certificates
-                                                            are
-                                                            stored/retrieved from the ECC608 device, using Custom
-                                                            certificates will require some knowledge on compressed
-                                                            certificates and certificate templates.
-                                                        </p>
                                                         <strong>Select device certificate type:</strong><br />
                                                         <input id="1001" type="radio" name="slot10certopt"
                                                             value="MCHPCert" checked="checked" onclick="">
@@ -2118,6 +2112,9 @@
                                                         <div class="divcertnotes" id="device_custcert_notes">
                                                             <strong>Notes on Custom Device Certificate</strong><br/>
                                                             <ol>
+                                                                <li>Due to the way the certificates
+                                                                are stored/retrieved from the ECC608 device, using Custom certificates will require some knowledge on compressed certificates and certificate templates. </li>
+                                                                <li>The issue date only has a resolution of hours. <u>Minutes and seconds are assumed to be zero.</u> Refer to <a href="../../../docs/ATECC608A_compressed_certificate_definition.pdf" target="_blank"> Compressed Certificate Definition</a> for further details on the compressed certificates.</li>
                                                                 <li>The custom definition files (.c, .h) being generated assumes the size of Organization and Common Names matches with MCHP standard certificates. </li>
                                                                 <li>The Distinguished Names, both for the Issuer and for the Subject in all certificates must be comprised of an Organization Name and a Common Name entry, in that order.</li>
                                                                 <li>The Organization Name entered here gets padded and spaces replaced with '_' to match with MCHP standard certificates sizes.</li>
@@ -2228,12 +2225,6 @@
                                                                     name and
                                                                     data.</i></li>
                                                         </ol>
-                                                        <p class="text-finence"> Due to the way the certificates
-                                                            are
-                                                            stored/retrieved from the ECC608 device, using Custom
-                                                            certificates will require some knowledge on compressed
-                                                            certificates and certificate templates.
-                                                        </p>
                                                         <strong>Select certificate type:</strong><br />
                                                         <input id="1201" type="radio" name="slot12certopt"
                                                             value="MCHPCert" checked="checked" onclick="">
@@ -2247,6 +2238,9 @@
                                                         <div class="divcertnotes" id="signer_custcert_notes">
                                                             <strong>Notes on Custom Signer Certificate:</strong><br/>
                                                             <ol>
+                                                            <li>Due to the way the certificates
+                                                                are stored/retrieved from the ECC608 device, using Custom certificates will require some knowledge on compressed certificates and certificate templates. </li>
+                                                                <li>The issue date only has a resolution of hours. <u>Minutes and seconds are assumed to be zero.</u> Refer to <a href="../../../docs/ATECC608A_compressed_certificate_definition.pdf" target="_blank"> Compressed Certificate Definition</a> for further details on the compressed certificates.</li>
                                                                 <li>The custom definition files (.c, .h) being generated assumes the length of Organization and Common Names matches with MCHP standard certificates. </li>
                                                                 <li>The Distinguished Names, both for the Issuer and for the Subject in all certificates must be comprised of an Organization Name and a Common Name entry, in that order</li>
                                                                 <li>The Organization Name entered here gets padded and spaces replaced with '_' to match MCHP standard certificates sizes.</li>
@@ -2522,21 +2516,21 @@
                                             <div id="slot16dataoptspan"></div>
                                             <div id="slot16dataoptverify"></div>
                                             <br />
-                                        <strong>Upload Certificate Templates for MCHP reference:</strong><br>
+                                        <!-- <strong>Upload Certificate Templates for MCHP reference:</strong><br>
                                         1. Upload Root certificate (<b>.crt</b> only): <input id="1604" type="file" accept=".crt" name="custom_root" value="root_crt" onchange = "process_cert_template(this)"><br>
                                         2. Upload Signer certificate (<b>.crt</b> only): <input id="1605" type="file" accept=".crt" name="custom_signer" value="signer_crt" onchange = "process_cert_template(this)"><br>
-                                        3. Upload Device certificate (<b>.crt</b> only): <input id="1606" type="file" accept=".crt" name="custom_device" value="device_crt"  onchange = "process_cert_template(this)"><br>
+                                        3. Upload Device certificate (<b>.crt</b> only): <input id="1606" type="file" accept=".crt" name="custom_device" value="device_crt"  onchange = "process_cert_template(this)"><br> -->
                                     </div>
                                     <br/><strong>Part Number details</strong><br/>
                                     Before generating the Secret Exchange Packet, its required to have MAN-ID and custom Part Number. When customer is availing MCHP provisioning services to load their secrets and certificates, MCHP assigns unique values. These can be requested through support ticket. Refer to <a href="../../../docs/TrustFLEX_guide_secret_exchange_process.pdf" target="_blank"> Secret Exchange Process</a> guide for details. For prototyping, one can leave these blank.<br></br>
-                                            <input
-                                                class="advancedSearchTextboxReduced placeholder slotTextEnabled"
-                                                type="text" name="manIdHex" id="manIdHexId"
-                                        placeholder="MAN-ID (SN8), ex: 0x01"><br>
                                     <input
                                         class="advancedSearchTextboxReduced placeholder slotTextEnabled"
                                         type="text" name="partNumberHex" id="partNumberId"
-                                        placeholder="Part number, ex: ATECC608A-MAHAA-T"><br><br>
+                                        placeholder="Part number, ex: ATECC608A-MAHAA-T"><br>
+                                    <input
+                                        class="advancedSearchTextboxReduced placeholder slotTextEnabled"
+                                        type="text" name="manIdHex" id="manIdHexId"
+                                        placeholder="MAN-ID (SN8), ex: 0x01"><br><br>
                                         <p>The "Generate TFLXTLS provisioning package" button compiles all the data provided in the above slots
                                             into zip package containing .xml, .c and .h files. </p>
 
@@ -3362,27 +3356,27 @@ const atcacert_def_t tflxtls_cust_cert_def_signer = {
             {
                 return document.getElementById("cbid_devcertcn").checked;
             }
-            var root_cert, signer_crt, device_crt;
-            function process_cert_template(elem_obj)
-            {
-                var file = elem_obj.files[0];
-                if (file.name.toLowerCase().indexOf(".crt") < 0)
-                    alert("It accepts only .crt files");
-                var reader = new FileReader();
-                reader.readAsText(file);
-                reader.onload = function(progressEvent){
-                    if(elem_obj.id == "1604")
-                        root_cert = this.result;
-                    else if(elem_obj.id == "1605")
-                        signer_crt = this.result;
-                    else if(elem_obj.id == "1606")
-                        device_crt = this.result;
-                };
-            }
-            function get_certs()
-            {
-                return [root_cert, signer_crt, device_crt];
-            }
+            // var root_cert, signer_crt, device_crt;
+            // function process_cert_template(elem_obj)
+            // {
+            //     var file = elem_obj.files[0];
+            //     if (file.name.toLowerCase().indexOf(".crt") < 0)
+            //         alert("It accepts only .crt files");
+            //     var reader = new FileReader();
+            //     reader.readAsText(file);
+            //     reader.onload = function(progressEvent){
+            //         if(elem_obj.id == "1604")
+            //             root_cert = this.result;
+            //         else if(elem_obj.id == "1605")
+            //             signer_crt = this.result;
+            //         else if(elem_obj.id == "1606")
+            //             device_crt = this.result;
+            //     };
+            // }
+            // function get_certs()
+            // {
+            //     return [root_cert, signer_crt, device_crt];
+            // }
         </script>
 </body>
 </html>

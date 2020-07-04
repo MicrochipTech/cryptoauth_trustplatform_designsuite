@@ -9,14 +9,11 @@ from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import ec, utils
 from cryptoauthlib import *
-from manifest_generation_helper import tflxtls_manifest
-from mchpcert_bckp_restore import isTNG, mchp_cert_bckp
+from mchpcert_bckp_restore import isMCHP_cert, mchp_cert_bckp
 from public_key_rotation_helper import *
 
 from certs_handler import *
 from trustplatform import *
-
-programmer = program_flash()
 
 
 # Setup cryptography
@@ -187,21 +184,38 @@ def create_resource_and_program(slot_number):
 
     return True
 
-def mchp_cert():
-    mchp_cert_bckp()
 
-    # If certificate is a mchp certificate, then generate manifest file.
-    mchp_cert_info = isTNG()
-    if(mchp_cert_info['status'] == Status.ATCA_SUCCESS):
-        tflxtls_manifest(mchp_cert_info['root_cert'], mchp_cert_info['signer_cert'], mchp_cert_info['device_cert'])
+def mchp_cert():
+    """
+    Function check the if device contains MCHP certificate or not.
+    If MCHP cert, it will validate the cert chain and print it.
+    If MCHP cert not found, then it will check backup cert in the filesystem and
+    it will provision into device
+    """
+    mchp_cert_info = isMCHP_cert()
+    if mchp_cert_info['status'] == Status.ATCA_SUCCESS:
+        status = certs_handler.validate_and_print_certificate_chain(mchp_cert_info['root_cert'],
+                                mchp_cert_info['signer_cert'], mchp_cert_info['device_cert'])
+    else:
+        status = mchp_cert_bckp(mchp_cert_info)
+
+    if status == Status.ATCA_SUCCESS:
+        return 'success'
+    else:
+        return 'danger'
 
 def custom_cert(org_name):
-    mchp_cert_bckp()
+    """
+    Function takes MCHP certificates backup if it found in device and
+    generate custom certificate and provision to device
+    """
+    mchp_cert_info = isMCHP_cert()
+    if mchp_cert_info['status'] == Status.ATCA_SUCCESS:
+        status = mchp_cert_bckp(mchp_cert_info)
 
-    org_name = "{:<24}".format(org_name[:24]).replace(" ", "_")
-    print('Adjusted Orgname for size and spaces:' + org_name)
-
-    assert len(org_name) < 25, "Org name can be maximum of 24 characters"
+    #org_name = "{:<24}".format(org_name[:24]).replace(" ", "_")
+    #print('Adjusted Orgname for size and spaces:' + org_name)
+    #assert len(org_name) < 25, "Org name can be maximum of 24 characters"
 
     root_key_path = Path('root_key.key')
     root_pub_key_path = Path('root_pub_key.pem')
@@ -260,4 +274,10 @@ def custom_cert(org_name):
     print('Custom certificate generation and provisioning - SUCCESS')
     print('---------------------------------------------\n\r')
 
-    tflxtls_manifest(read_cert(root_cert_path), read_cert(signer_cert_path), read_cert(device_cert_path))
+    # validate and print the certificate chain
+    status = certs_handler.validate_and_print_certificate_chain(read_cert(root_cert_path),
+                                read_cert(signer_cert_path), read_cert(device_cert_path))
+    if status == Status.ATCA_SUCCESS:
+        return 'success'
+    else:
+        return 'danger'

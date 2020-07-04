@@ -1,5 +1,5 @@
 @ECHO off
-cd Tools\image_builder\debug\
+:: cd Tools\image_builder_downloader
 
 :: Test path length.
 if NOT "%CD:~230,1%"=="" (
@@ -11,11 +11,7 @@ if NOT "%CD:~230,1%"=="" (
 )
 
 echo.
-echo Applying modification for 2B0 image:
-echo.
-image_builder -http_modify ../../../provisioning_webpage/ -fw_path ../../../firmware/m2m_aio_2b0.bin -no_wait
-echo.
 echo Applying modification for 3A0 image:
 echo.
-image_builder -1003A0 -http_modify ../../../provisioning_webpage/ -fw_path ../../../firmware/m2m_aio_3a0.bin -no_wait
+Tools\image_builder_downloader\image_tool -http_modify provisioning_webpage/ -fw_path firmware/m2m_aio_3a0.bin -c flash_image.config -no_wait
 pause

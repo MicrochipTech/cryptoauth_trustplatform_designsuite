@@ -158,6 +158,13 @@ function done_deflating(e) {
       svgObj.setAttribute("type", "image/svg+xml");
       document.getElementById("svg_canvas_asymm_auth_tflx").appendChild(svgObj);
     }
+    else if(u2.includes('Azure Connect with Trust&GO'))
+    {
+      var svgObj = document.createElement('object');
+      svgObj.setAttribute("data", "http://www.plantuml.com/plantuml/svg/"+encode64(e.data));
+      svgObj.setAttribute("type", "image/svg+xml");
+      document.getElementById("svg_canvas_cloud_azure_tng").appendChild(svgObj);
+    }
     else
     {
 

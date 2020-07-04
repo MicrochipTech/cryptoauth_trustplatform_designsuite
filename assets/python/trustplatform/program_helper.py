@@ -46,26 +46,23 @@ class program_flash():
         """
         Function which fetch the java location associated with mplabx
         """
-        jre = None
-
         with open(self.filename, 'r') as file:
             data = json.load(file)
         mplab_path = data["MPLABX"]["ipe_path"]
 
-        dirfiles = os.listdir(os.path.join(mplab_path, "sys", "java"))
-
-        for folder in dirfiles:
-            if ("jre" in folder) and os.path.isdir(os.path.join((os.path.join(mplab_path, "sys", "java")), folder)):
-                jre = folder
-
-        if jre is None:
-            raise FileNotFoundError("JRE installation not found")
-
         os_type = platform.system().lower()
         if 'darwin' in os_type:
-            self.java_loc = Path(os.path.join(mplab_path, "sys", "java", jre, "home", "bin", "java"))
+            java_jre = "java"
         else:
-            self.java_loc = Path(os.path.join(mplab_path, "sys", "java", jre, "bin", "java.exe"))
+            java_jre = "java.exe"
+
+        for (root, dirs, files) in os.walk(os.path.join(mplab_path, 'sys')):
+            if java_jre in files:
+                if os.path.exists(os.path.join(root, java_jre)):
+                    self.java_loc = os.path.join(root, java_jre)
+
+        if self.java_loc is None:
+            raise FileNotFoundError("JRE installation not found")
 
     def check_mplab_path(self):
         """
