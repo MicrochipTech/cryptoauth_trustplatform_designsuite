@@ -56,7 +56,7 @@ int config_set_thing_id()
     config_thing_id[0] = 'd';
     rv = atcab_bin2hex_(serial_num, sizeof(serial_num), &config_thing_id[1], &hex_size, false, false, true);
 #elif defined(CLOUD_CONFIG_AWS)
-    rv = atcab_bin2hex_(serial_num, sizeof(serial_num), config_thing_id, &hex_size, false, false, false);
+    rv = atcab_bin2hex_(serial_num, sizeof(serial_num), config_thing_id, &hex_size, false, false, true);
 #elif defined(CLOUD_CONFIG_AZURE)
     rv = atcab_bin2hex_(serial_num, sizeof(serial_num), config_thing_id, &hex_size, false, false, true);
 #endif

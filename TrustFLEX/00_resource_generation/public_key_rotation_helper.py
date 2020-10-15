@@ -16,6 +16,7 @@ from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 from cryptoauthlib.device import *
 from cryptoauthlib.library import ctypes_to_bytes
 from cryptoauthlib.iface import *
+from trustplatform import *
 import binascii
 
 ATCA_SUCCESS = 0x00
@@ -27,11 +28,6 @@ ROTATING_KEY = "slot_14_ecc_key_pair.pem"
 rotating_key_slot = 14
 authority_key_slot = 13
 
-def convert_to_hex_bytes(a):
-    hex_bytes = ''
-    for x in range(0, len(a), 16):
-        hex_bytes += (''.join(['0x%02X, ' % y for y in a[x:x+16]]) + '\n')
-    return hex_bytes
 
 def calc_nonce(mode, zero, num_in, rand_out=None, temp_key=None):
     """Replicate the internal TempKey calculations of the Nonce command"""
@@ -171,7 +167,7 @@ def public_key_validate_invalidate(validation_status,perform_on_device=True):
     validation_authority_key = get_validating_authority_key()
 
     assert ATCA_SUCCESS == atcab_read_config_zone(config_data)
-    config = Atecc608aConfig.from_buffer(config_data)
+    config = Atecc608Config.from_buffer(config_data)
     if(perform_on_device == True):
         assert ATCA_SUCCESS == atcab_nonce(nonce)
 
@@ -228,38 +224,38 @@ def resource_generate():
     application_h = 'public_key_rotation.h'
     with open(application_h, 'w') as f:
         f.write('uint8_t validated_nonce[] = {\n')
-        f.write(str(convert_to_hex_bytes(nonce)))
+        f.write(str(common_helper.convert_to_hex_bytes(nonce)))
         f.write('};\n\n')
 
         f.write('uint8_t validated_signature[] = {\n')
-        f.write(str(convert_to_hex_bytes(signature)))
+        f.write(str(common_helper.convert_to_hex_bytes(signature)))
         f.write('};\n\n')
 
     validate_status,nonce,signature = public_key_validate_invalidate(True,False)
     assert validate_status == True
     with open(application_h, 'a') as f:
         f.write('uint8_t invalidated_nonce[] = {\n')
-        f.write(str(convert_to_hex_bytes(nonce)))
+        f.write(str(common_helper.convert_to_hex_bytes(nonce)))
         f.write('};\n\n')
 
         f.write('uint8_t invalidated_signature[] = {\n')
-        f.write(str(convert_to_hex_bytes(signature)))
+        f.write(str(common_helper.convert_to_hex_bytes(signature)))
         f.write('};\n\n')
     with open(application_h, 'a') as f:
         msg_digest = os.urandom(32)
         rotating_private_key = get_rotating_key()
         signature = sign_host(msg_digest,rotating_private_key)
         f.write('uint8_t rotating_digest[] = {\n')
-        f.write(str(convert_to_hex_bytes(msg_digest)))
+        f.write(str(common_helper.convert_to_hex_bytes(msg_digest)))
         f.write('};\n\n')
 
         f.write('uint8_t rotating_signature[] = {\n')
-        f.write(str(convert_to_hex_bytes(signature)))
+        f.write(str(common_helper.convert_to_hex_bytes(signature)))
         f.write('};\n\n')
         public_key = rotating_private_key.public_key().public_bytes(encoding=Encoding.X962, format=PublicFormat.UncompressedPoint)[1:]
 
         f.write('uint8_t public_key[] = {\n')
-        f.write(str(convert_to_hex_bytes(public_key)))
+        f.write(str(common_helper.convert_to_hex_bytes(public_key)))
         f.write('};')
 
 def public_key_check_validate():

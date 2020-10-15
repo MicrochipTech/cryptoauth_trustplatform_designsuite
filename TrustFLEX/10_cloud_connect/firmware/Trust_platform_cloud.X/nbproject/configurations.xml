@@ -91,6 +91,11 @@
               <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/atca_config.h</itemPath>
             </logicalFolder>
           </logicalFolder>
+          <logicalFolder name="f5" displayName="osal" projectFiles="true">
+            <itemPath>../src/config/Cloud_Connect/osal/osal.h</itemPath>
+            <itemPath>../src/config/Cloud_Connect/osal/osal_definitions.h</itemPath>
+            <itemPath>../src/config/Cloud_Connect/osal/osal_impl_basic.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
             <logicalFolder name="f5" displayName="clock" projectFiles="true">
               <itemPath>../src/config/Cloud_Connect/peripheral/clock/plib_clock.h</itemPath>
@@ -121,9 +126,9 @@
                 <itemPath>../src/config/Cloud_Connect/peripheral/sercom/i2c_master/plib_sercom_i2c_master_common.h</itemPath>
                 <itemPath>../src/config/Cloud_Connect/peripheral/sercom/i2c_master/plib_sercom2_i2c_master.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f3" displayName="spim" projectFiles="true">
-                <itemPath>../src/config/Cloud_Connect/peripheral/sercom/spim/plib_sercom1_spi.h</itemPath>
-                <itemPath>../src/config/Cloud_Connect/peripheral/sercom/spim/plib_sercom_spi_common.h</itemPath>
+              <logicalFolder name="f3" displayName="spi_master" projectFiles="true">
+                <itemPath>../src/config/Cloud_Connect/peripheral/sercom/spi_master/plib_sercom1_spi_master.h</itemPath>
+                <itemPath>../src/config/Cloud_Connect/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f1" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/Cloud_Connect/peripheral/sercom/usart/plib_sercom3_usart.h</itemPath>
@@ -170,14 +175,10 @@
           <itemPath>../src/config/Cloud_Connect/device_cache.h</itemPath>
           <itemPath>../src/config/Cloud_Connect/toolchain_specifics.h</itemPath>
           <itemPath>../src/config/Cloud_Connect/definitions.h</itemPath>
+          <itemPath>../src/config/Cloud_Connect/device.h</itemPath>
           <itemPath>../src/config/Cloud_Connect/user.h</itemPath>
           <itemPath>../src/config/Cloud_Connect/configuration.h</itemPath>
         </logicalFolder>
-      </logicalFolder>
-      <logicalFolder name="f3" displayName="osal" projectFiles="true">
-        <itemPath>../src/config/Cloud_Connect/osal/osal.h</itemPath>
-        <itemPath>../src/config/Cloud_Connect/osal/osal_definitions.h</itemPath>
-        <itemPath>../src/config/Cloud_Connect/osal/osal_impl_basic.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="packs" projectFiles="true">
         <logicalFolder name="f1" displayName="ATSAMD21E18A_DFP" projectFiles="true">
@@ -209,8 +210,6 @@
           <logicalFolder name="f2" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAMD21E18A_DFP/pio/samd21e18a.h</itemPath>
           </logicalFolder>
-          <itemPath>../src/packs/ATSAMD21E18A_DFP/device.h</itemPath>
-          <itemPath>../src/packs/ATSAMD21E18A_DFP/atsamd21e18a_compat.h</itemPath>
           <itemPath>../src/packs/ATSAMD21E18A_DFP/atsamd21e18a.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="CMSIS" projectFiles="true">
@@ -226,6 +225,7 @@
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm0plus.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -236,6 +236,11 @@
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="config" projectFiles="true">
+        <logicalFolder name="f1" displayName="Cloud_Connect" projectFiles="true">
+          <itemPath>../src/config/Cloud_Connect/ATSAMD21E18A.ld</itemPath>
+        </logicalFolder>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -348,7 +353,7 @@
           </logicalFolder>
           <logicalFolder name="f5" displayName="library" projectFiles="true">
             <logicalFolder name="f1" displayName="cryptoauthlib" projectFiles="true">
-              <logicalFolder name="f4" displayName="atcacert" projectFiles="true">
+              <logicalFolder name="f5" displayName="atcacert" projectFiles="true">
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/atcacert/atcacert.h</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/atcacert/atcacert_client.c</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/atcacert/atcacert_client.h</itemPath>
@@ -365,7 +370,7 @@
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/atcacert/atcacert_pem.c</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/atcacert/atcacert_pem.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f5" displayName="calib" projectFiles="true">
+              <logicalFolder name="f6" displayName="calib" projectFiles="true">
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/calib/calib_aes.c</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/calib/calib_aes_gcm.c</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/calib/calib_aes_gcm.h</itemPath>
@@ -398,7 +403,7 @@
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/calib/calib_verify.c</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/calib/calib_write.c</itemPath>
               </logicalFolder>
-              <logicalFolder name="f2" displayName="crypto" projectFiles="true">
+              <logicalFolder name="f3" displayName="crypto" projectFiles="true">
                 <logicalFolder name="f1" displayName="hashes" projectFiles="true">
                   <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/crypto/hashes/sha1_routines.c</itemPath>
                   <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/crypto/hashes/sha1_routines.h</itemPath>
@@ -419,7 +424,8 @@
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/crypto/atca_crypto_sw_sha2.c</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/crypto/atca_crypto_sw_sha2.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f7" displayName="hal" projectFiles="true">
+              <logicalFolder name="f2" displayName="hal" projectFiles="true">
+                <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/hal/ATECC608_0.c</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/hal/atca_hal.c</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/hal/atca_hal.h</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/hal/atca_start_config.h</itemPath>
@@ -427,13 +433,12 @@
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/hal/hal_i2c_harmony.c</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/hal/hal_harmony_init.c</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/hal/hal_cortex_m_delay.c</itemPath>
-                <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/hal/ATECC608A_0.c</itemPath>
               </logicalFolder>
-              <logicalFolder name="f6" displayName="host" projectFiles="true">
+              <logicalFolder name="f7" displayName="host" projectFiles="true">
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/host/atca_host.c</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/host/atca_host.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f3" displayName="jwt" projectFiles="true">
+              <logicalFolder name="f4" displayName="jwt" projectFiles="true">
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/jwt/atca_jwt.c</itemPath>
                 <itemPath>../src/config/Cloud_Connect/library/cryptoauthlib/jwt/atca_jwt.h</itemPath>
               </logicalFolder>
@@ -500,8 +505,8 @@
               <logicalFolder name="f2" displayName="i2c_master" projectFiles="true">
                 <itemPath>../src/config/Cloud_Connect/peripheral/sercom/i2c_master/plib_sercom2_i2c_master.c</itemPath>
               </logicalFolder>
-              <logicalFolder name="f3" displayName="spim" projectFiles="true">
-                <itemPath>../src/config/Cloud_Connect/peripheral/sercom/spim/plib_sercom1_spi.c</itemPath>
+              <logicalFolder name="f3" displayName="spi_master" projectFiles="true">
+                <itemPath>../src/config/Cloud_Connect/peripheral/sercom/spi_master/plib_sercom1_spi_master.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f1" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/Cloud_Connect/peripheral/sercom/usart/plib_sercom3_usart.c</itemPath>
@@ -553,6 +558,7 @@
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/Cloud_Connect/harmony.prj</itemPath>
       <itemPath>../src/config/Cloud_Connect/Cloud_Connect.xml</itemPath>
+      <itemPath>../src/config/Cloud_Connect/harmony-manifest-success.yml</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -570,12 +576,12 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>nEdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.30</languageToolchainVersion>
+        <languageToolchainVersion>2.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
         <pack name="SAMD21_DFP" vendor="Microchip" version="3.1.71"/>
+        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -634,7 +640,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation;../src/config/Cloud_Connect/driver/winc/include/;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11"/>
+                  value="../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/;../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -729,7 +735,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -1302,8 +1309,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/Users/I18336/Desktop/Trustplatform-designsuite/bitbucket/tp_designsuite/TrustFLEX/10_cloud_connect/firmware/Trust_platform_cloud.X/debug/Cloud_Connect/Trust_platform_cloud_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -1317,7 +1322,7 @@
         <property key="voltagevalue" value=""/>
       </nEdbgTool>
     </conf>
-    <conf name="Googe_Cloud" type="2">
+    <conf name="Google_Cloud" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>ATSAMD21E18A</targetDevice>
@@ -1325,12 +1330,12 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>nEdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.30</languageToolchainVersion>
+        <languageToolchainVersion>2.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAMD21_DFP" vendor="Microchip" version="3.1.71"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAMD21_DFP" vendor="Microchip" version="3.1.71"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -1356,29 +1361,41 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../../00_resource_generation/cust_def_1_signer.c"
-            ex="true"
-            overriding="false">
-      </item>
-      <item path="../../../00_resource_generation/cust_def_1_signer.h"
-            ex="true"
-            overriding="false">
-      </item>
-      <item path="../../../00_resource_generation/cust_def_2_device.c"
-            ex="true"
-            overriding="false">
-      </item>
-      <item path="../../../00_resource_generation/cust_def_2_device.h"
-            ex="true"
-            overriding="false">
-      </item>
       <item path="../src/common/cloud_wifi_ecc_process.c"
             ex="true"
             overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <item path="../src/common/cloud_wifi_ecc_process.h"
             ex="true"
             overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <AtmelIceTool>
         <property key="AutoSelectMemRanges" value="auto"/>
@@ -1413,7 +1430,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation;../src/config/Cloud_Connect/driver/winc/include/;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11"/>
+                  value="../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/;../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -1508,7 +1525,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -2081,8 +2099,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/Users/I18336/Desktop/Trustplatform-designsuite/bitbucket/tp_designsuite/TrustFLEX/10_cloud_connect/firmware/Trust_platform_cloud.X/debug/Googe_Cloud/Trust_platform_cloud_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -2104,12 +2120,12 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>nEdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.30</languageToolchainVersion>
+        <languageToolchainVersion>2.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAMD21_DFP" vendor="Microchip" version="3.1.71"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAMD21_DFP" vendor="Microchip" version="3.1.71"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -2168,7 +2184,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation;../src/config/Cloud_Connect/driver/winc/include/;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11"/>
+                  value="../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/;../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -2263,7 +2279,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -2836,8 +2853,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/Users/I18336/Desktop/Trustplatform-designsuite/bitbucket/tp_designsuite/TrustFLEX/10_cloud_connect/firmware/Trust_platform_cloud.X/debug/AWS_PKI_Cloud/Trust_platform_cloud_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -2859,12 +2874,12 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>nEdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.30</languageToolchainVersion>
+        <languageToolchainVersion>2.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAMD21_DFP" vendor="Microchip" version="3.1.71"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAMD21_DFP" vendor="Microchip" version="3.1.71"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -2923,7 +2938,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation;../src/config/Cloud_Connect/driver/winc/include/;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11"/>
+                  value="../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/;../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -3018,7 +3033,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -3591,8 +3607,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/Users/I18336/Desktop/Trustplatform-designsuite/bitbucket/tp_designsuite/TrustFLEX/10_cloud_connect/firmware/Trust_platform_cloud.X/debug/Azure_PKI_Cloud/Trust_platform_cloud_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -3606,7 +3620,7 @@
         <property key="voltagevalue" value=""/>
       </nEdbgTool>
     </conf>
-    <conf name="Firm_valid_Googe_Cloud" type="2">
+    <conf name="Firm_valid_Google_Cloud" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>ATSAMD21E18A</targetDevice>
@@ -3614,12 +3628,12 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>nEdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.30</languageToolchainVersion>
+        <languageToolchainVersion>2.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
         <pack name="SAMD21_DFP" vendor="Microchip" version="3.1.71"/>
+        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -3645,29 +3659,41 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../../00_resource_generation/cust_def_1_signer.c"
-            ex="true"
-            overriding="false">
-      </item>
-      <item path="../../../00_resource_generation/cust_def_1_signer.h"
-            ex="true"
-            overriding="false">
-      </item>
-      <item path="../../../00_resource_generation/cust_def_2_device.c"
-            ex="true"
-            overriding="false">
-      </item>
-      <item path="../../../00_resource_generation/cust_def_2_device.h"
-            ex="true"
-            overriding="false">
-      </item>
       <item path="../src/common/cloud_wifi_ecc_process.c"
             ex="true"
             overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <item path="../src/common/cloud_wifi_ecc_process.h"
             ex="true"
             overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <AtmelIceTool>
         <property key="AutoSelectMemRanges" value="auto"/>
@@ -3702,7 +3728,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation;../src/config/Cloud_Connect/driver/winc/include/;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11"/>
+                  value="../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/;../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -3798,7 +3824,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -4371,8 +4398,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/Users/I18336/Desktop/Trustplatform-designsuite/bitbucket/tp_designsuite/TrustFLEX/10_cloud_connect/firmware/Trust_platform_cloud.X/debug/Firm_valid_Googe_Cloud/Trust_platform_cloud_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -4394,12 +4419,12 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>nEdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.30</languageToolchainVersion>
+        <languageToolchainVersion>2.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAMD21_DFP" vendor="Microchip" version="3.1.71"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAMD21_DFP" vendor="Microchip" version="3.1.71"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -4458,7 +4483,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation;../src/config/Cloud_Connect/driver/winc/include/;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11"/>
+                  value="../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/;../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -4554,7 +4579,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -5127,8 +5153,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/Users/I18336/Desktop/Trustplatform-designsuite/bitbucket/tp_designsuite/TrustFLEX/10_cloud_connect/firmware/Trust_platform_cloud.X/debug/Firm_valid_AWS_PKI_Cloud/Trust_platform_cloud_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -5150,12 +5174,12 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>nEdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.30</languageToolchainVersion>
+        <languageToolchainVersion>2.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAMD21_DFP" vendor="Microchip" version="3.1.71"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAMD21_DFP" vendor="Microchip" version="3.1.71"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -5214,7 +5238,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation;../src/config/Cloud_Connect/driver/winc/include/;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11"/>
+                  value="../src/config/Cloud_Connect/library/cryptoauthlib;../src/config/Cloud_Connect/library/cryptoauthlib/crypto;../src/config/Cloud_Connect/library/cryptoauthlib/pkcs11;../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/config/Cloud_Connect/driver/winc/include/drv/spi_flash;../src/config/Cloud_Connect/driver/winc/include/drv/socket;../src/config/Cloud_Connect/driver/winc/include/drv/driver;../src/config/Cloud_Connect/driver/winc/include/drv/common;../src/config/Cloud_Connect/driver/winc/include/drv/bsp/include;../src/config/Cloud_Connect/driver/winc/include/drv/bsp;../src/config/Cloud_Connect/driver/winc/include/dev;../src/config/Cloud_Connect/driver/winc/include/;../src/common;../src/common/paho_mqtt_embedded_c;../src/common/parson_json;../src/common/utilities;../src/common/paho_mqtt_embedded_c/MQTTClient-C;../src/common/paho_mqtt_embedded_c/MQTTPacket;../src/common/paho_mqtt_embedded_c/platform;../../../00_resource_generation"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -5310,7 +5334,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/Cloud_Connect;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -5883,8 +5908,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/Users/I18336/Desktop/Trustplatform-designsuite/bitbucket/tp_designsuite/TrustFLEX/10_cloud_connect/firmware/Trust_platform_cloud.X/debug/Firm_valid_Azure_PKI_Cloud/Trust_platform_cloud_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

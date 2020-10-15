@@ -1,7 +1,7 @@
 import sys
 import os.path
 import binascii
-
+from pathlib import Path
 from cryptography.hazmat.backends import default_backend
 from cryptography import x509
 from cryptography.hazmat.primitives.serialization import Encoding
@@ -76,37 +76,38 @@ def mchp_cert_bckp(mchp_cert_info):
     serial_number = bytearray(9)
     assert atcab_read_serial_number(serial_number) == Status.ATCA_SUCCESS
 
-    root_file_name = str(binascii.hexlify(serial_number), 'utf-8').upper() + "_root.der"
-    signer_file_name = str(binascii.hexlify(serial_number), 'utf-8').upper() + "_signer.der"
-    device_file_name = str(binascii.hexlify(serial_number), 'utf-8').upper() + "_device.der"
+    trustplatform_directory = ".trustplatform"
+    mchp_cert_directory = os.path.join(Path.home(), trustplatform_directory, "mchp_certs_bckp")
+    ser_num_str = str(binascii.hexlify(serial_number), 'utf-8').upper()
+    root_cert_path = os.path.join(mchp_cert_directory, ser_num_str + "_root.der")
+    signer_cert_path =  os.path.join(mchp_cert_directory, ser_num_str + "_signer.der")
+    device_cert_path =  os.path.join(mchp_cert_directory, ser_num_str + "_device.der")
 
     if(mchp_cert_info['status'] == Status.ATCA_SUCCESS):
+        if not os.path.exists(mchp_cert_directory):
+            os.mkdir(mchp_cert_directory)
         print("MCHP certificates found in the device, backing up...", end='')
         root_cert_der = mchp_cert_info['root_cert'].public_bytes(encoding=Encoding.DER)
-        with open(os.path.join('mchp_certs_bckp', root_file_name), "wb") as f:
+        with open(root_cert_path, "wb") as f:
             f.write(root_cert_der)
 
         signer_cert_der = mchp_cert_info['signer_cert'].public_bytes(encoding=Encoding.DER)
-        with open(os.path.join('mchp_certs_bckp', signer_file_name), "wb") as f:
+        with open(signer_cert_path, "wb") as f:
             f.write(signer_cert_der)
 
         device_cert_der = mchp_cert_info['device_cert'].public_bytes(encoding=Encoding.DER)
-        with open(os.path.join('mchp_certs_bckp', device_file_name), "wb") as f:
+        with open(device_cert_path, "wb") as f:
             f.write(device_cert_der)
         print("OK")
         status = Status.ATCA_SUCCESS
     else:
         # Device does not contain a valid MCHP cert
         # Check for backups
-        if((os.path.exists(os.path.join('mchp_certs_bckp', root_file_name))) and
-            (os.path.exists(os.path.join('mchp_certs_bckp', signer_file_name))) and
-            (os.path.exists(os.path.join('mchp_certs_bckp', device_file_name)))):
+        if ((os.path.exists(root_cert_path)) and
+            (os.path.exists(signer_cert_path)) and
+            (os.path.exists(device_cert_path))):
 
             # Backup exists, restore certs
-            root_cert_path = os.path.join('mchp_certs_bckp', root_file_name)
-            signer_cert_path = os.path.join('mchp_certs_bckp', signer_file_name)
-            device_cert_path = os.path.join('mchp_certs_bckp', device_file_name)
-
             signer_id = get_signer_cert_signer_id(read_cert(signer_cert_path).subject)
             signer_cert_def, device_cert_def = certs_handler.generate_cert_def_files(root_cert_path, signer_id, signer_cert_path, device_cert_path)
 

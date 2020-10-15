@@ -10,11 +10,6 @@ extern "C" {
 
 #define IO_PROTECTION_KEY_SLOT 6
 
-extern ATCAIfaceCfg cfg_tflxtls;
-
-extern ATCAIfaceCfg cfg_tngtls;
-   
-ATCAIfaceCfg * get_device_details(int argc, char* argv[]);
 ATCADeviceType get_device_type_id(uint8_t dev_rev);
 ATCA_STATUS check_device_type_in_cfg(ATCAIfaceCfg* cfg, bool overwrite);
 

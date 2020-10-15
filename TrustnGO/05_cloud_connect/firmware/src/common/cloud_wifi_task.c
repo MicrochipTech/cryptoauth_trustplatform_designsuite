@@ -668,7 +668,7 @@ int cloud_wifi_init(DRV_HANDLE handle)
     /* Register callback function for TC5 period interrupt */
     TC5_TimerCallbackRegister(TC5_Callback_InterruptHandler, (uintptr_t)NULL);
     memset(&g_socket_connection, 0, sizeof(g_socket_connection));
-    extern ATCAIfaceCfg atecc608a_0_init_data;
+    extern ATCAIfaceCfg atecc608_0_init_data;
     /* Start the timer*/
     TC5_TimerStart();
 
@@ -676,7 +676,7 @@ int cloud_wifi_init(DRV_HANDLE handle)
     do
     {
         // Initialize the cryptoauthlib stack
-        if ((status = atcab_init(&atecc608a_0_init_data)) != ATCA_SUCCESS)
+        if ((status = atcab_init(&atecc608_0_init_data)) != ATCA_SUCCESS)
         {
             break;
         }

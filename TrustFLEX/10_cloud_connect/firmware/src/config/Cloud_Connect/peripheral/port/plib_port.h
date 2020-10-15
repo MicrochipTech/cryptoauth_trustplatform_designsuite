@@ -65,36 +65,32 @@
 // *****************************************************************************
 // *****************************************************************************
 
-  
 /*** Macros for STATUS_LED pin ***/
 #define STATUS_LED_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = 1 << 2)
 #define STATUS_LED_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = 1 << 2)
 #define STATUS_LED_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = 1 << 2)
-#define STATUS_LED_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 2)) & 0x01)
 #define STATUS_LED_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = 1 << 2)
 #define STATUS_LED_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = 1 << 2)
+#define STATUS_LED_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 2)) & 0x01)
 #define STATUS_LED_PIN                  PORT_PIN_PA02
 
 /*** Macros for WDRV_WINC_RESETN pin ***/
 #define WDRV_WINC_RESETN_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = 1 << 3)
 #define WDRV_WINC_RESETN_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = 1 << 3)
 #define WDRV_WINC_RESETN_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = 1 << 3)
-#define WDRV_WINC_RESETN_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 3)) & 0x01)
 #define WDRV_WINC_RESETN_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = 1 << 3)
 #define WDRV_WINC_RESETN_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = 1 << 3)
+#define WDRV_WINC_RESETN_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 3)) & 0x01)
 #define WDRV_WINC_RESETN_PIN                  PORT_PIN_PA03
 
 /*** Macros for WDRV_WINC_CHIP_EN pin ***/
 #define WDRV_WINC_CHIP_EN_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = 1 << 10)
 #define WDRV_WINC_CHIP_EN_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = 1 << 10)
 #define WDRV_WINC_CHIP_EN_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = 1 << 10)
-#define WDRV_WINC_CHIP_EN_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 10)) & 0x01)
 #define WDRV_WINC_CHIP_EN_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = 1 << 10)
 #define WDRV_WINC_CHIP_EN_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = 1 << 10)
+#define WDRV_WINC_CHIP_EN_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 10)) & 0x01)
 #define WDRV_WINC_CHIP_EN_PIN                  PORT_PIN_PA10
-
-
-
 // *****************************************************************************
 /* PORT Group
 
@@ -823,7 +819,7 @@ void PORT_GroupToggle(PORT_GROUP group, uint32_t mask);
     void PORT_GroupInputEnable(PORT_GROUP group, uint32_t mask)
 
   Summary:
-    Confgiures the selected IO pins of a group as input.
+    Configures the selected IO pins of a group as input.
 
   Description:
     This function configures the selected IO pins of a group as input. The pins
@@ -862,7 +858,7 @@ void PORT_GroupInputEnable(PORT_GROUP group, uint32_t mask);
     void PORT_GroupOutputEnable(PORT_GROUP group, uint32_t mask)
 
   Summary:
-    Confgiures the selected IO pins of a group as output.
+    Configures the selected IO pins of a group as output.
 
   Description:
     This function configures the selected IO pins of a group as output. The pins

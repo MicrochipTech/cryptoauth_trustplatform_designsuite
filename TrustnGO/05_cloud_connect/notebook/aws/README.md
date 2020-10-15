@@ -10,11 +10,11 @@ This folder contains aws-iot notebook to perform signer registration and running
    - Load the assets into secure element using TNGTLS_resource_generation/TFLXTLS Resource Generator.ipynb
 
 ## Package
- - aws-iot with ECC608A-TNGTLS.ipynb
+ - aws-iot with TNGTLS_aws_connect.ipynb
 This is a Jupyter notebook to register signer to cloud and interact using cloud
 
 Follow below steps,
 1. Connect Crypto Trust Platform to PC/Laptop
 2. Open Jupyter notebook from Anaconda navigator
-3. Navigate to aws-iot with ECC608A-TNGTLS notebook and open
+3. Navigate to aws-iot with TNGTLS_aws_connect notebook and open
 

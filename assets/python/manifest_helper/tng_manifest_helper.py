@@ -33,8 +33,8 @@ from manifest_helper import Manifest
 class TNGTLSManifest(Manifest):
     def __init__(self):
         super().__init__()
-        self.model = 'ATECC608A'
-        self.partNumber = 'ATECC608A-TNGTLS'
+        self.model = 'ATECC608B'
+        self.partNumber = 'ATECC608B-TNGTLS'
         self.manufacturer = {
             'organizationName': 'Microchip Technology Inc',
             'organizationalUnitName': 'Secure Products Group'}

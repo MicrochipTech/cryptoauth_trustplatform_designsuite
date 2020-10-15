@@ -17,6 +17,11 @@ For ease of understanding follow the below sequence
 3. Run the usecase examples provided both in Notebook and Embedded projects
 
 ## Release Notes
+ - 20201016
+   - Updated Design Suite to support ECC608B
+   - All usecase embedded projects are updated to use CAL3.2.3
+   - Moved MCHP cert storing to User folder to retain across repo upgrades
+
  - 20200704
    - Single cloud connect project for Multiple platforms
    - Azure cloud connect using TNGTLS

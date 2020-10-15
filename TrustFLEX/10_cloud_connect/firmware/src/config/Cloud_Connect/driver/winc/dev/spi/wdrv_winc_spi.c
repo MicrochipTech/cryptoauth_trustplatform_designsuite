@@ -13,7 +13,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019-20 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -38,10 +38,12 @@
 #include "configuration.h"
 #include "definitions.h"
 #include "osal/osal.h"
-
 #include "wdrv_winc_common.h"
 
 #if defined(__PIC32MZ__)
+#include "system/cache/sys_cache.h"
+#include "sys/kmem.h"
+
 #define WDRV_DCACHE_CLEAN(addr, size) _DataCacheClean(addr, size)
 #else /* !defined(__PIC32MZ__) */
 #define WDRV_DCACHE_CLEAN(addr, size) do { } while (0)
@@ -60,6 +62,12 @@ static OSAL_SEM_HANDLE_TYPE txSyncSem;
 static OSAL_SEM_HANDLE_TYPE rxSyncSem;
 
 #if defined(__PIC32MZ__)
+/****************************************************************************
+ * Function:        _DataCacheClean
+ * Summary: Used in Cache management to clean cache based on address.
+ * Cache Management to be enabled in core & system components of MHC.
+ * If not enabled in the project graph, below code segment should be disabled.
+ *****************************************************************************/
 static void _DataCacheClean(unsigned char *address, uint32_t size)
 {
     if (IS_KVA0(address))
@@ -68,10 +76,11 @@ static void _DataCacheClean(unsigned char *address, uint32_t size)
         uint32_t r = (uint32_t)address & 0x0000000f;
         uint32_t s = ((size + r + 15) >> 4) << 4;
 
-        SYS_DEVCON_DataCacheClean(a, s);
+        SYS_CACHE_CleanDCache_by_Addr((uint32_t *)a, s);
     }
 }
 #endif /* defined(__PIC32MZ__) */
+
 static DRV_SPI_TRANSFER_HANDLE transferTxHandle;
 static DRV_SPI_TRANSFER_HANDLE transferRxHandle;
 

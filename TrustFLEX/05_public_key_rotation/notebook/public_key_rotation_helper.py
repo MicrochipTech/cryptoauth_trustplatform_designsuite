@@ -168,7 +168,7 @@ def public_key_validate_invalidate(validation_status,perform_on_device=True):
     validation_authority_key = get_validating_authority_key()
 
     assert Status.ATCA_SUCCESS == atcab_read_config_zone(config_data)
-    config = Atecc608aConfig.from_buffer(config_data)
+    config = Atecc608Config.from_buffer(config_data)
     if(perform_on_device == True):
         assert Status.ATCA_SUCCESS == atcab_nonce(nonce)
 
@@ -279,7 +279,7 @@ def get_rotating_public_key():
 def public_key_digest(nonce,public_key):
     config_data = bytearray(128)
     assert Status.ATCA_SUCCESS == atcab_read_config_zone(config_data)
-    config = Atecc608aConfig.from_buffer(config_data)
+    config = Atecc608Config.from_buffer(config_data)
     nonce = calc_nonce(mode=0x03, zero=0x0000, num_in=nonce)
 
     pubkey_digest = calc_genkey_pubkey_digest(
@@ -314,7 +314,7 @@ def public_key_validate_from_authority(nonce, signature):
     public_key = rotating_private_key.public_key().public_bytes(encoding=Encoding.X962, format=PublicFormat.UncompressedPoint)[1:]
 
     assert Status.ATCA_SUCCESS == atcab_read_config_zone(config_data)
-    config = Atecc608aConfig.from_buffer(config_data)
+    config = Atecc608Config.from_buffer(config_data)
     assert Status.ATCA_SUCCESS == atcab_nonce(nonce)
 
     nonce = calc_nonce(mode=0x03, zero=0x0000, num_in=nonce)

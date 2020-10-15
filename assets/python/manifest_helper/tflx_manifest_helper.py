@@ -34,8 +34,8 @@ from manifest_helper import Manifest
 class TFLXTLSManifest(Manifest):
     def __init__(self):
         super().__init__()
-        self.model = 'ATECC608A'
-        self.partNumber = 'ATECC608A-TFLXTLS'
+        self.model = 'ATECC608B'
+        self.partNumber = 'ATECC608B-TFLXTLS'
         self.manufacturer = {
             'organizationName': 'Microchip Technology Inc',
             'organizationalUnitName': 'Secure Products Group'}

@@ -18,24 +18,26 @@ class common_helper():
         Returns the device name based on the info byte array values returned by atcab_info
         """
         devices = {0x10: 'ATECC108A',
-                0x50: 'ATECC508A',
-                0x60: 'ATECC608A',
-                0x00: 'ATSHA204A',
-                0x02: 'ATSHA204A',
-                0x40: 'ATSHA206A',
-                }
-        return devices.get(revision[2], 'UNKNOWN')
+                   0x50: 'ATECC508A',
+                   0x60: 'ATECC608',
+                   0x00: 'ATSHA204A',
+                   0x02: 'ATSHA204A',
+                   0x40: 'ATSHA206A'}
+        device_name = devices.get(revision[2], 'UNKNOWN')
+        return device_name
 
     def get_device_type_id(name):
         """
         Returns the ATCADeviceType value based on the device name
         """
         devices = {'ATSHA204A': 0,
-                'ATECC108A': 1,
-                'ATECC508A': 2,
-                'ATECC608A': 3,
-                'ATSHA206A': 4,
-                'UNKNOWN': 0x20 }
+                   'ATECC108A': 1,
+                   'ATECC508A': 2,
+                   'ATECC608A': 3,
+                   'ATECC608B': 3,
+                   'ATECC608': 3,
+                   'ATSAH206A': 4,
+                   'UNKNOWN': 0x20}
         return devices.get(name.upper())
 
     def pretty_print_hex(a, l=16, indent=''):
@@ -112,11 +114,19 @@ class common_helper():
         assert_msg = "Cannot read the TFLXTLS device information, Verify device connections on Trust Platform"
         assert atcab_info(info) == Status.ATCA_SUCCESS, assert_msg
 
-        dev_type = common_helper.get_device_type_id(common_helper.get_device_name(info))
+        dev_name = common_helper.get_device_name(info)
+        if 'ATECC608' in dev_name:
+            dev_name = 'ATECC608B'
+            if info[3] <= 0x02:
+                dev_name = 'ATECC608A'
+
+        dev_type = common_helper.get_device_type_id(dev_name)
         # Checking if the connected device matches with selected device
         if dev_type != cfg.devtype:
             print('Device is not TFLXTLS, Connect TFLXTLS device')
             assert atcab_release() == Status.ATCA_SUCCESS, 'atcab_release failed... Rerun Notebook'
+        else:
+            print('Connected secure element is \"{}\"'.format(dev_name))
 
     def make_valid_filename(s):
         """

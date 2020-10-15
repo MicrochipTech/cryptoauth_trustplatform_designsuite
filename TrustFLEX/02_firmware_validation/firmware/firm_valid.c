@@ -28,7 +28,7 @@
 unsigned int volatile * const app_length = (unsigned int *) APP_LEN_ADDRESS;
 
 #if defined(__XC32__)
-extern ATCAIfaceCfg atecc608a_0_init_data;
+extern ATCAIfaceCfg atecc608_0_init_data;
 #endif
 
 int RNG(uint8_t *dest, unsigned size);
@@ -153,23 +153,14 @@ ATCA_STATUS firmware_validate(ATCAIfaceCfg *cfg)
 /** \brief This is the main function that triggers various examples.
  *
  */
-#if defined(_WIN32) || defined(__linux__) || defined(__APPLE__)
-int main(int argc, char* argv[])
-#else
 int main(void)
-#endif
 {
    ATCAIfaceCfg *cfg;
    ATCA_STATUS status;
-   cfg = &cfg_tflxtls;
 
    //Select Interface configuration and device
-#if defined(_WIN32) || defined(__linux__) || defined(__APPLE__)
-   cfg = get_device_details(argc, &argv[1]);
-   cfg->devtype = ATECC608A;
-#else
 #if defined(__XC32__)
-   cfg = &atecc608a_0_init_data;
+   cfg = &atecc608_0_init_data;
 	/* Initialize all modules */
 	SYS_Initialize ( NULL );
 #endif
@@ -178,8 +169,6 @@ int main(void)
 	atmel_start_init();
 	gpio_set_pin_direction(GPIO(GPIO_PORTA, 2),GPIO_DIRECTION_OUT);
 	cfg->atcai2c.bus=2;
-
-#endif
 #endif
 
    //Checking if the connected device matches with selected device

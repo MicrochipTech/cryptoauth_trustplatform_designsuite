@@ -53,6 +53,7 @@
           <itemPath>../src/config/default/device_cache.h</itemPath>
           <itemPath>../src/config/default/toolchain_specifics.h</itemPath>
           <itemPath>../src/config/default/definitions.h</itemPath>
+          <itemPath>../src/config/default/device.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="packs" projectFiles="true">
@@ -85,7 +86,6 @@
           <logicalFolder name="f2" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAMD21E18A_DFP/pio/samd21e18a.h</itemPath>
           </logicalFolder>
-          <itemPath>../src/packs/ATSAMD21E18A_DFP/device.h</itemPath>
           <itemPath>../src/packs/ATSAMD21E18A_DFP/atsamd21e18a.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="CMSIS" projectFiles="true">
@@ -101,6 +101,7 @@
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm0plus.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -112,6 +113,11 @@
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="config" projectFiles="true">
+        <logicalFolder name="f1" displayName="default" projectFiles="true">
+          <itemPath>../src/config/default/ATSAMD21E18A.ld</itemPath>
+        </logicalFolder>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -122,9 +128,9 @@
       </logicalFolder>
       <logicalFolder name="f1" displayName="config" projectFiles="true">
         <logicalFolder name="f1" displayName="default" projectFiles="true">
-          <logicalFolder name="f3" displayName="library" projectFiles="true">
+          <logicalFolder name="f2" displayName="library" projectFiles="true">
             <logicalFolder name="f1" displayName="cryptoauthlib" projectFiles="true">
-              <logicalFolder name="f3" displayName="atcacert" projectFiles="true">
+              <logicalFolder name="f4" displayName="atcacert" projectFiles="true">
                 <itemPath>../src/config/default/library/cryptoauthlib/atcacert/atcacert.h</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/atcacert/atcacert_client.c</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/atcacert/atcacert_client.h</itemPath>
@@ -141,7 +147,7 @@
                 <itemPath>../src/config/default/library/cryptoauthlib/atcacert/atcacert_pem.c</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/atcacert/atcacert_pem.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f4" displayName="calib" projectFiles="true">
+              <logicalFolder name="f5" displayName="calib" projectFiles="true">
                 <itemPath>../src/config/default/library/cryptoauthlib/calib/calib_aes.c</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/calib/calib_aes_gcm.c</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/calib/calib_aes_gcm.h</itemPath>
@@ -174,7 +180,7 @@
                 <itemPath>../src/config/default/library/cryptoauthlib/calib/calib_verify.c</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/calib/calib_write.c</itemPath>
               </logicalFolder>
-              <logicalFolder name="f1" displayName="crypto" projectFiles="true">
+              <logicalFolder name="f2" displayName="crypto" projectFiles="true">
                 <logicalFolder name="f1" displayName="hashes" projectFiles="true">
                   <itemPath>../src/config/default/library/cryptoauthlib/crypto/hashes/sha1_routines.c</itemPath>
                   <itemPath>../src/config/default/library/cryptoauthlib/crypto/hashes/sha1_routines.h</itemPath>
@@ -195,7 +201,8 @@
                 <itemPath>../src/config/default/library/cryptoauthlib/crypto/atca_crypto_sw_sha2.c</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/crypto/atca_crypto_sw_sha2.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f6" displayName="hal" projectFiles="true">
+              <logicalFolder name="f1" displayName="hal" projectFiles="true">
+                <itemPath>../src/config/default/library/cryptoauthlib/hal/ATECC608_0.c</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/hal/atca_hal.c</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/hal/atca_hal.h</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/hal/atca_start_config.h</itemPath>
@@ -203,13 +210,12 @@
                 <itemPath>../src/config/default/library/cryptoauthlib/hal/hal_i2c_harmony.c</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/hal/hal_harmony_init.c</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/hal/hal_cortex_m_delay.c</itemPath>
-                <itemPath>../src/config/default/library/cryptoauthlib/hal/ATECC608A_0.c</itemPath>
               </logicalFolder>
-              <logicalFolder name="f5" displayName="host" projectFiles="true">
+              <logicalFolder name="f6" displayName="host" projectFiles="true">
                 <itemPath>../src/config/default/library/cryptoauthlib/host/atca_host.c</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/host/atca_host.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f2" displayName="jwt" projectFiles="true">
+              <logicalFolder name="f3" displayName="jwt" projectFiles="true">
                 <itemPath>../src/config/default/library/cryptoauthlib/jwt/atca_jwt.c</itemPath>
                 <itemPath>../src/config/default/library/cryptoauthlib/jwt/atca_jwt.h</itemPath>
               </logicalFolder>
@@ -272,7 +278,7 @@
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f2" displayName="stdio" projectFiles="true">
+          <logicalFolder name="f3" displayName="stdio" projectFiles="true">
             <itemPath>../src/config/default/stdio/xc32_monitor.c</itemPath>
           </logicalFolder>
           <itemPath>../src/config/default/initialization.c</itemPath>
@@ -292,6 +298,8 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/default/harmony.prj</itemPath>
+      <itemPath>../src/config/default/default.xml</itemPath>
+      <itemPath>../src/config/default/harmony-manifest-success.yml</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -309,7 +317,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>nEdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.30</languageToolchainVersion>
+        <languageToolchainVersion>2.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -341,20 +349,6 @@
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <item path="../src/main.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
       </item>
       <AtmelIceTool>
         <property key="AutoSelectMemRanges" value="auto"/>
@@ -389,7 +383,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../../../00_resource_generation;../src;../src/config/default;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/arm;../src/config/default/library/cryptoauthlib;../src/config/default/library/cryptoauthlib/crypto;../src/config/default/library/cryptoauthlib/pkcs11"/>
+                  value="../src/config/default/library/cryptoauthlib;../src/config/default/library/cryptoauthlib/crypto;../src/config/default/library/cryptoauthlib/pkcs11;../src;../src/config/default;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../../../00_resource_generation"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -484,7 +478,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/default;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -1022,8 +1017,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="H:/tp_designsuite/TrustFLEX/08_asymmetric_authentication/firmware/asymmetric_auth.X/debug/default/asymmetric_auth_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -1045,7 +1038,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>nEdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.30</languageToolchainVersion>
+        <languageToolchainVersion>2.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -1077,20 +1070,6 @@
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <item path="../src/main.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
       </item>
       <AtmelIceTool>
         <property key="AutoSelectMemRanges" value="auto"/>
@@ -1125,7 +1104,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../../../00_resource_generation;../src;../src/config/default;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/arm;../src/config/default/library/cryptoauthlib;../src/config/default/library/cryptoauthlib/crypto;../src/config/default/library/cryptoauthlib/pkcs11"/>
+                  value="../src/config/default/library/cryptoauthlib;../src/config/default/library/cryptoauthlib/crypto;../src/config/default/library/cryptoauthlib/pkcs11;../src;../src/config/default;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../../../00_resource_generation"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -1200,7 +1179,7 @@
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value=""/>
         <property key="preprocessor-macros"
-                  value="ROM_ORIGIN=0xC000;ROM_LENGTH=0x33C00"/>
+                  value="ROM_LENGTH=0x33C00;ROM_ORIGIN=0xC000"/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>
@@ -1221,7 +1200,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/default;../src/packs/ATSAMD21E18A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -1759,15 +1739,13 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="H:/tp_designsuite/TrustFLEX/08_asymmetric_authentication/firmware/asymmetric_auth.X/debug/FIRMWARE_VALIDATION/asymmetric_auth_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
                   value="${memories.dataflash.default}"/>
         <property key="programoptions.preserveeeprom" value="false"/>
         <property key="programoptions.preserveeeprom.ranges" value=""/>
-        <property key="programoptions.preserveprogram.ranges" value=""/>
+        <property key="programoptions.preserveprogram.ranges" value="0-20007fff"/>
         <property key="programoptions.preserveprogramrange" value="false"/>
         <property key="programoptions.preserveuserid" value="false"/>
         <property key="programoptions.programuserotp" value="false"/>

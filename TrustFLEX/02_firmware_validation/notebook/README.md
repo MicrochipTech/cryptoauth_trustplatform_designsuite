@@ -10,7 +10,7 @@ This folder contains secureboot usecase example in Notebook(Python).
    - Load the assets into secure element using TFLXTLS_resource_generation/TFLXTLS Resource Generator.ipynb
 
 ## Package
- - Firmware Validation with ECC608A-TLFXTLS Tutorial.ipynb
+ - Firmware Validation with TFLXTLS_firmware_validation.ipynb
 This is a Jupyter notebook to demonstrate how firmware validation can be achieved through full store mode of Secureboot command
 
  - Supporting
@@ -26,7 +26,7 @@ The notebook provided here performs various step involved in firmware validation
 Follow below steps,
 1. Connect Crypto Trust Platform to PC/Laptop
 2. Open Jupyter notebook from Anaconda navigator
-3. Navigate to Firmware Validation with ECC608A-TFLXTLS Tutorial notebook and open
+3. Navigate to Firmware Validation with TFLXTLS_firmware_validation.ipynb notebook and open
 4. Above step should open a browsing window with Firmware validation notebook
 4. Use the Kernel-->'Restart & Run All' button to execute all the cells in the sequence
 

@@ -91,6 +91,168 @@
 #define WDRV_WINC_TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256       0xc02b
 
 // *****************************************************************************
+/* The size of the the largest supported EC
+
+  Summary:
+    The size of the the largest supported EC. For now, assuming
+    the 256-bit EC is the largest supported curve type.
+
+  Description:
+    These defines the size of the the largest supported EC.
+
+  Remarks:
+    None.
+
+*/
+
+#define ECC_LARGEST_CURVE_SIZE                      (32)
+
+// *****************************************************************************
+/* Maximum size of one coordinate of an EC point
+
+  Summary:
+    Maximum size of one coordinate of an EC point.
+
+  Description:
+    These defines the maximum size of one coordinate of an EC point.
+
+  Remarks:
+    None.
+
+*/
+
+#define ECC_POINT_MAX_SIZE                          ECC_LARGEST_CURVE_SIZE
+
+// *****************************************************************************
+/*  Elliptic Curve point representation
+
+  Summary:
+    Elliptic Curve point representation structure.
+
+  Description:
+    This structure contains information about Elliptic Curve point representation
+
+  Remarks:
+    None.
+*/
+typedef struct{
+    /* The X-coordinate of the ec point. */
+    uint8_t     x[ECC_POINT_MAX_SIZE];
+    
+    /* The Y-coordinate of the ec point. */
+    uint8_t     y[ECC_POINT_MAX_SIZE];
+
+    /* Point size in bytes (for each of the coordinates). */
+    uint16_t    size;
+
+    /* ID for the corresponding private key. */
+    uint16_t    privKeyID;
+}WDRV_WINC_EC_Point_Rep;
+
+// *****************************************************************************
+/*  ECDSA Verify Request Information
+
+  Summary:
+    ECDSA Verify Request Information structure.
+
+  Description:
+    This structure contains information about ECDSA verify request.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    uint32_t    nSig;
+} WDRV_WINC_ECDSA_VERIFY_REQ_INFO;
+
+// *****************************************************************************
+/*  ECDSA Sign Request Information
+
+  Summary:
+    ECDSA Sign Request Information structure.
+
+  Description:
+    This structure contains information about ECDSA sign request.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    uint16_t    curveType;
+    uint16_t    hashSz;
+
+} WDRV_WINC_ECDSA_SIGN_REQ_INFO;
+
+
+// *****************************************************************************
+/*  ECDH Request Information
+
+  Summary:
+    ECDH Request Information structure.
+
+  Description:
+    This structure contains information about ECDH request from WINC.
+
+  Remarks:
+    None.
+*/
+
+typedef struct EcdhInfo
+{
+    WDRV_WINC_EC_Point_Rep pubKey;
+    uint8_t     key[ECC_POINT_MAX_SIZE];
+
+} WDRV_WINC_ECDH_REQ_INFO, WDRV_WINC_ECDH_RSP_INFO;
+
+// *****************************************************************************
+/*  ECC Request Information
+
+  Summary:
+    ECC Request Information structure.
+
+  Description:
+    This structure contains information about ECC request from WINC.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    uint16_t    reqCmd;
+    uint16_t    status;
+    uint32_t    userData;
+    uint32_t    seqNo;
+} WDRV_WINC_ECC_REQ_INFO;
+
+
+// *****************************************************************************
+/*  ECC Response Information
+
+  Summary:
+    ECC Response Information structure.
+
+  Description:
+    This structure contains information about ECC response to WINC.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    uint16_t    reqCmd;
+    uint16_t    status;
+    uint32_t    userData;
+    uint32_t    seqNo;
+    WDRV_WINC_ECDH_RSP_INFO ecdhRspInfo;
+} WDRV_WINC_ECC_RSP_INFO;
+
+// *****************************************************************************
 /*  Cipher Suite Context
 
   Summary:
@@ -133,6 +295,37 @@ typedef void (*WDRV_WINC_SSL_CIPHERSUITELIST_CALLBACK)
 (
     DRV_HANDLE handle,
     WDRV_WINC_CIPHER_SUITE_CONTEXT *pSSLCipherSuiteCtx
+);
+
+// *****************************************************************************
+/*  SSL Request ECC Info Callback
+
+  Summary:
+    Callback to request ECC information.
+
+  Description:
+    Called when authentication with ECC Cipher suites.
+
+  Parameters:
+    handle              - Client handle obtained by a call to WDRV_WINC_Open.
+    eccReqInfo          - ECC request info.
+    pExtendInfo         - Extend Information 
+                            (If the eccReqInfo.reqCmd is ECC_REQ_CLIENT_ECDH or ECC_REQ_SERVER_ECDH, pExtendInfo is WDRV_WINC_ECDH_REQ_INFO struct
+ *                           If the eccReqInfo.reqCmd is ECC_REQ_SIGN_VERIFY, pExtendInfo is WDRV_WINC_ECDSA_VERIFY_REQ_INFO struct
+ *                           If the eccReqInfo.reqCmd is ECC_REQ_SIGN_GEN, pExtendInfo is WDRV_WINC_ECDSA_SIGN_REQ_INFO struct   )
+ 
+  Returns:
+    None.
+
+  Remarks:
+    None.
+*/
+
+typedef void (*WDRV_WINC_SSL_REQ_ECC_CALLBACK)
+(
+    DRV_HANDLE handle,
+    WDRV_WINC_ECC_REQ_INFO eccReqInfo,
+    void*   pExtendInfo    
 );
 
 // *****************************************************************************
@@ -263,7 +456,8 @@ uint8_t WDRV_WINC_SSLCTXCipherSuitesGet
     (
         DRV_HANDLE handle,
         WDRV_WINC_CIPHER_SUITE_CONTEXT *pSSLCipherSuiteCtx,
-        WDRV_WINC_SSL_CIPHERSUITELIST_CALLBACK pfSSLListCallback
+        WDRV_WINC_SSL_CIPHERSUITELIST_CALLBACK pfSSLListCallback,
+        WDRV_WINC_REQ_ECC_CALLBACK pfECCREQCallback
     )
 
   Summary:
@@ -281,6 +475,8 @@ uint8_t WDRV_WINC_SSLCTXCipherSuitesGet
     pSSLCipherSuiteCtx - Pointer to cipher suite context.
     pfSSLListCallback  - Pointer to callback function to receive updated list of
                            cipher suites.
+    pfECCREQCallback   - Pointer to callback function to receive ECC request information from WINC
+                           This value can be NULL if ChiperSuites are not ECC.
 
   Returns:
     WDRV_WINC_STATUS_OK             - The operation was performed.
@@ -297,7 +493,153 @@ WDRV_WINC_STATUS WDRV_WINC_SSLActiveCipherSuitesSet
 (
     DRV_HANDLE handle,
     WDRV_WINC_CIPHER_SUITE_CONTEXT *pSSLCipherSuiteCtx,
-    WDRV_WINC_SSL_CIPHERSUITELIST_CALLBACK pfSSLListCallback
+    WDRV_WINC_SSL_CIPHERSUITELIST_CALLBACK pfSSLListCallback,
+    WDRV_WINC_SSL_REQ_ECC_CALLBACK pfECCREQCallback
 );
 
+
+//*******************************************************************************
+/*
+  Function:
+    WDRV_WINC_STATUS WDRV_WINC_SSLECCHandShakeRsp
+    (
+        WDRV_WINC_ECC_RSP_INFO eccRsp,
+        uint8_t *pRspDataBuff, 
+        uint16_t rspDataSz
+    )
+
+  Summary:
+    Handshake Response for ECC cipher suites .
+
+  Description:
+    Passes the ECC response data to WINC.
+
+  Precondition:
+    None
+
+  Parameters:
+    eccRsp              - ECC response structure.
+    pu8RspDataBuff      - Pointer of the response data to be sent.
+    u16RspDataSz        - Response data size.
+                           
+  Returns:
+    WDRV_WINC_STATUS_OK             - The operation was performed.
+    WDRV_WINC_STATUS_REQUEST_ERROR  - The operation is not success
+
+  Remarks:
+    None.
+
+*/
+WDRV_WINC_STATUS WDRV_WINC_SSLECCHandShakeRsp
+(
+    WDRV_WINC_ECC_RSP_INFO eccRsp,
+    uint8_t *pRspDataBuff, 
+    uint16_t rspDataSz
+);
+
+//*******************************************************************************
+/*
+  Function:
+    WDRV_WINC_STATUS WDRV_WINC_SSLRetrieveCert
+    (
+        uint16_t *pCurveType, 
+        uint8_t *pHash, 
+        uint8_t *pSig, 
+        WDRV_WINC_EC_Point_Rep *pKey
+    )
+
+  Summary:
+    Retrieve the certificate to be verified from the WINC
+
+  Description:
+    Retrieve the certificate to be verified from the WINC
+
+  Precondition:
+    None
+
+  Parameters:
+    pCurveType   - Pointer to the certificate curve type.
+    pHash         - Pointer to the certificate hash.
+    pSig          - Pointer to the certificate signature.
+    pKey          - Pointer to the certificate Key.
+                           
+  Returns:
+    WDRV_WINC_STATUS_OK             - The operation was performed.
+    WDRV_WINC_STATUS_REQUEST_ERROR  - The operation is not success
+
+  Remarks:
+    None.
+
+*/
+WDRV_WINC_STATUS WDRV_WINC_SSLRetrieveCert
+(
+    uint16_t *pCurveType, 
+    uint8_t *pHash, 
+    uint8_t *pSig, 
+    WDRV_WINC_EC_Point_Rep* pKey
+);
+        
+//*******************************************************************************
+/*
+  Function:
+    WDRV_WINC_STATUS WDRV_WINC_SSLRetrieveHash
+    (
+        uint8_t *pHash, 
+        uint16_t hashSz
+    )
+
+  Summary:
+    Retrieve the certificate hash
+
+  Description:
+    Retrieve the certificate hash from the WINC
+
+  Precondition:
+    None
+
+  Parameters:
+    pHash           - Pointer to the certificate hash.
+    hashSz          - Hash size.
+    
+                           
+  Returns:
+    WDRV_WINC_STATUS_OK             - The operation was performed.
+    WDRV_WINC_STATUS_REQUEST_ERROR  - The operation is not success
+
+  Remarks:
+    None.
+
+*/
+WDRV_WINC_STATUS WDRV_WINC_SSLRetrieveHash
+(
+    uint8_t	*pHash, 
+    uint16_t hashSz
+);
+
+//*******************************************************************************
+/*
+  Function:
+    WDRV_WINC_STATUS WDRV_WINC_SSLStopRetrieveCert(void)
+
+  Summary:
+    Stop processing the certificate
+
+  Description:
+    Stop processing the certificate
+
+  Precondition:
+    None
+
+  Parameters:
+    None
+    
+                           
+  Returns:
+    WDRV_WINC_STATUS_OK             - The operation was performed.
+
+  Remarks:
+    None.
+
+*/
+WDRV_WINC_STATUS WDRV_WINC_SSLStopRetrieveCert(void);
 #endif /* _WDRV_WINC_SSL_H */

@@ -315,7 +315,7 @@ function processXML(xmlObj) {
 
     partNumberString = document.getElementById("partNumberId").value;
     if(partNumberString == "")
-        partNumberString = "ATECC608A-MAHxx-p"
+        partNumberString = "ATECC608B-MAHxx-p"
     xmlObj.getElementsByTagName("PartNumber")[0].textContent = partNumberString;
 
     // Process secureboot/persistant latch on slot 0

@@ -112,7 +112,7 @@ def load_manifest(project_id, registry_id, region_id, manifest):
         parent = client.registry_path(project_id, region_id, registry_id)
 
         for device in manifest:
-            client.create_device(parent, device)
+            client.create_device(parent=parent, device=device)
 
     except Exception as e:
         print('Failed')

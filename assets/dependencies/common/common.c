@@ -3,92 +3,7 @@
 #include "atca_devtypes.h"
 
 #include <stdio.h>
-#if defined(_WIN32)
-#include <ctype.h>
-#endif
 
-/** \brief default configuration for an ECCx08A device */
-ATCAIfaceCfg cfg_tflxtls = {
-    .iface_type             = ATCA_I2C_IFACE,
-    .devtype                = ATECC608A,
-    .atcai2c.slave_address  = 0x6C,
-    .atcai2c.baud           = 400000,
-    .wake_delay             = 1500,
-    .rx_retries             = 20
-};
-
-
-/** \brief default configuration for an ECCx08A device */
-ATCAIfaceCfg cfg_tngtls = {
-    .iface_type             = ATCA_I2C_IFACE,
-    .devtype                = ATECC608A,
-    .atcai2c.slave_address  = 0x6A,
-    .atcai2c.baud           = 400000,
-    .wake_delay             = 1500,
-    .rx_retries             = 20
-};
-
-#if defined(_WIN32)
-/** \brief - Returns the Interface Config type based on the parameters passed from the command line.
- */
-ATCAIfaceCfg* get_device_details(int argc, char* argv[])
-{
-    ATCAIfaceCfg *cfg = &cfg_ateccx08a_kithid_default;;
-    char *interface, *device, *slave_address, *bus;
-
-    do
-    {
-       if ((interface = argv[0]) == NULL)
-          break;
-
-       switch (tolower(*interface))
-       {
-       case 'h':
-          if ((device = argv[1]) == NULL)
-             break;
-          if (tolower(*device) == 's')
-          {
-             cfg = &cfg_atsha204a_kithid_default;
-          }
-          else
-          {
-             cfg = &cfg_ateccx08a_kithid_default;
-          }
-          break;
-
-       case 'i':
-          if ((device = argv[1]) == NULL)
-             break;
-          if (tolower(*device) == 's')
-          {
-             cfg = &cfg_atsha204a_i2c_default;
-          }
-          else
-          {
-             cfg = &cfg_ateccx08a_i2c_default;
-          }
-
-          cfg->atcai2c.slave_address = 0x6A;
-
-#if defined(__linux__)
-          cfg->atcai2c.bus = 1;
-#endif
-          if ((slave_address = argv[2]) == NULL)
-             break;
-          cfg->atcai2c.slave_address = (uint8_t)strtol(slave_address, NULL, 16);
-
-          if ((bus = argv[3]) == NULL)
-             break;
-          cfg->atcai2c.bus = (uint8_t)strtol(bus, NULL, 16);
-          break;
-       default:
-          break;
-       }
-    } while (0);
-
-    return cfg;
-}
-#endif
 
 /** \brief - Returns the device type based on the revision_byte
  */
@@ -112,7 +27,7 @@ ATCADeviceType get_device_type_id(uint8_t revision_byte)
         break;
 
     case 0x60:
-        dev_type = ATECC608A;
+        dev_type = ATECC608;
         break;
 
     default:

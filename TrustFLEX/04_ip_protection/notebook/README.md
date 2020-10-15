@@ -10,7 +10,7 @@ This folder contains ipprotection usecase example in Notebook(Python).
    - Load the assets into secure element using TFLXTLS_resource_generation/TFLXTLS Resource Generator.ipynb
 
 ## Package
- - IP Protection with ECC608A-TLFXTLS Tutorial.ipynb
+ - IP Protection with TFLXTLS_IP_protection.ipynb
 This is a Jupyter notebook to demonstrate how IP protection can be achieved through challenge-response mode using MAC command
 
  - Supporting
