@@ -17,6 +17,9 @@ For ease of understanding follow the below sequence
 3. Run the usecase examples provided both in Notebook and Embedded projects
 
 ## Release Notes
+ - 20201103
+   - Secureboot persistent latch bug in TrustFLEX configurator is fixed
+
  - 20201016
    - Updated Design Suite to support ECC608B
    - All usecase embedded projects are updated to use CAL3.2.3

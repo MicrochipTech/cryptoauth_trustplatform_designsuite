@@ -290,7 +290,7 @@ function processXML(xmlObj) {
     var latchStatus;
     latchStatus = getFormRadioValue(formNameMain, "sbootLatchName")
     if (latchStatus == "enabled"){
-        xmlDoc.getElementsByTagName("SecureBoot")[0].textContent = "07 F7"
+        xmlDoc.getElementsByTagName("SecureBoot")[0].textContent = "0B F7"
         xmlDoc.getElementsByTagName("ConfigurationZone")[0].getElementsByTagName("KeyConfiguration")[0].textContent = "53 10"
         //console.log("enabled");
     }
