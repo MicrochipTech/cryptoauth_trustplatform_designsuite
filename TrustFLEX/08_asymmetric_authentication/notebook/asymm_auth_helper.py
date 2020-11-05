@@ -78,21 +78,21 @@ def rebuild_cert(root_cert_object, signer_cert_object, device_cert_object):
       encoding=serialization.Encoding.X962)[1:]
    print('OK (Public Key: {})'.format(device_pub_key.hex().upper()))
    print('------------------------------------------------------\n')
-   return device_cert_def, device_cert
+   return root_cert, signer_cert, device_cert_def, device_cert
 
-def verify_cert_chain():
+def verify_cert_chain(root_cert, signer_cert, device_cert):
    try:
       print('\tVerifying root certificate...', end='')
       root_cert.public_key().verify(signature=root_cert.signature, data=root_cert.tbs_certificate_bytes,
          signature_algorithm=ec.ECDSA(root_cert.signature_hash_algorithm))
       print('OK')
 
-      print('\tVerifying root certificate...', end='')
+      print('\tVerifying signer certificate...', end='')
       root_cert.public_key().verify(signature=signer_cert.signature, data=signer_cert.tbs_certificate_bytes,
          signature_algorithm=ec.ECDSA(signer_cert.signature_hash_algorithm))
       print('OK')
 
-      print('\tVerifying root certificate...', end='')
+      print('\tVerifying device certificate...', end='')
       signer_cert.public_key().verify(signature=device_cert.signature, data=device_cert.tbs_certificate_bytes,
          signature_algorithm=ec.ECDSA(device_cert.signature_hash_algorithm))
       print('OK')
