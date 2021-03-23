@@ -75,8 +75,8 @@ goto parmsok
 
 :: pushd firmware
 
-echo Tools\image_builder_downloader\image_tool.exe -c flash_image.config -c Tools\gain_builder\gain_sheets\new_gain.config -o firmware\m2m_image_%VARIANT%.bin -of prog
-Tools\image_builder_downloader\image_tool.exe -c flash_image.config -c Tools\gain_builder\gain_sheets\new_gain.config -o firmware\m2m_image_%TGT_CHIP%.bin -of prog
+echo Tools\image_builder_downloader\image_tool.exe -c flash_image.config -c Tools\gain_builder\new_gain.config -o firmware\m2m_image_%VARIANT%.bin -of prog
+Tools\image_builder_downloader\image_tool.exe -c flash_image.config -c Tools\gain_builder\new_gain.config -o firmware\m2m_image_%TGT_CHIP%.bin -of prog
 
 
 pushd Tools\image_builder_downloader

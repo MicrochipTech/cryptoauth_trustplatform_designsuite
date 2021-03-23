@@ -201,13 +201,27 @@ function processXML(xmlObj) {
     var devInterface = getFormRadioValue(formNameMain, "devIface");
 
     if (devInterface == 'i2c') {
+        var tflex_i2c_otp = ' \n\
+        77 64 4E 78 41 6A 61 65  00 00 00 00 00 00 00 00 \n\
+        00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 \n\
+        00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 \n\
+        00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 \n\
+        ';
         xmlDoc.getElementsByTagName("I2CEnable")[0].textContent = '01'; // I2C mode
         xmlDoc.getElementsByTagName("I2CAddress")[0].textContent = '6C'; // I2C Address
+        xmlDoc.getElementsByTagName("OTPZone")[0].getElementsByTagName("Data")[0].textContent = tflex_i2c_otp;
     }
     else if (devInterface == 'swi'){
+        var tflex_swi_otp = ' \n\
+        42 57 75 7A 4D 6F 41 61  00 00 00 00 00 00 00 00 \n\
+        00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 \n\
+        00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 \n\
+        00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 \n\
+        ';
         xmlDoc.getElementsByTagName("I2CEnable")[0].textContent = '00'; // SWI mode
         //xmlDoc.getElementsByTagName("I2CAddress")[0].textContent = '00'; // GPIO Disabled. SCL pin is unused, should be tied low on the board.
         xmlDoc.getElementsByTagName("I2CAddress")[0].textContent = '03'; // GPIO Enabled as Output. SCL may be driven HIGH or LOW. Default state is set to LOW(On powerup).
+        xmlDoc.getElementsByTagName("OTPZone")[0].getElementsByTagName("Data")[0].textContent = tflex_swi_otp;
     }
     else {
         console.error("Invalid interface value")
@@ -249,6 +263,8 @@ function processXML(xmlObj) {
                         document.getElementById('tflxtls_cust_cert_def_device_c_hex').innerHTML +
                         document.getElementById('tflxtls_cust_cert_def_device_c_p2').innerHTML +
                         document.getElementById('tflxtls_cust_cert_def_device_c_p3').innerHTML +
+                        '    .expire_years = 31,' +
+                        document.getElementById('tflxtls_cust_cert_def_device_c_p3a').innerHTML +
                         document.getElementById('tflxtls_cust_cert_def_device_c_p5').innerHTML;
                     jsZipAddFile("tflxtls_cust_cert_def_device.c", deviceCertC);
                 }
@@ -256,7 +272,14 @@ function processXML(xmlObj) {
                     var signerCertH = document.getElementById('tflxtls_cust_cert_def_signer_h').innerHTML;
                     jsZipAddFile("tflxtls_cust_cert_def_signer.h", signerCertH);
                     var ca_pub_key = xmlDoc.getElementsByTagName("CompressedCerts")[0].getElementsByTagName("CompressedCert")[1].getElementsByTagName("CAPublicKey")[0].textContent;
-                    var signerCertC = document.getElementById('tflxtls_cust_cert_def_signer_c_p1').innerHTML + document.getElementById('tflxtls_cust_cert_def_signer_c_hex').innerHTML + document.getElementById('tflxtls_cust_cert_def_signer_c_p2').innerHTML + convertHextoChex(ca_pub_key, 32) + document.getElementById('tflxtls_cust_cert_def_signer_c_p3').innerHTML;
+                    var signerCertC =
+                        document.getElementById('tflxtls_cust_cert_def_signer_c_p1').innerHTML +
+                        document.getElementById('tflxtls_cust_cert_def_signer_c_hex').innerHTML +
+                        document.getElementById('tflxtls_cust_cert_def_signer_c_p2').innerHTML +
+                        convertHextoChex(ca_pub_key, 32) +
+                        document.getElementById('tflxtls_cust_cert_def_signer_c_p3').innerHTML +
+                        '    .expire_years = 28,' +
+                        document.getElementById('tflxtls_cust_cert_def_signer_c_p3a').innerHTML;
                     jsZipAddFile("tflxtls_cust_cert_def_signer.c", signerCertC);
                 }
             }
@@ -475,6 +498,8 @@ function processCertData(xmlObj, slotNumber, compressedCert, orgName, validyears
         if(sn_selection)
             deviceCertC += document.getElementById('tflxtls_cust_cert_def_device_c_p2').innerHTML;
         deviceCertC += document.getElementById('tflxtls_cust_cert_def_device_c_p3').innerHTML;
+        deviceCertC += '    .expire_years = '+validyears+','
+        deviceCertC += document.getElementById('tflxtls_cust_cert_def_device_c_p3a').innerHTML;
         if(sn_selection)
             deviceCertC += document.getElementById('tflxtls_cust_cert_def_device_c_p5').innerHTML;
         else
@@ -486,7 +511,14 @@ function processCertData(xmlObj, slotNumber, compressedCert, orgName, validyears
         jsZipAddFile("tflxtls_cust_cert_def_signer.h", signerCertH);
 
         var ca_pub_key = xmlDoc.getElementsByTagName("CompressedCerts")[0].getElementsByTagName("CompressedCert")[1].getElementsByTagName("CAPublicKey")[0].textContent;
-        var signerCertC = document.getElementById('tflxtls_cust_cert_def_signer_c_p1').innerHTML + convertHextoChex(updatedCert, 32) + document.getElementById('tflxtls_cust_cert_def_signer_c_p2').innerHTML + convertHextoChex(ca_pub_key, 32) + document.getElementById('tflxtls_cust_cert_def_signer_c_p3').innerHTML;
+        var signerCertC =
+            document.getElementById('tflxtls_cust_cert_def_signer_c_p1').innerHTML +
+            convertHextoChex(updatedCert, 32) +
+            document.getElementById('tflxtls_cust_cert_def_signer_c_p2').innerHTML +
+            convertHextoChex(ca_pub_key, 32) +
+            document.getElementById('tflxtls_cust_cert_def_signer_c_p3').innerHTML +
+            '    .expire_years = '+validyears+',' +
+            document.getElementById('tflxtls_cust_cert_def_signer_c_p3a').innerHTML;
         jsZipAddFile("tflxtls_cust_cert_def_signer.c", signerCertC);
     }
 

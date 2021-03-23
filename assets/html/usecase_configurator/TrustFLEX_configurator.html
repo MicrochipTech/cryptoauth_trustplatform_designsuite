@@ -840,7 +840,7 @@
     **Validation Authority**
     end note
 
-    note over HostMCU #aquablue
+    note over HostMCU #00FFFF
     1. Invalidate exisiting public key
     end note
     HostMCU->CryptoAuthLib: [[https://github.com/MicrochipTech/cryptoauthlib/blob/1cb00def6dba72e82465a5a8584e7f2a98195e24/lib/calib/calib_verify.c#L447{directs host invalidate operation request to secure element; Ctrl+Click to open in new Tab}atcab_verify_invalidate(...)]]
@@ -854,7 +854,7 @@
     but does allow writes to slot.
     end note
 
-    note over HostMCU #aquablue
+    note over HostMCU #00FFFF
     2. Update New public key
     end note
 
@@ -864,7 +864,7 @@
     CryptoAuthLib-->HostMCU:
 
 
-    note over HostMCU #aquablue
+    note over HostMCU #00FFFF
     3. Validate New public key
     end note
 
@@ -1133,7 +1133,7 @@
     2. Register Signer certificate
     end note
 
-    note over WINC1500, Cloud #aquablue
+    note over WINC1500, Cloud #00FFFF
     <&wifi> connected via ...WIFI... <&wifi>
     end note
 
@@ -1153,7 +1153,7 @@
 
     HostMCU->WINC1500: [[https://github.com/MicrochipTech/cryptoauth_trustplatform_designsuite/blob/29b613150590ba1e78c8c3a19f0b784c973c77f5/TrustFLEX/10_cloud_connect/firmware/src/common/cloud_wifi_ecc_process.c#L382{Copies the Device and Signer certicates to WINC module for connecting to AWS Cloud; Ctrl+Click to open in new Tab}ecc_transfer_certificates(...)]]
 
-    note over WINC1500, Cloud #aquablue
+    note over WINC1500, Cloud #00FFFF
     Establish TLS connection
     end note
 
@@ -1168,7 +1168,7 @@
     CryptoAuthLib-->HostMCU:
     HostMCU-->WINC1500: ECC_MATH_RESULT
 
-    note over WINC1500, Cloud #aquablue
+    note over WINC1500, Cloud #00FFFF
     TLS connection established
     end note
 
@@ -1296,15 +1296,15 @@
        Register devices
     end note
 
-    note over WINC1500, GCP #aquablue
+    note over WINC1500, GCP #00FFFF
     <&wifi> connected via ...WIFI... <&wifi>
     end note
 
-    note over WINC1500, GCP #aquablue
+    note over WINC1500, GCP #00FFFF
     Establish TLS connection
     end note
 
-    note over WINC1500, GCP #aquablue
+    note over WINC1500, GCP #00FFFF
     TLS connection established
     end note
 
@@ -2607,7 +2607,7 @@
         <SN8>01</SN8>
         <AESEnable>01</AESEnable>
         <I2CEnable>01</I2CEnable>
-        <!-- Device default I2C address (shift right by 1 bit for common value, 0x35). -->
+        <!-- Device default I2C address (shift right by 1 bit for common value, 0x36). -->
         <I2CAddress>6A</I2CAddress>
         <Reserved Address="17" Size="1">00</Reserved>
         <!-- Counter match feature is disabled. -->
@@ -2761,41 +2761,35 @@
             66 10 66 11
         </Data>
         </Slot>
-        <Slot Index="7" Mode="Public">
-        <Data Size="36">
-            77 00 77 01 77 02 77 03  77 04 77 05 77 06 77 07
-            77 08 77 09 77 0A 77 0B  77 0C 77 0D 77 0E 77 0F
-            77 10 77 11
-        </Data>
-        </Slot>
+        <Slot Index="7" Mode="Random" />
         <Slot Index="8" Mode="Public">
         <Data Size="416">
-            88 00 88 01 88 02 88 03  88 04 88 05 88 06 88 07
-            88 08 88 09 88 0A 88 0B  88 0C 88 0D 88 0E 88 0F
-            88 10 88 11 88 12 88 13  88 14 88 15 88 16 88 17
-            88 18 88 19 88 1A 88 1B  88 1C 88 1D 88 1E 88 1F
-            88 20 88 21 88 22 88 23  88 24 88 25 88 26 88 27
-            88 28 88 29 88 2A 88 2B  88 2C 88 2D 88 2E 88 2F
-            88 30 88 31 88 32 88 33  88 34 88 35 88 36 88 37
-            88 38 88 39 88 3A 88 3B  88 3C 88 3D 88 3E 88 3F
-            88 40 88 41 88 42 88 43  88 44 88 45 88 46 88 47
-            88 48 88 49 88 4A 88 4B  88 4C 88 4D 88 4E 88 4F
-            88 50 88 51 88 52 88 53  88 54 88 55 88 56 88 57
-            88 58 88 59 88 5A 88 5B  88 5C 88 5D 88 5E 88 5F
-            88 60 88 61 88 62 88 63  88 64 88 65 88 66 88 67
-            88 68 88 69 88 6A 88 6B  88 6C 88 6D 88 6E 88 6F
-            88 70 88 71 88 72 88 73  88 74 88 75 88 76 88 77
-            88 78 88 79 88 7A 88 7B  88 7C 88 7D 88 7E 88 7F
-            88 80 88 81 88 82 88 83  88 84 88 85 88 86 88 87
-            88 88 88 89 88 8A 88 8B  88 8C 88 8D 88 8E 88 8F
-            88 90 88 91 88 92 88 93  88 94 88 95 88 96 88 97
-            88 98 88 99 88 9A 88 9B  88 9C 88 9D 88 9E 88 9F
-            88 A0 88 A1 88 A2 88 A3  88 A4 88 A5 88 A6 88 A7
-            88 A8 88 A9 88 AA 88 AB  88 AC 88 AD 88 AE 88 AF
-            88 B0 88 B1 88 B2 88 B3  88 B4 88 B5 88 B6 88 B7
-            88 B8 88 B9 88 BA 88 BB  88 BC 88 BD 88 BE 88 BF
-            88 C0 88 C1 88 C2 88 C3  88 C4 88 C5 88 C6 88 C7
-            88 C8 88 C9 88 CA 88 CB  88 CC 88 CD 88 CE 88 CF
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
         </Data>
         </Slot>
         <Slot Index="9" Mode="Secret">
@@ -2982,6 +2976,7 @@ extern const uint8_t tflxtls_cust_cert_ca_public_key_signer;
 
     <script id="tflxtls_cust_cert_def_device_c_p1" type="text/plain">
 #include "atcacert/atcacert_def.h"
+#include "tflxtls_cust_cert_def_signer.h"
 
 const uint8_t tflxtls_cust_cert_template_device[500] = {
 </script>
@@ -3051,7 +3046,9 @@ const atcacert_def_t tflxtls_cust_cert_def_device = {
         .offset = 4,
         .count = 457
     },
-    .expire_years = 28,
+</script>
+
+<script id="tflxtls_cust_cert_def_device_c_p3a" type="text/plain">
     .public_key_dev_loc = {
         .zone = DEVZONE_DATA,
         .slot = 0,
@@ -3106,7 +3103,8 @@ const atcacert_def_t tflxtls_cust_cert_def_device = {
     .cert_elements = NULL,
     .cert_elements_count = 0,
     .cert_template = tflxtls_cust_cert_template_device,
-    .cert_template_size = sizeof(tflxtls_cust_cert_template_device)
+    .cert_template_size = sizeof(tflxtls_cust_cert_template_device),
+    .ca_cert_def = &tflxtls_cust_cert_def_signer
 };
 </script>
 
@@ -3114,7 +3112,8 @@ const atcacert_def_t tflxtls_cust_cert_def_device = {
     .cert_elements = tflxtls_cust_cert_elements_device,
     .cert_elements_count = sizeof(tflxtls_cust_cert_elements_device) / sizeof(tflxtls_cust_cert_elements_device[0]),
     .cert_template = tflxtls_cust_cert_template_device,
-    .cert_template_size = sizeof(tflxtls_cust_cert_template_device)
+    .cert_template_size = sizeof(tflxtls_cust_cert_template_device),
+    .ca_cert_def = &tflxtls_cust_cert_def_signer
 };
 </script>
 
@@ -3153,7 +3152,9 @@ const atcacert_def_t tflxtls_cust_cert_def_signer = {
         .offset = 4,
         .count = 430
     },
-    .expire_years = 31,
+</script>
+
+<script id="tflxtls_cust_cert_def_signer_c_p3a" type="text/plain">
     .public_key_dev_loc = {
         .zone = DEVZONE_DATA,
         .slot = 11,
@@ -3205,7 +3206,8 @@ const atcacert_def_t tflxtls_cust_cert_def_signer = {
     .cert_elements = NULL,
     .cert_elements_count = 0,
     .cert_template = tflxtls_cust_cert_template_signer,
-    .cert_template_size = sizeof(tflxtls_cust_cert_template_signer)
+    .cert_template_size = sizeof(tflxtls_cust_cert_template_signer),
+    .ca_cert_def = NULL
 };
 </script>
 

@@ -1,4 +1,4 @@
-var TPDS_VERSION = "20201103"
+var TPDS_VERSION = "20210324"
 
 var TPDS_VERSION_STRING = "<p>Trust Platform Design Suite version: "+TPDS_VERSION+"</p>"
 var TPDS_CUSTOM_VERSION_STRING = "<p>TrustCUSTOM Tool version: "+TPDS_VERSION+"</p>"

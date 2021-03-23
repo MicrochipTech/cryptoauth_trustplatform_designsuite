@@ -31,7 +31,7 @@ class certs_handler():
 
     signer_org_name=root_org_name
     signer_common_name='Crypto Authentication Signer '
-    signer_validity=20
+    signer_validity=31
 
     device_org_name=root_org_name
     device_validity=28

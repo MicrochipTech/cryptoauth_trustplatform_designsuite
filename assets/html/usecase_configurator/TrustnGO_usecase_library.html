@@ -309,7 +309,7 @@
         Register devices
         end note
 
-        note over WINC1500, AWS #aquablue
+        note over WINC1500, AWS #00FFFF
         <&wifi> connected via ...WIFI... <&wifi>
         end note
 
@@ -329,7 +329,7 @@
 
         HostMCU->WINC1500: [[https://github.com/MicrochipTech/cryptoauth_trustplatform_designsuite/blob/29b613150590ba1e78c8c3a19f0b784c973c77f5/TrustnGO/05_cloud_connect/firmware/src/common/cloud_wifi_ecc_process.c#L386{Copies the Device and Signer certicates to WINC module for connecting to AWS Cloud; Ctrl+Click to open in new Tab}ecc_transfer_certificates(...)]]
 
-        note over WINC1500, AWS #aquablue
+        note over WINC1500, AWS #00FFFF
         Establish TLS connection
         end note
 
@@ -344,7 +344,7 @@
         CryptoAuthLib-->HostMCU:
         HostMCU-->WINC1500: ECC_MATH_RESULT
 
-        note over WINC1500, AWS #aquablue
+        note over WINC1500, AWS #00FFFF
         TLS connection established
         end note
 
@@ -441,15 +441,15 @@
         Register devices
         end note
 
-        note over WINC1500, GCP #aquablue
+        note over WINC1500, GCP #00FFFF
         <&wifi> connected via ...WIFI... <&wifi>
         end note
 
-        note over WINC1500, GCP #aquablue
+        note over WINC1500, GCP #00FFFF
         Establish TLS connection
         end note
 
-        note over WINC1500, GCP #aquablue
+        note over WINC1500, GCP #00FFFF
         TLS connection established
         end note
 
@@ -549,7 +549,7 @@
         Register devices
         end note
 
-        note over WINC1500, Azure #aquablue
+        note over WINC1500, Azure #00FFFF
         <&wifi> connected via ...WIFI... <&wifi>
         end note
 
@@ -569,7 +569,7 @@
 
         HostMCU->WINC1500: [[https://github.com/MicrochipTech/cryptoauth_trustplatform_designsuite/blob/29b613150590ba1e78c8c3a19f0b784c973c77f5/TrustnGO/05_cloud_connect/firmware/src/common/cloud_wifi_ecc_process.c#L386{Copies the Device certicate to WINC module for connecting to Azure Cloud; Ctrl+Click to open in new Tab}ecc_transfer_certificates(...)]]
 
-        note over WINC1500, Azure #aquablue
+        note over WINC1500, Azure #00FFFF
         Establish TLS connection
         end note
 
@@ -584,7 +584,7 @@
         CryptoAuthLib-->HostMCU:
         HostMCU-->WINC1500: ECC_MATH_RESULT
 
-        note over WINC1500, Azure #aquablue
+        note over WINC1500, Azure #00FFFF
         TLS connection established
         end note
 
