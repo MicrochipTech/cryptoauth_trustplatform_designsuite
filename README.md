@@ -17,6 +17,9 @@ For ease of understanding follow the below sequence
 3. Run the usecase examples provided both in Notebook and Embedded projects
 
 ## Release Notes
+ - 20210405
+   - Corrected Expire years for device and signer
+
  - 20210324
    - Bug fixes in C def files and TNG default policy
    - Added Thing Type while registering to AWS using MAR

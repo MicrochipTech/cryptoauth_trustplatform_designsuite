@@ -263,7 +263,7 @@ function processXML(xmlObj) {
                         document.getElementById('tflxtls_cust_cert_def_device_c_hex').innerHTML +
                         document.getElementById('tflxtls_cust_cert_def_device_c_p2').innerHTML +
                         document.getElementById('tflxtls_cust_cert_def_device_c_p3').innerHTML +
-                        '    .expire_years = 31,' +
+                        '    .expire_years = 28,' +
                         document.getElementById('tflxtls_cust_cert_def_device_c_p3a').innerHTML +
                         document.getElementById('tflxtls_cust_cert_def_device_c_p5').innerHTML;
                     jsZipAddFile("tflxtls_cust_cert_def_device.c", deviceCertC);
@@ -278,7 +278,7 @@ function processXML(xmlObj) {
                         document.getElementById('tflxtls_cust_cert_def_signer_c_p2').innerHTML +
                         convertHextoChex(ca_pub_key, 32) +
                         document.getElementById('tflxtls_cust_cert_def_signer_c_p3').innerHTML +
-                        '    .expire_years = 28,' +
+                        '    .expire_years = 31,' +
                         document.getElementById('tflxtls_cust_cert_def_signer_c_p3a').innerHTML;
                     jsZipAddFile("tflxtls_cust_cert_def_signer.c", signerCertC);
                 }
