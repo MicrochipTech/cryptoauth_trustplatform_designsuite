@@ -15,45 +15,54 @@ from cryptography.hazmat.primitives import hashes, serialization
 
 _DEFAULT_POLICY = {
     'Version': '2012-10-17',
-    'Statement': [{
-            'Effect': 'Allow',
-            'Action': [
-                'iot:Connect'
-            ],
-            'Resource': [
-                'arn:aws:iot:*:*:client/${iot:ClientId}'
-            ]
-        }, {
-            'Effect': 'Allow',
-            'Action': [
-                'iot:Publish',
-                'iot:Receive'
-            ],
-            'Resource': [
-                'arn:aws:iot:*:*:topic/${iot:ClientId}/*',
-                'arn:aws:iot:*:*:topic/$aws/things/${iot:ClientId}/shadow/*'
-            ]
-        }, {
-            'Effect': 'Allow',
-            'Action': [
-                'iot:Subscribe'
-            ],
-            'Resource': [
-                'arn:aws:iot:*:*:topicfilter/${iot:ClientId}/#',
-                'arn:aws:iot:*:*:topicfilter/$aws/things/${iot:ClientId}/shadow/*'
-            ]
-        }, {
-            'Effect': 'Allow',
-            'Action': [
-                'iot:UpdateThingShadow',
-                'iot:GetThingShadow'
-            ],
-            'Resource': [
-                'arn:aws:iot:*:*:topic/$aws/things/${iot:ClientId}/shadow/*'
-            ]
+    'Statement': [
+    {
+        'Effect': 'Allow',
+        'Action': [
+            'iot:Connect'
+        ],
+        'Resource': [
+            'arn:aws:iot:*:*:client/${iot:Connection.Thing.ThingName}'
+        ]
+    },
+    {
+        'Effect': 'Allow',
+        'Action': [
+            'iot:Publish',
+            'iot:Receive'
+        ],
+        'Resource': [
+            'arn:aws:iot:*:*:topic/${iot:Connection.Thing.ThingName}/*',
+            'arn:aws:iot:*:*:topic/$aws/things/${iot:Connection.Thing.ThingName}/shadow/*',
+            'arn:aws:iot:*:*:topic/$aws/things/${iot:Connection.Thing.ThingName}/streams/*',
+            'arn:aws:iot:*:*:topic/$aws/things/${iot:Connection.Thing.ThingName}/jobs/*'
+        ]
+    },
+    {
+        'Effect': 'Allow',
+        'Action': [
+            'iot:Subscribe'
+        ],
+        'Resource': [
+            'arn:aws:iot:*:*:topicfilter/${iot:Connection.Thing.ThingName}/#',
+            'arn:aws:iot:*:*:topicfilter/$aws/things/${iot:Connection.Thing.ThingName}/shadow/*',
+            'arn:aws:iot:*:*:topicfilter/$aws/things/${iot:Connection.Thing.ThingName}/streams/*',
+            'arn:aws:iot:*:*:topicfilter/$aws/things/${iot:Connection.Thing.ThingName}/jobs/*'
+        ]
+    },
+    {
+        'Effect': 'Allow',
+        'Action': [
+            'iot:UpdateThingShadow',
+            'iot:GetThingShadow'
+        ],
+        'Resource': [
+            'arn:aws:iot:*:*:topic/$aws/things/${iot:Connection.Thing.ThingName}/shadow/*'
+        ]
         }
     ]
 }
+
 
 verification_algorithms = [
     'RS256', 'RS384', 'RS512', 'ES256', 'ES384', 'ES512'
@@ -61,7 +70,7 @@ verification_algorithms = [
 
 
 def make_thing(device_id, certificate_arn):
-    """Creates an AWS-IOT "thing" and attaches the certificate """
+    """Creates an AWS IoT "thing" and attaches the certificate """
     client = boto3.client('iot')
 
     try:
@@ -108,7 +117,7 @@ def load_manifest_by_file(filename):
 
 
 def import_certificate(certificate_x509_pem, policy_name):
-    """Load a certificate from the manifest into AWS-IOT and attach a policy to it"""
+    """Load a certificate from the manifest into AWS IoT and attach a policy to it"""
     client = boto3.client('iot')
     client2 = boto3.client('iot2')
     print("\nTry importing certificate...")
@@ -219,7 +228,7 @@ class ManifestItem:
 
 
 def invoke_import_manifest(policy_name, manifest, cert_pem):
-    """Processes a manifest and loads entries into AWS-IOT"""
+    """Processes a manifest and loads entries into AWS IoT"""
 
     verification_cert = x509.load_pem_x509_certificate(data=cert_pem, backend=default_backend())
 
@@ -241,7 +250,7 @@ def invoke_import_manifest(policy_name, manifest, cert_pem):
 
 
 def invokeImportLocal(skuname, manifest_filename, pem_filename):
-    """Load a manifest into AWS-IOT from a local file"""
+    """Load a manifest into AWS IoT from a local file"""
     cert = load_verify_cert_by_file(pem_filename)
     manifest = load_manifest_by_file(manifest_filename)
     policy_name = "{}-Policy".format(skuname)
@@ -249,7 +258,7 @@ def invokeImportLocal(skuname, manifest_filename, pem_filename):
 
 
 def invokeImport(skuname, bucket, manifest, pem):
-    """Load a manifest into AWS-IOT from a file retreived from an S3 bucket"""
+    """Load a manifest into AWS IoT from a file retreived from an S3 bucket"""
     (manifest_verify_cert, manifest_file) = fetch_manifest(bucket, manifest, pem)
     invokeImportLocal(skuname, manifest_file, manifest_verify_cert)
 
