@@ -44,7 +44,7 @@ _DEFAULT_POLICY = {
             'iot:Subscribe'
         ],
         'Resource': [
-            'arn:aws:iot:*:*:topicfilter/${iot:Connection.Thing.ThingName}/#',
+            'arn:aws:iot:*:*:topicfilter/${iot:Connection.Thing.ThingName}/*',
             'arn:aws:iot:*:*:topicfilter/$aws/things/${iot:Connection.Thing.ThingName}/shadow/*',
             'arn:aws:iot:*:*:topicfilter/$aws/things/${iot:Connection.Thing.ThingName}/streams/*',
             'arn:aws:iot:*:*:topicfilter/$aws/things/${iot:Connection.Thing.ThingName}/jobs/*'

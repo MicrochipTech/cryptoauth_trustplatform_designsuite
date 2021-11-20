@@ -276,7 +276,7 @@ def check_and_install_policy(policy_name='Default'):
                     'iot:Subscribe'
                 ],
                 'Resource': [
-                    'arn:aws:iot:{}:{}:topicfilter/${{iot:Connection.Thing.ThingName}}/#'.format(region, accountID),
+                    'arn:aws:iot:{}:{}:topicfilter/${{iot:Connection.Thing.ThingName}}/*'.format(region, accountID),
                     'arn:aws:iot:{}:{}:topicfilter/$aws/things/${{iot:Connection.Thing.ThingName}}/shadow/*'.format(region, accountID),
                     'arn:aws:iot:{}:{}:topicfilter/$aws/things/${{iot:Connection.Thing.ThingName}}/streams/*'.format(region, accountID),
                     'arn:aws:iot:{}:{}:topicfilter/$aws/things/${{iot:Connection.Thing.ThingName}}/jobs/*'.format(region, accountID)
