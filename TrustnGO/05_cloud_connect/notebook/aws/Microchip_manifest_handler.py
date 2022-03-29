@@ -19,7 +19,7 @@ verification_algorithms = [
 
 
 def make_thing(device_id, certificate_arn, thing_type='microchip-tng'):
-    """Creates an AWS-IOT "thing" and attaches the certificate """
+    """Creates an AWS IoT "thing" and attaches the certificate """
     client = boto3.client('iot')
     try:
         response = client.create_thing_type(thingTypeName=thing_type)
@@ -68,7 +68,7 @@ def load_manifest_by_file(filename):
 
 
 def import_certificate(certificate_x509_pem, policy_name):
-    """Load a certificate from the manifest into AWS-IOT and attach a policy to it"""
+    """Load a certificate from the manifest into AWS IoT and attach a policy to it"""
     client = boto3.client('iot')
     print("\nTry importing certificate...")
     try:
@@ -178,7 +178,7 @@ class ManifestItem:
 
 
 def invoke_import_manifest(policy_name, manifest, cert_pem):
-    """Processes a manifest and loads entries into AWS-IOT"""
+    """Processes a manifest and loads entries into AWS IoT"""
 
     verification_cert = x509.load_pem_x509_certificate(data=cert_pem, backend=default_backend())
 
@@ -200,7 +200,7 @@ def invoke_import_manifest(policy_name, manifest, cert_pem):
 
 
 def invokeImportLocal(skuname, manifest_filename, pem_filename):
-    """Load a manifest into AWS-IOT from a local file"""
+    """Load a manifest into AWS IoT from a local file"""
     cert = load_verify_cert_by_file(pem_filename)
     manifest = load_manifest_by_file(manifest_filename)
     policy_name = "{}-Policy".format(skuname)
@@ -208,7 +208,7 @@ def invokeImportLocal(skuname, manifest_filename, pem_filename):
 
 
 def invokeImport(skuname, bucket, manifest, pem):
-    """Load a manifest into AWS-IOT from a file retreived from an S3 bucket"""
+    """Load a manifest into AWS IoT from a file retreived from an S3 bucket"""
     (manifest_verify_cert, manifest_file) = fetch_manifest(bucket, manifest, pem)
     invokeImportLocal(skuname, manifest_file, manifest_verify_cert)
 
@@ -266,7 +266,9 @@ def check_and_install_policy(policy_name='Default'):
                 ],
                 'Resource': [
                     'arn:aws:iot:{}:{}:topic/${{iot:Connection.Thing.ThingName}}/*'.format(region, accountID),
-                    'arn:aws:iot:{}:{}:topic/$aws/things/${{iot:Connection.Thing.ThingName}}/shadow/*'.format(region, accountID)
+                    'arn:aws:iot:{}:{}:topic/$aws/things/${{iot:Connection.Thing.ThingName}}/shadow/*'.format(region, accountID),
+                    'arn:aws:iot:{}:{}:topic/$aws/things/${{iot:Connection.Thing.ThingName}}/streams/*'.format(region, accountID),
+                    'arn:aws:iot:{}:{}:topic/$aws/things/${{iot:Connection.Thing.ThingName}}/jobs/*'.format(region, accountID)
                 ]
             }, {
                 'Effect': 'Allow',
@@ -274,8 +276,10 @@ def check_and_install_policy(policy_name='Default'):
                     'iot:Subscribe'
                 ],
                 'Resource': [
-                    'arn:aws:iot:{}:{}:topicfilter/${{iot:Connection.Thing.ThingName}}/#'.format(region, accountID),
-                    'arn:aws:iot:{}:{}:topicfilter/$aws/things/${{iot:Connection.Thing.ThingName}}/shadow/*'.format(region, accountID)
+                    'arn:aws:iot:{}:{}:topicfilter/${{iot:Connection.Thing.ThingName}}/*'.format(region, accountID),
+                    'arn:aws:iot:{}:{}:topicfilter/$aws/things/${{iot:Connection.Thing.ThingName}}/shadow/*'.format(region, accountID),
+                    'arn:aws:iot:{}:{}:topicfilter/$aws/things/${{iot:Connection.Thing.ThingName}}/streams/*'.format(region, accountID),
+                    'arn:aws:iot:{}:{}:topicfilter/$aws/things/${{iot:Connection.Thing.ThingName}}/jobs/*'.format(region, accountID)
                 ]
             }, {
                 'Effect': 'Allow',
