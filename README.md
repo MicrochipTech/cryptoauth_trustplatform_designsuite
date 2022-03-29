@@ -17,6 +17,9 @@ For ease of understanding follow the below sequence
 3. Run the usecase examples provided both in Notebook and Embedded projects
 
 ## Release Notes
+ - 20220329
+   - Merged 3rd party pull requests for AWS IoT and Asymmetric authentication updates.
+
  - 20210405
    - Corrected Expire years for device and signer
 
